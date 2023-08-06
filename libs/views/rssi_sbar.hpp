@@ -193,7 +193,7 @@ else
 //        if (gDisplayBuffer + 128 * 4 + 16)
         {
          Display.SetCoursor(3, 5*2 + 5);                                        //Cyfra 8 (szerokosc 6 pikseli)
-         Display.PrintCharacter('8');
+//         Display.PrintCharacter('8');
          memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 119, 2); //Kreska pionowa do litery B do zamalowania 8 
         }
        PrintSValue(RssiData.u8SValue);
@@ -292,6 +292,6 @@ else
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 0, 2);
       memcpy(gStatusBarData + VoltageOffset + 4 * 6 + 2, gSmallLeters + 128 * 2 + 102, 5); // V character
-      Fw.BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
+//      Fw.BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
    }
 };
