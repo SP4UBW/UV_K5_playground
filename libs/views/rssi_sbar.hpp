@@ -292,6 +292,6 @@ else
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 0, 2);
       memcpy(gStatusBarData + VoltageOffset + 4 * 6 + 2, gSmallLeters + 128 * 2 + 102, 5); // V character
-//      Fw.BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
+      BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
    }
 };
