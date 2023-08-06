@@ -117,7 +117,7 @@ public:
          if (!b59Mode)
          {
           //Sprawdzenie czy wylaczony skaner/czestosciomierz
-          if (!(gDisplayBuffer+128 * 1 + 2) && !(gDisplayBuffer+128 * 5 + 2))  
+          if (!(gDisplayBuffer + 128 * 1 + 2) && !(gDisplayBuffer + 128 * 5 + 2))  
            {      
             memset(gDisplayBuffer + 128 * 2, 0, 22);
             memset(gDisplayBuffer + 128 * 6, 0, 22);
@@ -206,7 +206,7 @@ else
    void ClearSbarLine()
    {
       //Sprawdzenie czy wylaczony skaner/czestosciomierz
-      if (!(gDisplayBuffer + 128 * 1 + 2+) && !(gDisplayBuffer + 128 * 5 + 2))
+      if (!(gDisplayBuffer + 128 * 1 + 2) && !(gDisplayBuffer + 128 * 5 + 2))
      {  
       memset(pDData, 0, DisplayBuff.SizeX);
      }
