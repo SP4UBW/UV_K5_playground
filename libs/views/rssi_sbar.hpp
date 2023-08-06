@@ -162,9 +162,12 @@ public:
          RssiData = RadioDriver.GetRssi();
          
       }
-
-      ProcessDrawings();
-      return eScreenRefreshFlag::MainScreen;
+//test
+if (!bPtt)
+{   
+   ProcessDrawings();
+}
+   return eScreenRefreshFlag::MainScreen;
    }
 
    void ProcessDrawings()
@@ -173,11 +176,11 @@ public:
 
 if (bPtt)
      {
-        if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
-         {   
-          PrintSValue(RssiData.u8SValue);
-          PrintSbar(RssiData.u8SValue);
-         }   
+//        if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
+//         {   
+//          PrintSValue(RssiData.u8SValue);
+//          PrintSbar(RssiData.u8SValue);
+//         }   
      }
 else
      {
@@ -277,7 +280,9 @@ else
 
    void PrintBatteryVoltage()
    {
-     if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
+if (!bPtt)
+ {
+    if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
       {  // disable printing when function or charging icon are printed
          return;
       }
@@ -291,4 +296,5 @@ else
       memcpy(gStatusBarData + VoltageOffset + 4 * 6 + 2, gSmallLeters + 128 * 2 + 102, 5); // V character
       BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
    }
+ }     
 };
