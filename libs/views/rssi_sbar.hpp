@@ -120,7 +120,7 @@ public:
          if (!b59Mode)
          {
           //Sprawdzenie czy wylaczony skaner/czestosciomierz
-          if (!(*(gDisplayBuffer + 128 * 1 + 2)) && !(*(gDisplayBuffer + 128 * 5 + 2)))  
+          if (!(gDisplayBuffer[128 * 1 + 2]) && !(gDisplayBuffer[128 * 5 + 2]))  
            {      
             memset(gDisplayBuffer + 128 * 2, 0, 22);
             memset(gDisplayBuffer + 128 * 6, 0, 22);
@@ -176,7 +176,7 @@ public:
 
 if (bPtt)
      {
-        if (*(gDisplayBuffer + 128 * 2 + 1) || *(gDisplayBuffer + 128 * 6 + 1))  // wylaczenie MIC i sbar jak DISABLE TX
+        if (gDisplayBuffer[128 * 2 + 1] || gDisplayBuffer[128 * 6 + 1])  // wylaczenie MIC i sbar jak DISABLE TX
          {   
           PrintSValue(RssiData.u8SValue);
           PrintSbar(RssiData.u8SValue);
@@ -185,16 +185,15 @@ if (bPtt)
 else
      {
       //PrintNumber(RssiData.s16Rssi); wyłączone dB w RX
-      
-     if (*(gDisplayBuffer + 128 * 0 + 16) || *(gDisplayBuffer + 128 * 4 + 16))  // wylaczenie sbara jak nie ma napisow RX
+     if (gDisplayBuffer[128 * 0 + 16] || gDisplayBuffer[128 * 4 + 16])  // wylaczenie sbara jak nie ma napisow RX
       {    
         memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
         memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5); //Napis X 
-        if (*(gDisplayBuffer + 128 * 0 + 16))
+        if (gDisplayBuffer[128 * 0 + 16])
          {
           memcpy(pDData + 3 + 5*2 + 4, gSmallLeters + 128 * 1 + 96, 5); //Napis A
          }
-        if (*(gDisplayBuffer + 128 * 4 + 16))
+        if (gDisplayBuffer[128 * 4 + 16])
         {
          Display.SetCoursor(3, 5*2 + 5);                                        //Cyfra 8 (szerokosc 6 pikseli)
          Display.PrintCharacter('8');
@@ -210,7 +209,7 @@ else
    void ClearSbarLine()
    {
       //Sprawdzenie czy wylaczony skaner/czestosciomierz
-      if (!(*(gDisplayBuffer + 128 * 1 + 2)) && !(*(gDisplayBuffer + 128 * 5 + 2)))
+      if (!(gDisplayBuffer[128 * 1 + 2]) && !(gDisplayBuffer[128 * 5 + 2]))
      {  
       memset(pDData, 0, DisplayBuff.SizeX);
      }
@@ -282,12 +281,12 @@ else
 
    void PrintBatteryVoltage()
    {
-      if(*(gStatusBarData + VoltageOffset + 4 * 6 + 1) ||
-          *(gStatusBarData + VoltageOffset + 4 * 6 - 6))
+     if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
       {  // disable printing when function or charging icon are printed
          return;
       }
-      unsigned short u16Voltage = *gVoltage > 1000 ? 999 : *gVoltage;
+
+      unsigned short u16Voltage = gVoltage > 1000 ? 999 : gVoltage;
 
       memset(gStatusBarData + VoltageOffset, 0, 4 * 5);
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
