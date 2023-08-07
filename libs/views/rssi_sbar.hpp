@@ -153,9 +153,9 @@ public:
       }
       else if (bPtt)
       {
-         RssiData.s16Rssi = RadioDriver.GetAFAmplitude();
-         RssiData.s16Rssi = RssiData.s16Rssi < 60 ? 0 : RssiData.s16Rssi - 50; 
-         RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
+      //   RssiData.s16Rssi = RadioDriver.GetAFAmplitude();
+      //   RssiData.s16Rssi = RssiData.s16Rssi < 60 ? 0 : RssiData.s16Rssi - 50; 
+      //   RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
       }
       else
       {
