@@ -153,16 +153,14 @@ public:
       }
       else if (bPtt)
       {
-      //   RssiData.s16Rssi = RadioDriver.GetAFAmplitude();
-      //   RssiData.s16Rssi = RssiData.s16Rssi < 60 ? 0 : RssiData.s16Rssi - 50; 
-      //   RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
+         RssiData.s16Rssi = RadioDriver.GetAFAmplitude();
+         RssiData.s16Rssi = RssiData.s16Rssi < 60 ? 0 : RssiData.s16Rssi - 50; 
+         RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
       }
       else
       {
          RssiData = RadioDriver.GetRssi();
-         
       }
-//test
 if (!bPtt)
 {   
    ProcessDrawings();
@@ -176,11 +174,11 @@ if (!bPtt)
 
 if (bPtt)
      {
-//        if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
-//         {   
-//          PrintSValue(RssiData.u8SValue);
-//          PrintSbar(RssiData.u8SValue);
-//         }   
+        if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
+         {   
+          PrintSValue(RssiData.u8SValue);
+          PrintSbar(RssiData.u8SValue);
+         }   
      }
 else
      {
@@ -195,7 +193,7 @@ else
          }
         if (gDisplayBuffer[128 * 4 + 16])
         {
-         Display.SetCoursor(3, 5*2 + 5);                                        //Cyfra 8 (szerokosc 6 pikseli)
+         Display.SetCoursor(3, 5*2 + 5);                                //Cyfra 8 (szerokosc 6 pikseli)
          Display.PrintCharacter('8');
          memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 119, 2); //Kreska pionowa do litery B do zamalowania 8 
         }
@@ -244,7 +242,7 @@ else
       }
       else if (u8SValue > 9)
       {
-         memcpy(pDData + 5 * 7, gSmallLeters + 109 - 3 * 8, 8); //Znak +
+        // memcpy(pDData + 5 * 7, gSmallLeters + 109 - 3 * 8, 8); //Znak +
          C8SignalString[1] = '0';
          C8SignalString[0] = '0' + u8SValue - 9;
       }
@@ -265,6 +263,9 @@ else
 
       Display.SetCoursor(3, 5 * 7 + 8);
       Display.Print(C8SignalString);
+        Display.SetCoursor(3, 5 * 7);
+       char C8SignalString[] = "+";
+        Display.Print(C8SignalString);
    }
 
    void PrintSbar(unsigned char u8SValue)
