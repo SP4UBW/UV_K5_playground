@@ -161,10 +161,8 @@ public:
       {
          RssiData = RadioDriver.GetRssi();
       }
-if (!bPtt)
-{   
+
    ProcessDrawings();
-}
    return eScreenRefreshFlag::MainScreen;
    }
 
@@ -244,7 +242,7 @@ else
       }
       else if (u8SValue > 9)
       {
-        // memcpy(pDData + 5 * 7, gSmallLeters + 109 - 3 * 8, 8); //Znak +
+         memcpy(pDData + 5 * 7, gSmallLeters + 109 - 3 * 8, 8); //Znak +
          C8SignalString[1] = '0';
          C8SignalString[0] = '0' + u8SValue - 9;
       }
@@ -280,8 +278,6 @@ else
 
    void PrintBatteryVoltage()
    {
-if (!bPtt)
- {
     if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
       {  // disable printing when function or charging icon are printed
          return;
@@ -296,5 +292,4 @@ if (!bPtt)
       memcpy(gStatusBarData + VoltageOffset + 4 * 6 + 2, gSmallLeters + 128 * 2 + 102, 5); // V character
       BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
    }
- }     
 };
