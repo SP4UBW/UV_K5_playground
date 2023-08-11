@@ -58,11 +58,11 @@ class CRssiSbar : public IView, public IMenuElement
 {
 public:
    static constexpr auto ChartStartX = 5 * 7 + 3 + 3 * 7; // 32;
-   static constexpr auto BlockSizeX = 2;
+   static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 1;
    static constexpr auto BlocksCnt = (128 - ChartStartX) / (BlockSizeX + BlockSpace);
-   static constexpr auto LinearBlocksCnt = 18;  //9
+   static constexpr auto LinearBlocksCnt = 9;  //9
    static constexpr auto VoltageOffset = 77;
    static constexpr auto MaxBarPoints = 13;
    static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
@@ -217,7 +217,7 @@ else
 
    void PrintNumber(short s16Number)
    {
-      Display.SetCoursor(3, 102);
+      Display.SetCoursor(3, 98);
       if (s16Number > 0)
       {
          Display.PrintCharacter(' ');
