@@ -154,7 +154,7 @@ public:
       else if (bPtt)
       {
          RssiData.s16Rssi = RadioDriver.GetAFAmplitude();
-         RssiData.s16Rssi = RssiData.s16Rssi < 60 ? 0 : RssiData.s16Rssi - 50; 
+         RssiData.s16Rssi = RssiData.s16Rssi < 60 ? 0 : RssiData.s16Rssi - 40; 
          RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
       }
       else
@@ -220,7 +220,7 @@ else
       {
          Display.PrintCharacter(' ');
       }
-     if (s16Number < 160)
+     if (s16Number > -100)
       {
       Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
       }   
