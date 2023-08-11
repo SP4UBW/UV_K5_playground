@@ -182,7 +182,7 @@ if (bPtt)
      }
 else
      {
-      
+   // Tu były dBm   
      if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX
       {    
         memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
@@ -216,7 +216,7 @@ else
 
    void PrintNumber(short s16Number)
    {
-      Display.SetCoursor(102, 0);
+      Display.SetCoursor(16, 0);
       if (s16Number > 0)
       {
          Display.PrintCharacter(' ');
