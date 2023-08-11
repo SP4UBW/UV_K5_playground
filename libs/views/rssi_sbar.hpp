@@ -57,7 +57,7 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-   //static constexpr auto ChartStartX = 5 * 7 + 3 + 3 * 7; // 32;
+   //static constexpr auto ChartStartX = 5 * 7 + 4 + 3 * 7; // 32;
 static constexpr auto ChartStartX = 5 * 5 + 3 + 3 * 7; // 32;
    static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
@@ -243,7 +243,7 @@ else
       }
       else if (u8SValue > 9)
       {
-         memcpy(pDData + 28, gSmallLeters + 109 - 3 * 8, 8); //Znak +
+         memcpy(pDData + 26, gSmallLeters + 109 - 3 * 8, 8); //Znak +
          C8SignalString[1] = '0';
          C8SignalString[0] = '0' + u8SValue - 9;
       }
@@ -251,7 +251,7 @@ else
       {
          if (u8SValue > 1)
          { 
-           memcpy(pDData + 28, gSmallLeters + 109, 8);  //Litera S
+           memcpy(pDData + 26, gSmallLeters + 109, 8);  //Litera S
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
@@ -262,7 +262,7 @@ else
          }
       }
 
-      Display.SetCoursor(3, 5 * 7);
+      Display.SetCoursor(3, 35);
       Display.Print(C8SignalString);
    }
 
