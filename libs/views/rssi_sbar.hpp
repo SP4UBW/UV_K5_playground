@@ -182,7 +182,7 @@ if (bPtt)
      }
 else
      {
-   //PrintNumber(RssiData.s16Rssi); wyłączone dB w RX   
+
      if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX
       {    
         memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
@@ -218,7 +218,7 @@ else
    void PrintNumber(short s16Number)
    {
       Display.SetCoursor(3, 98);
-      if (s16Number > 0)
+      if (s16Number > 1)
       {
          Display.PrintCharacter(' ');
       }
@@ -259,7 +259,7 @@ else
          else
          {
          char C8SignalString[] = "  ";   //Wylaczenie Wskazania S po puszczeniu PTT
-         memset(pDData, 0, 128); //DisplayBuff.SizeX);   
+         memset(pDData, 0, DisplayBuff.SizeX);   
          }
       }
 
