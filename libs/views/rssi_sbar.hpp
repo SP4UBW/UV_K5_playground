@@ -154,8 +154,8 @@ public:
       else if (bPtt)
       {
          RssiData.s16Rssi = RadioDriver.GetAFAmplitude();
-         RssiData.s16Rssi = RssiData.s16Rssi < 65 ? 0 : RssiData.s16Rssi - 35; 
-         RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 7;
+         RssiData.s16Rssi = RssiData.s16Rssi < 63 ? 0 : RssiData.s16Rssi - 45; 
+         RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
       }
       else
       {
