@@ -263,9 +263,9 @@ else
 
       Display.SetCoursor(3, 5 * 7 + 8);
       Display.Print(C8SignalString);
-        Display.SetCoursor(3, 5 * 7);
-       char C8SignalString[] = "+";
-        Display.Print(C8SignalString);
+      //  Display.SetCoursor(3, 5 * 7);
+      // char C8SignalString[] = "+";
+      //  Display.Print(C8SignalString);
    }
 
    void PrintSbar(unsigned char u8SValue)
