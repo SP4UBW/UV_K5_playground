@@ -58,7 +58,7 @@ class CRssiSbar : public IView, public IMenuElement
 {
 public:
    //static constexpr auto ChartStartX = 5 * 7 + 3 + 3 * 7; // 32;
-static constexpr auto ChartStartX = 5 * 4 + 3 + 3 * 7; // 32;
+static constexpr auto ChartStartX = 5 * 6 + 3 + 3 * 7; // 32;
    static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 1;
@@ -229,9 +229,9 @@ else
    {
    if (bPtt) // print MIC
    {
-        memcpy(pDData + 24 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5); //Napis M
-        memcpy(pDData + 24 + 5*1 + 1, gSmallLeters + 128 * 1 + 102, 1); //Napis I
-        memcpy(pDData + 24 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5); //Napis C
+        memcpy(pDData + 30 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5); //Napis M
+        memcpy(pDData + 30 + 5*1 + 1, gSmallLeters + 128 * 1 + 102, 1); //Napis I
+        memcpy(pDData + 30 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5); //Napis C
         return;
    }
 
@@ -262,7 +262,7 @@ else
          }
       }
 
-      Display.SetCoursor(3, 5 * 7 + 8);
+      Display.SetCoursor(3, 5 * 5 + 8);
       Display.Print(C8SignalString);
    }
 
