@@ -182,7 +182,7 @@ if (bPtt)
      }
 else
      {
-   // Tu były dBm   
+   PrintNumber(RssiData.s16Rssi); wyłączone dB w RX   
      if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX
       {    
         memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
@@ -199,7 +199,7 @@ else
         }
        PrintSValue(RssiData.u8SValue);
        PrintSbar(RssiData.u8SValue);
-       PrintNumber(RssiData.s16Rssi); wyłączone dB w RX  
+        
       }
      }  
       
