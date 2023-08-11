@@ -57,8 +57,7 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-   //static constexpr auto ChartStartX = 5 * 7 + 4 + 3 * 7; // 32;
-static constexpr auto ChartStartX = 5 * 5 + 3 + 3 * 7; // 32;
+   static constexpr auto ChartStartX = 5 * 5 + 5 + 3 * 7; // 32;
    static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 1;
@@ -217,12 +216,14 @@ else
    void PrintNumber(short s16Number)
    {
       Display.SetCoursor(3, 98);
-      if (s16Number > 1)
+      if (s16Number > 0)
       {
          Display.PrintCharacter(' ');
       }
-
+     if (s16Number < 160)
+      {
       Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+      }   
    }
 
    void PrintSValue(unsigned char u8SValue)
