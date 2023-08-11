@@ -197,7 +197,7 @@ else
          Display.PrintCharacter('8');
          memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 119, 2); //Kreska pionowa do litery B do zamalowania 8 
         }
-       PrintNumber(RssiData.s16Rssi); wyłączone dB w RX
+       PrintNumber(RssiData.s16Rssi);
        PrintSValue(RssiData.u8SValue);
        PrintSbar(RssiData.u8SValue);
         
@@ -217,7 +217,7 @@ else
 
    void PrintNumber(short s16Number)
    {
-      Display.SetCoursor(16, 0);
+      Display.SetCoursor(102, 0);
       if (s16Number > 0)
       {
          Display.PrintCharacter(' ');
