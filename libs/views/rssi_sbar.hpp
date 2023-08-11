@@ -182,7 +182,7 @@ if (bPtt)
      }
 else
      {
-//   PrintNumber(RssiData.s16Rssi); wyłączone dB w RX   
+   //PrintNumber(RssiData.s16Rssi); wyłączone dB w RX   
      if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX
       {    
         memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
@@ -197,6 +197,7 @@ else
          Display.PrintCharacter('8');
          memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 119, 2); //Kreska pionowa do litery B do zamalowania 8 
         }
+       PrintNumber(RssiData.s16Rssi); wyłączone dB w RX
        PrintSValue(RssiData.u8SValue);
        PrintSbar(RssiData.u8SValue);
         
