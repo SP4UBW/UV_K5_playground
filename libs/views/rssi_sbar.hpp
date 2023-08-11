@@ -214,16 +214,16 @@ else
      }
    }
 
-//   void PrintNumber(short s16Number)
-//   {
-//      Display.SetCoursor(16, 0);
-//      if (s16Number > 0)
-//      {
-//         Display.PrintCharacter(' ');
-//      }
-//
-//      Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-//   }
+   void PrintNumber(short s16Number)
+   {
+      Display.SetCoursor(16, 0);
+      if (s16Number > 0)
+      {
+         Display.PrintCharacter(' ');
+      }
+
+      Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+   }
 
    void PrintSValue(unsigned char u8SValue)
    {
