@@ -185,11 +185,11 @@ else
    //PrintNumber(RssiData.s16Rssi); wyłączone dB w RX   
      if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX
       {    
-        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
-        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5); //Napis X 
+   //     memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
+   //     memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5); //Napis X 
         if (gDisplayBuffer[128 * 0 + 16])
          {
-          memcpy(pDData + 3 + 5*2 + 4, gSmallLeters + 128 * 1 + 96, 5); //Napis A
+   //       memcpy(pDData + 3 + 5*2 + 4, gSmallLeters + 128 * 1 + 96, 5); //Napis A
          }
         if (gDisplayBuffer[128 * 4 + 16])
         {
@@ -217,7 +217,7 @@ else
 
    void PrintNumber(short s16Number)
    {
-      Display.SetCoursor(12, 0);
+      Display.SetCoursor(3, 0);
       if (s16Number > 0)
       {
          Display.PrintCharacter(' ');
