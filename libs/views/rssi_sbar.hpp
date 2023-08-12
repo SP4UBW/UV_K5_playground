@@ -245,9 +245,9 @@ else
       else if (u8SValue > 9)
       {
          //memcpy(pDData + 26, gSmallLeters + 109 - 3 * 8, 8); //Znak +
-         memset(pDData + 26, 0b0001000, 2); // dot
-         memset(pDData + 28, 0b0111110, 1); // dot
-         memset(pDData + 29, 0b0001000, 2); // dot
+         memset(pDData + 30, 0b0001000, 2); // -
+         memset(pDData + 32, 0b0111110, 1); // |
+         memset(pDData + 33, 0b0001000, 2); // -
          C8SignalString[1] = '0';
          C8SignalString[0] = '0' + u8SValue - 9;
       }
@@ -255,7 +255,8 @@ else
       {
          if (u8SValue > 1)
          { 
-           memcpy(pDData + 26, gSmallLeters + 109, 8);  //Litera S
+           //memcpy(pDData + 26, gSmallLeters + 109, 8);  //Litera S
+           memcpy(pDData + 30, gSmallLeters + 132, 5);  //Litera S  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
