@@ -245,8 +245,8 @@ else
 //     else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 0, 2,  0);}
 
 
-int thresholds[] = {-121, -115, -109, -103, -97, -91, -85, -79, -73, -67, -61, -55, -49, -43};
-int values[] = {1, 2, 4, 8, 16, 32, 64, 12, 25, 50, 100, 200, 400, 800};
+int thresholds[] = {-121, -115, -109, -103, -97, -91, -85, -79, -73, -67, -61, -55, -49};
+int values[] = {1, 2, 4, 8, 16, 32, 64, 12, 25, 50, 100, 200, 400};
 
 for (int i = 0; i < sizeof(thresholds) / sizeof(thresholds[0]); ++i)
 {
