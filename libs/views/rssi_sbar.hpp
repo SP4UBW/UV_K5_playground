@@ -183,18 +183,18 @@ else
 
      if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX
       {    
-        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
-        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5); //Napis X 
-        if (gDisplayBuffer[128 * 0 + 16])
-         {
-          memcpy(pDData + 3 + 5*2 + 4, gSmallLeters + 128 * 1 + 96, 5); //Napis A
-         }
-        if (gDisplayBuffer[128 * 4 + 16])
-        {
-         Display.SetCoursor(3, 5*2 + 5);                                //Cyfra 8 (szerokosc 6 pikseli)
-         Display.PrintCharacter('8');
-         memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 119, 2); //Kreska pionowa do litery B do zamalowania 8 
-        }
+//        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
+//        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5); //Napis X 
+//        if (gDisplayBuffer[128 * 0 + 16])
+//         {
+//          memcpy(pDData + 3 + 5*2 + 4, gSmallLeters + 128 * 1 + 96, 5); //Napis A
+//         }
+//        if (gDisplayBuffer[128 * 4 + 16])
+//        {
+//         Display.SetCoursor(3, 5*2 + 5);                                //Cyfra 8 (szerokosc 6 pikseli)
+//         Display.PrintCharacter('8');
+//         memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 119, 2); //Kreska pionowa do litery B do zamalowania 8 
+//        }
        
        PrintSValue(RssiData.u8SValue);
        PrintSbar(RssiData.u8SValue);
@@ -215,13 +215,13 @@ else
 
    void PrintNumber(short s16Number)
    {
-      Display.SetCoursor(3, 98-12);
-      if (s16Number > 0)
-      {
+      Display.SetCoursor(3, 98);
+   //   if (s16Number > 0)
+   //   {
    //      Display.PrintCharacter(' ');
-      }
+   //   }
    //  if (s16Number > -129)
-      {
+   //   {
          //Wyswietlanie w dBm
     //     Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
     
@@ -232,8 +232,8 @@ else
          
        // Display.Print((1 << ((s16Number + 127 + 64) >> 2)) >> 1);
 
-   if (s16Number<-129) {Display.PrintFixedDigitsNumber2(0, 0, 3);}
-     else if (s16Number<-121) {Display.PrintFixedDigitsNumber2(1, 0, 3);}        
+   
+          if (s16Number<-121) {Display.PrintFixedDigitsNumber2(1, 0, 3);}        
      else if (s16Number<-115) {Display.PrintFixedDigitsNumber2(2, 0, 3);}        
      else if (s16Number<-109) {Display.PrintFixedDigitsNumber2(4, 0, 3);}
      else if (s16Number<-103) {Display.PrintFixedDigitsNumber2(8, 0, 3);}
@@ -245,7 +245,7 @@ else
      else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 0, 3);}
 
    
-      }   
+   //   }   
    }
 
    void PrintSValue(unsigned char u8SValue)
