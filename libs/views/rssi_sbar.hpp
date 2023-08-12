@@ -218,9 +218,9 @@ else
       Display.SetCoursor(3, 98);
       if (s16Number > 0)
       {
-         Display.PrintCharacter(' ');
+   //      Display.PrintCharacter(' ');
       }
-     if (s16Number > -129)
+   //  if (s16Number > -129)
       {
          //Wyswietlanie w dBm
     //     Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
@@ -228,9 +228,9 @@ else
     //Zamiana na µV
     //s16Number = (1 << ((s16Number + 127 + 64) / 6));
     //s16Number = (1 << ((s16Number + 127 + 64) >> 2)) >> 1;        
-   // Display.PrintFixedDigitsNumber2((1 << ((s16Number + 127 + 64) >> 2)) >> 1, 0, 3);
-         //Display.PrintCharacter('   ');
-         Display.Print((1 << ((s16Number + 127 + 64) >> 2)) >> 1);
+    Display.PrintFixedDigitsNumber2(((1 << ((s16Number + 127 + 64) >> 2)) >> 1), 0, 4);
+         
+       // Display.Print((1 << ((s16Number + 127 + 64) >> 2)) >> 1);
      
          
       }   
