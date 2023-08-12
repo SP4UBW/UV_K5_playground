@@ -83,50 +83,7 @@ public:
 
    void DrawCircle(unsigned char cx, unsigned char cy, unsigned int r, bool bFilled = false)
    {
-      int x = 0;
-      int y = r;
-      int d = 3 - 2 * r;
-      if (!r)
-         return;
 
-      while (y >= x)
-      {
-         // when bFilled is true, draw lines to fill the circle
-         if (bFilled)
-         {
-            DrawLine(cx - x, cx + x, cy - y);
-            DrawLine(cx - y, cx + y, cy - x);
-            DrawLine(cx - x, cx + x, cy + y);
-            DrawLine(cx - y, cx + y, cy + x);
-         }
-         else
-         {
-            if (cx + x < Bitmap.SizeX && cy + y < Bitmap.SizeY)
-               Bitmap.SetPixel(cx + x, cy - y); // 1st quarter
-            if (cx + y < Bitmap.SizeX && cy + x < Bitmap.SizeY)
-               Bitmap.SetPixel(cx + y, cy - x); // 2nd quarter
-            if (cx - x >= 0 && cy + y < Bitmap.SizeY)
-               Bitmap.SetPixel(cx - x, cy - y); // 3rd quarter
-            if (cx - y >= 0 && cy + x < Bitmap.SizeY)
-               Bitmap.SetPixel(cx - y, cy - x); // 4th quarter
-            if (cx + x < Bitmap.SizeX && cy + y < Bitmap.SizeY)
-               Bitmap.SetPixel(cx + x, cy + y); // 5th quarter
-            if (cx + y < Bitmap.SizeX && cy - x >= 0)
-               Bitmap.SetPixel(cx + y, cy + x); // 6th quarter
-            if (cx - x >= 0 && cy - y >= 0)
-               Bitmap.SetPixel(cx - x, cy + y); // 7th quarter
-            if (cx - y >= 0 && cy - x >= 0)
-               Bitmap.SetPixel(cx - y, cy + x); // 8th quarter
-         }
-         x++;
-         if (d < 0)
-            d += 4 * x + 6;
-         else
-         {
-            y--;
-            d += 4 * (x - y) + 10;
-         }
-      }
    }
 
    void DrawRectangle(unsigned char sx, unsigned char sy, unsigned char width, unsigned char height, bool bFilled)
@@ -193,26 +150,7 @@ public:
 
    unsigned char PrintFixedDigtsNumer(int s32Number, unsigned char u8Digts)
    {
-      char U8NumBuff[32];
-      memset(U8NumBuff, 0, sizeof(U8NumBuff));
 
-      char *pString = U8NumBuff + u8Digts;
-      *pString = '\0';
-
-      if (s32Number < 0)
-      {
-         U8NumBuff[0] = '-';
-         s32Number = -s32Number;
-      }
-
-      while (u8Digts--)
-      {
-         *--pString = '0' + (s32Number % 10);
-         s32Number /= 10;
-      }
-
-      Print(U8NumBuff);
-      return u8Digts * pCurrentFont->GetSizeX('0');
    }
 
    static constexpr int powersOfTen[9] = {
