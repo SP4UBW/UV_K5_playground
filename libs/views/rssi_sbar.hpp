@@ -233,16 +233,16 @@ else
        // Display.Print((1 << ((s16Number + 127 + 64) >> 2)) >> 1);
 
    
-//          if (s16Number<-121) {Display.PrintFixedDigitsNumber2(1, 0, 2,  2);}        
-//     else if (s16Number<-115) {Display.PrintFixedDigitsNumber2(2, 0, 2,  2);}        
-//     else if (s16Number<-109) {Display.PrintFixedDigitsNumber2(4, 0, 2,  2);}
-//     else if (s16Number<-103) {Display.PrintFixedDigitsNumber2(8, 0, 2,  2);}
-//     else if (s16Number<-97)  {Display.PrintFixedDigitsNumber2(16, 0, 2, 2);}
-//     else if (s16Number<-91)  {Display.PrintFixedDigitsNumber2(32, 0, 2, 2);}
-//     else if (s16Number<-85)  {Display.PrintFixedDigitsNumber2(63, 0, 2, 2);}
-//     else if (s16Number<-79)  {Display.PrintFixedDigitsNumber2(126, 1, 2,0);}
-//     else if (s16Number<-73)  {Display.PrintFixedDigitsNumber2(250, 1, 2,0);}
-//     else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 1, 2,0);}
+//          if (s16Number<-121) {Display.PrintFixedDigitsNumber2(1,   0, 2,  2);}        
+//     else if (s16Number<-115) {Display.PrintFixedDigitsNumber2(2,   0, 2,  2);}        
+//     else if (s16Number<-109) {Display.PrintFixedDigitsNumber2(4,   0, 2,  2);}
+//     else if (s16Number<-103) {Display.PrintFixedDigitsNumber2(8,   0, 2,  2);}
+//     else if (s16Number<-97)  {Display.PrintFixedDigitsNumber2(16,  0, 2,  2);}
+//     else if (s16Number<-91)  {Display.PrintFixedDigitsNumber2(32,  0, 2,  2);}
+//     else if (s16Number<-85)  {Display.PrintFixedDigitsNumber2(63,  0, 2,  2);}
+//     else if (s16Number<-79)  {Display.PrintFixedDigitsNumber2(126, 1, 2,  0);}
+//     else if (s16Number<-73)  {Display.PrintFixedDigitsNumber2(250, 1, 2,  0);}
+//     else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 1, 2,  0);}
 
 
 int thresholds[] = {-121, -115, -109, -103, -97, -91, -85, -79, -73, -67};
@@ -252,14 +252,18 @@ for (int i = 0; i < sizeof(thresholds) / sizeof(thresholds[0]); ++i)
 {
     if (s16Number < thresholds[i])
     {
-        Display.PrintFixedDigitsNumber2(values[i], i >= 7 ? 1 : 0, 2, 0);  //i >= 7 ? 0 : 2
+        
+        Display.SetCoursor(3, 98);
+        Display.PrintFixedDigitsNumber2(values[i], i >= 7 ? 1 : 0, i >= 7 ? 1 : 0, 0);  //i >= 7 ? 0 : 2
+        if (i <= 7 ) {memset(pDData + 105, 0b1000000, 1);}
+       
         break;  // Exit loop once the condition is met
     }
 }
 
 
       
-  memset(pDData + 105, 0b1000000, 1); // -   
+//  memset(pDData + 105, 0b1000000, 1); // -   
    //   }   
    }
 
