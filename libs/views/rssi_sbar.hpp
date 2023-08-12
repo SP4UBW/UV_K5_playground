@@ -233,16 +233,16 @@ else
        // Display.Print((1 << ((s16Number + 127 + 64) >> 2)) >> 1);
 
    
-          if (s16Number<-121) {Display.PrintFixedDigitsNumber2(1, 0, 2);}        
-     else if (s16Number<-115) {Display.PrintFixedDigitsNumber2(2, 0, 2);}        
-     else if (s16Number<-109) {Display.PrintFixedDigitsNumber2(4, 0, 2);}
-     else if (s16Number<-103) {Display.PrintFixedDigitsNumber2(8, 0, 2);}
-     else if (s16Number<-97)  {Display.PrintFixedDigitsNumber2(16, 0, 2);}
-     else if (s16Number<-91)  {Display.PrintFixedDigitsNumber2(32, 0, 2);}
-     else if (s16Number<-85)  {Display.PrintFixedDigitsNumber2(63, 0, 2);}
-     else if (s16Number<-79)  {Display.PrintFixedDigitsNumber2(126, 0, 2);}
-     else if (s16Number<-73)  {Display.PrintFixedDigitsNumber2(250, 0, 2);}
-     else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 0, 2);}
+          if (s16Number<-121) {Display.PrintFixedDigitsNumber2(1, 0, 2,  3);}        
+     else if (s16Number<-115) {Display.PrintFixedDigitsNumber2(2, 0, 2,  3);}        
+     else if (s16Number<-109) {Display.PrintFixedDigitsNumber2(4, 0, 2,  3);}
+     else if (s16Number<-103) {Display.PrintFixedDigitsNumber2(8, 0, 2,  3);}
+     else if (s16Number<-97)  {Display.PrintFixedDigitsNumber2(16, 0, 2, 3);}
+     else if (s16Number<-91)  {Display.PrintFixedDigitsNumber2(32, 0, 2, 3);}
+     else if (s16Number<-85)  {Display.PrintFixedDigitsNumber2(63, 0, 2, 3);}
+     else if (s16Number<-79)  {Display.PrintFixedDigitsNumber2(126, 1, 2,1);}
+     else if (s16Number<-73)  {Display.PrintFixedDigitsNumber2(250, 1, 2,1);}
+     else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 1, 2,1);}
 
   memset(pDData + 105, 0b1000000, 1); // -   
    //   }   
@@ -316,10 +316,10 @@ else
       unsigned short u16Voltage = gVoltage > 1000 ? 999 : gVoltage;
       memset(gStatusBarData + VoltageOffset, 0, 4 * 5);
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
-      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
+      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1, 1);
       memset(gStatusBarData + VoltageOffset + 7 + 1, 0b1100000, 2); // dot
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4);
-      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 0, 2);
+      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 0, 2, 1);
       memcpy(gStatusBarData + VoltageOffset + 4 * 6 + 2, gSmallLeters + 128 * 2 + 102, 5); // V character
       BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
    }
