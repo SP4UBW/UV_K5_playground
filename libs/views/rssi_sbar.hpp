@@ -183,8 +183,8 @@ else
 
      if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX
       {    
-        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
-        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5); //Napis X 
+        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
+        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5);  //Napis X 
         if (gDisplayBuffer[128 * 0 + 16])
          {
           memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 96, 5); //Napis A
@@ -244,10 +244,7 @@ else
    {
    if (bPtt) // print MIC
    {
-        //memcpy(pDData + 26 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5); //Napis M
-        memset(pDData + 26 + 5*0 + 0, 0b1111111, 5);                      //Napis M
-        memset(pDData + 26 + 5*0 + 1, 0b0000010, 3);
-        memset(pDData + 26 + 5*0 + 2, 0b0001100, 1);
+        memcpy(pDData + 26 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
         memset(pDData + 26 + 5*1 + 1, 0b1111111, 1);                      //Napis I
         memcpy(pDData + 26 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
         return;
