@@ -274,7 +274,7 @@ else
    void PrintSbar(unsigned char u8SValue)
    {
       u8SValue = u8SValue > MaxBarPoints ? MaxBarPoints : u8SValue;
-    if (u8SValue>1) 
+    if (u8SValue>0) 
      { 
       for (unsigned char i = 0; i < u8SValue; i++)
       {
