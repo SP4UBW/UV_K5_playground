@@ -121,10 +121,8 @@ public:
            {      
             memset(gDisplayBuffer + 128 * 2, 0, 22);
             memset(gDisplayBuffer + 128 * 6, 0, 22);
-
-
-            ToggleBacklight();  
            }   
+          
          }   
       }
   
@@ -179,6 +177,8 @@ if (bPtt)
          {   
           PrintSValue(RssiData.u8SValue);
           PrintSbar(RssiData.u8SValue);
+          //GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD  
+            
          }   
      }
 else
@@ -200,11 +200,12 @@ else
          memset(pDData + 3 + 5*2 + 3, 0b1111111, 1);  
         }
        
+       GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD
        PrintSValue(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
         
-      }
+      } else {GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD
      }  
       
    }
@@ -300,7 +301,7 @@ else
     }  
    }
 
-inline void ToggleBacklight() { GPIOB->DATA ^= GPIO_PIN_6; }
+//inline void ToggleBacklight() { GPIOB->DATA ^= GPIO_PIN_6; }
 
    void PrintBatteryVoltage()
    {
