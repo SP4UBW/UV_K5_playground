@@ -164,47 +164,48 @@ public:
        10000000, // 10^7
        100000000 // 10^8
    };
-   void PrintFixedDigitsNumber2(int s32Number, unsigned char u8DigsToCut = 2, unsigned char u8FixedDigtsCnt = 0)
-   {
-      char U8NumBuff[11] = {0}; // 9 digits, sign, and null terminator
-      int startIdx = 0;
-      bool isNegative = false;
+   void PrintFixedDigitsNumber2(int s32Number, unsigned char u8DigsToCut = 2, unsigned char u8FixedDigtsCnt = 0, unsigned char pixelDistance = 1)
+{
+    char U8NumBuff[11] = {0}; // 9 digits, sign, and null terminator
+    int startIdx = 0;
+    bool isNegative = false;
 
-      if (s32Number < 0)
-      {
-         PrintCharacter('-');
-         // U8NumBuff[0] = '-';
-         s32Number = -s32Number;
-         // isNegative = true;
-      }
+    if (s32Number < 0)
+    {
+        PrintCharacter('-');
+        // U8NumBuff[0] = '-';
+        s32Number = -s32Number;
+        // isNegative = true;
+    }
 
-      for (int i = 8; i >= u8DigsToCut; --i) // assuming powersOfTen is an array of powers of 10
-      {
-         int digit = 0;
-         while (s32Number >= powersOfTen[i])
-         {
+    for (int i = 8; i >= u8DigsToCut; --i) // assuming powersOfTen is an array of powers of 10
+    {
+        int digit = 0;
+        while (s32Number >= powersOfTen[i])
+        {
             s32Number -= powersOfTen[i];
             ++digit;
-         }
-         U8NumBuff[isNegative + (8 - i)+2] = '0' + digit;   //Odleglosc miedzy znakami wyswietlanymi
+        }
+        U8NumBuff[isNegative + (8 - i) * pixelDistance] = '0' + digit;
 
-         // We found the first non-zero digit
-         if (digit != 0 && startIdx == (isNegative ? 1 : 0))
-            startIdx = isNegative + (8 - i);
-      }
+        // We found the first non-zero digit
+        if (digit != 0 && startIdx == (isNegative ? 1 : 0))
+            startIdx = isNegative + (8 - i) * pixelDistance;
+    }
 
-      // If the number was 0, we write a single 0.
-      if (startIdx == (isNegative ? 1 : 0))
-         U8NumBuff[isNegative] = '0';
+    // If the number was 0, we write a single 0.
+    if (startIdx == (isNegative ? 1 : 0))
+        U8NumBuff[isNegative] = '0';
 
-      // Print the string from the start index
-      if (u8FixedDigtsCnt)
-      {
-         startIdx = 9 - u8DigsToCut - u8FixedDigtsCnt;
-      }
+    // Print the string from the start index
+    if (u8FixedDigtsCnt)
+    {
+        startIdx = 9 - u8DigsToCut - u8FixedDigtsCnt;
+    }
 
-      Print(U8NumBuff + startIdx);
-   }
+    Print(U8NumBuff + startIdx);
+}
+
 
 private:
    const BitmapType &Bitmap;
