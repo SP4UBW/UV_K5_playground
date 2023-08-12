@@ -183,18 +183,18 @@ else
 
      if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX
       {    
-//        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
-//        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5); //Napis X 
-//        if (gDisplayBuffer[128 * 0 + 16])
-//         {
-//          memcpy(pDData + 3 + 5*2 + 4, gSmallLeters + 128 * 1 + 96, 5); //Napis A
-//         }
-//        if (gDisplayBuffer[128 * 4 + 16])
-//        {
-//         Display.SetCoursor(3, 5*2 + 5);                                //Cyfra 8 (szerokosc 6 pikseli)
-//         Display.PrintCharacter('8');
-//         memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 119, 2); //Kreska pionowa do litery B do zamalowania 8 
-//        }
+        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5); //Napis R
+        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5); //Napis X 
+        if (gDisplayBuffer[128 * 0 + 16])
+         {
+          memcpy(pDData + 3 + 5*2 + 4, gSmallLeters + 128 * 1 + 96, 5); //Napis A
+         }
+        if (gDisplayBuffer[128 * 4 + 16])
+        {
+         Display.SetCoursor(3, 5*2 + 5);                                //Cyfra 8 (szerokosc 6 pikseli)
+         Display.PrintCharacter('8');
+         memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 119, 2); //Kreska pionowa do litery B do zamalowania 8 
+        }
        
        PrintSValue(RssiData.u8SValue);
        PrintSbar(RssiData.u8SValue);
@@ -216,54 +216,17 @@ else
    void PrintNumber(short s16Number)
    {
       Display.SetCoursor(3, 98);
-   //   if (s16Number > 0)
-   //   {
-   //      Display.PrintCharacter(' ');
-   //   }
-   //  if (s16Number > -129)
-   //   {
+      if (s16Number > 0)
+      {
+         Display.PrintCharacter(' ');
+      }
+     if (s16Number > -129)
+      {
          //Wyswietlanie w dBm
-    //     Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-    
-    //Zamiana na µV
-    //s16Number = (1 << ((s16Number + 127 + 64) / 6));
-    //s16Number = (1 << ((s16Number + 127 + 64) >> 2)) >> 1;        
-    //Display.PrintFixedDigitsNumber2(((1 << ((s16Number + 127 + 64) >> 2)) >> 1), 0, 5);
-         
-       // Display.Print((1 << ((s16Number + 127 + 64) >> 2)) >> 1);
-
-   
-//          if (s16Number<-121) {Display.PrintFixedDigitsNumber2(1,   0, 2,  2);}        
-//     else if (s16Number<-115) {Display.PrintFixedDigitsNumber2(2,   0, 2,  2);}        
-//     else if (s16Number<-109) {Display.PrintFixedDigitsNumber2(4,   0, 2,  2);}
-//     else if (s16Number<-103) {Display.PrintFixedDigitsNumber2(8,   0, 2,  2);}
-//     else if (s16Number<-97)  {Display.PrintFixedDigitsNumber2(16,  0, 2,  2);}
-//     else if (s16Number<-91)  {Display.PrintFixedDigitsNumber2(32,  0, 2,  2);}
-//     else if (s16Number<-85)  {Display.PrintFixedDigitsNumber2(63,  0, 2,  2);}
-//     else if (s16Number<-79)  {Display.PrintFixedDigitsNumber2(126, 0, 2,  0);}
-//     else if (s16Number<-73)  {Display.PrintFixedDigitsNumber2(250, 0, 2,  0);}
-//     else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 0, 2,  0);}
-
-
-int thresholds[] = {-121, -115, -109, -103, -97, -91, -85, -79, -73, -67, -61, -55, -49};
-int values[] = {1, 2, 4, 8, 16, 32, 64, 12, 25, 50, 100, 200, 400};
-
-for (int i = 0; i < sizeof(thresholds) / sizeof(thresholds[0]); ++i)
-{
-    if (s16Number < thresholds[i])
-    {
-
-        Display.PrintFixedDigitsNumber2(values[i], 0, i >= 10 ? 3 : 2, 0);  //i >= 7 ? 0 : 2
-        if (i <= 8 ) {memset(pDData + 105, 0b1000000, 1);}
-       
-        break;  // Exit loop once the condition is met
-    }
-}
-
-
-      
-//  memset(pDData + 105, 0b1000000, 1); // -   
-   //   }   
+         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+         Display.PrintCharacter(' ');
+         memset(pDData + 100, 0b0001000, 3); // - 
+      }   
    }
 
    void PrintSValue(unsigned char u8SValue)
@@ -334,10 +297,10 @@ for (int i = 0; i < sizeof(thresholds) / sizeof(thresholds[0]); ++i)
       unsigned short u16Voltage = gVoltage > 1000 ? 999 : gVoltage;
       memset(gStatusBarData + VoltageOffset, 0, 4 * 5);
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
-      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1, 0);
+      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
       memset(gStatusBarData + VoltageOffset + 7 + 1, 0b1100000, 2); // dot
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4);
-      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 0, 2, 0);
+      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 0, 2);
       memcpy(gStatusBarData + VoltageOffset + 4 * 6 + 2, gSmallLeters + 128 * 2 + 102, 5); // V character
       BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
    }
