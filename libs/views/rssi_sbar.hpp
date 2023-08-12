@@ -57,7 +57,7 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-   static constexpr auto ChartStartX = 51;
+   static constexpr auto ChartStartX = 47;
    static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 1;
@@ -187,14 +187,14 @@ else
         memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5); //Napis X 
         if (gDisplayBuffer[128 * 0 + 16])
          {
-          memcpy(pDData + 3 + 5*2 + 4, gSmallLeters + 128 * 1 + 96, 5); //Napis A
+          memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 96, 5); //Napis A
          }
         if (gDisplayBuffer[128 * 4 + 16])
         {
-         Display.SetCoursor(3, 5*2 + 5);                                //Cyfra 8 (szerokosc 6 pikseli)
+         Display.SetCoursor(3, 5*2 + 4);                                //Cyfra 8 (szerokosc 6 pikseli)
          Display.PrintCharacter('8');
-         memset(pDData + 3 + 5*2 + 3, 0b0000000, 1);  
-         memset(pDData + 3 + 5*2 + 4, 0b1111111, 1);  
+         memset(pDData + 3 + 5*2 + 2, 0b0000000, 1);  
+         memset(pDData + 3 + 5*2 + 3, 0b1111111, 1);  
         }
        
        PrintSValue(RssiData.u8SValue);
@@ -227,7 +227,7 @@ else
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
          Display.SetCoursor(3, 91);
          Display.PrintCharacter(' ');
-         if (s16Number < 0) {memset(pDData + 93, 0b0001000, 3); } // znak - 
+         if (s16Number < 0) {memset(pDData + 94, 0b0001000, 3); } // znak - 
          
          memset(pDData + 121, 0b0110000, 1); // znak d 
          memset(pDData + 122, 0b1001000, 1);
@@ -243,9 +243,9 @@ else
    {
    if (bPtt) // print MIC
    {
-        memcpy(pDData + 32 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5); //Napis M
-        memcpy(pDData + 32 + 5*1 + 1, gSmallLeters + 128 * 1 + 102, 1); //Napis I
-        memcpy(pDData + 32 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5); //Napis C
+        memcpy(pDData + 26 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5); //Napis M
+        memcpy(pDData + 26 + 5*1 + 1, gSmallLeters + 128 * 1 + 102, 1); //Napis I
+        memcpy(pDData + 26 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5); //Napis C
         return;
    }
 
@@ -258,9 +258,9 @@ else
       else if (u8SValue > 9)
       {
          //memcpy(pDData + 26, gSmallLeters + 109 - 3 * 8, 8); //Znak + pogrubiony
-         memset(pDData + 30, 0b0001000, 2); // -
-         memset(pDData + 32, 0b0111110, 1); // |
-         memset(pDData + 33, 0b0001000, 2); // -
+         memset(pDData + 26, 0b0001000, 2); // -
+         memset(pDData + 28, 0b0111110, 1); // |
+         memset(pDData + 29, 0b0001000, 2); // -
          C8SignalString[1] = '0';
          C8SignalString[0] = '0' + u8SValue - 9;
       }
@@ -268,8 +268,7 @@ else
       {
          if (u8SValue > 1)
          { 
-           //memcpy(pDData + 26, gSmallLeters + 109, 8);  //Litera S szeroka
-           memcpy(pDData + 30, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
+           memcpy(pDData + 26, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
