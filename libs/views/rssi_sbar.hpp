@@ -197,7 +197,10 @@ else
         }
        
        PrintSValue(RssiData.u8SValue);
-       PrintSbar(RssiData.u8SValue);
+       if (s16Number > -140)
+        {
+         PrintSbar(RssiData.u8SValue);
+        }  
        PrintNumber(RssiData.s16Rssi); 
       }
      }  
@@ -244,7 +247,7 @@ else
       }
       else if (u8SValue > 9)
       {
-         //memcpy(pDData + 26, gSmallLeters + 109 - 3 * 8, 8); //Znak +
+         //memcpy(pDData + 26, gSmallLeters + 109 - 3 * 8, 8); //Znak + pogrubiony
          memset(pDData + 30, 0b0001000, 2); // -
          memset(pDData + 32, 0b0111110, 1); // |
          memset(pDData + 33, 0b0001000, 2); // -
@@ -255,8 +258,8 @@ else
       {
          if (u8SValue > 1)
          { 
-           //memcpy(pDData + 26, gSmallLeters + 109, 8);  //Litera S
-           memcpy(pDData + 30, gSmallLeters + 128 * 1 + 194, 5);  //Litera S  
+           //memcpy(pDData + 26, gSmallLeters + 109, 8);  //Litera S szeroka
+           memcpy(pDData + 30, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
