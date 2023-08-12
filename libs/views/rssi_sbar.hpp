@@ -279,7 +279,7 @@ else
          }
       }
 
-      Display.SetCoursor(3, 35);
+      Display.SetCoursor(3, 32);
       Display.Print(C8SignalString);
    }
 
