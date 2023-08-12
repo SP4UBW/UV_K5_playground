@@ -186,11 +186,11 @@ public:
             s32Number -= powersOfTen[i];
             ++digit;
         }
-        U8NumBuff[isNegative + (8 - i) * pixelDistance] = '0' + digit;
+        U8NumBuff[isNegative + (8 - i) + pixelDistance] = '0' + digit;
 
         // We found the first non-zero digit
         if (digit != 0 && startIdx == (isNegative ? 1 : 0))
-            startIdx = isNegative + (8 - i) * pixelDistance;
+            startIdx = isNegative + (8 - i) + pixelDistance;
     }
 
     // If the number was 0, we write a single 0.
