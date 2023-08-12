@@ -154,7 +154,7 @@ public:
       else if (bPtt)
       {
          RssiData.s16Rssi = RadioDriver.GetAFAmplitude();
-         RssiData.s16Rssi = RssiData.s16Rssi < 63 ? 0 : RssiData.s16Rssi - 45; 
+         RssiData.s16Rssi = RssiData.s16Rssi < 62 ? 0 : RssiData.s16Rssi - 45; 
          RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
       }
       else
@@ -244,7 +244,10 @@ else
       }
       else if (u8SValue > 9)
       {
-         memcpy(pDData + 26, gSmallLeters + 109 - 3 * 8, 8); //Znak +
+         //memcpy(pDData + 26, gSmallLeters + 109 - 3 * 8, 8); //Znak +
+         memset(pDData + 26,, 0b0001000, 2); // dot
+         memset(pDData + 26,, 0b0111110, 1); // dot
+         memset(pDData + 29,, 0b0001000, 2); // dot
          C8SignalString[1] = '0';
          C8SignalString[0] = '0' + u8SValue - 9;
       }
