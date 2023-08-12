@@ -193,7 +193,6 @@ else
         {
          Display.SetCoursor(3, 5*2 + 5);                                //Cyfra 8 (szerokosc 6 pikseli)
          Display.PrintCharacter('8');
-         //memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 119, 2); //Kreska pionowa do litery B do zamalowania 8 
          memset(pDData + 3 + 5*2 + 3, 0b0000000, 1);  
          memset(pDData + 3 + 5*2 + 4, 0b1111111, 1);  
         }
@@ -217,7 +216,7 @@ else
 
    void PrintNumber(short s16Number)
    {
-      Display.SetCoursor(3, 88);
+      Display.SetCoursor(3, 91);
       if (s16Number > 0)
       {
          Display.PrintCharacter(' ');
@@ -226,16 +225,16 @@ else
       {
          //Wyswietlanie w dBm
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-         Display.SetCoursor(3, 88);
+         Display.SetCoursor(3, 91);
          Display.PrintCharacter(' ');
-         if (s16Number < 0) {memset(pDData + 91, 0b0001000, 3); } // znak - 
+         if (s16Number < 0) {memset(pDData + 93, 0b0001000, 3); } // znak - 
          
-         memset(pDData + 122, 0b0110000, 1); // znak d 
-         memset(pDData + 123, 0b1001000, 1);
-         memset(pDData + 124, 0b1111111, 1);
-         memset(pDData + 126, 0b1111111, 1); // znak B 
-         memset(pDData + 127, 0b1001001, 1); 
-         memset(pDData + 128, 0b0110110, 1);
+         memset(pDData + 121, 0b0110000, 1); // znak d 
+         memset(pDData + 122, 0b1001000, 1);
+         memset(pDData + 123, 0b1111111, 1);
+         memset(pDData + 125, 0b1111111, 1); // znak B 
+         memset(pDData + 126, 0b1001001, 1); 
+         memset(pDData + 127, 0b0110110, 1);
          
       }   
    }
