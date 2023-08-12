@@ -233,17 +233,19 @@ else
        // Display.Print((1 << ((s16Number + 127 + 64) >> 2)) >> 1);
 
    if (s16Number<-129) {Display.PrintFixedDigitsNumber2(0, 0, 3);}
-     else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 0, 3);}
-     else if (s16Number<-73)  {Display.PrintFixedDigitsNumber2(250, 0, 3);}
+     else if (s16Number<-121) {Display.PrintFixedDigitsNumber2(1, 0, 1);}        
+     else if (s16Number<-115) {Display.PrintFixedDigitsNumber2(2, 0, 1);}        
+     else if (s16Number<-109) {Display.PrintFixedDigitsNumber2(4, 0, 1);}
+     else if (s16Number<-103) {Display.PrintFixedDigitsNumber2(8, 0, 1);}
+     else if (s16Number<-97)  {Display.PrintFixedDigitsNumber2(16, 0, 2);}
+     else if (s16Number<-91)  {Display.PrintFixedDigitsNumber2(32, 0, 2);}
+     else if (s16Number<-85)  {Display.PrintFixedDigitsNumber2(63, 0, 2);}
      else if (s16Number<-79)  {Display.PrintFixedDigitsNumber2(126, 0, 3);}
-     else if (s16Number<-85)  {Display.PrintFixedDigitsNumber2(63, 0, 3);}
-     else if (s16Number<-91)  {Display.PrintFixedDigitsNumber2(32, 0, 3);}
-     else if (s16Number<-97)  {Display.PrintFixedDigitsNumber2(16, 0, 3);}
-     else if (s16Number<-103) {Display.PrintFixedDigitsNumber2(8, 0, 3);}
-     else if (s16Number<-109) {Display.PrintFixedDigitsNumber2(4, 0, 3);}
-     else if (s16Number<-115) {Display.PrintFixedDigitsNumber2(2, 0, 3);}        
-     else if (s16Number<-121) {Display.PrintFixedDigitsNumber2(1, 0, 3);}        
-         
+     else if (s16Number<-73)  {Display.PrintFixedDigitsNumber2(250, 0, 3);}
+     else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 0, 3);}
+     else if (s16Number<-61)  {Display.PrintFixedDigitsNumber2(1000, 0, 4);}
+     else if (s16Number<-55)  {Display.PrintFixedDigitsNumber2(2000, 0, 4);}
+     else if (s16Number<-49)  {Display.PrintFixedDigitsNumber2(4000, 0, 4);}    
       }   
    }
 
