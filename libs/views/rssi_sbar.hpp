@@ -244,8 +244,7 @@ else
      else if (s16Number<-73)  {Display.PrintFixedDigitsNumber2(250, 0, 3);}
      else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 0, 3);}
      else if (s16Number<-61)  {Display.PrintFixedDigitsNumber2(1000, 0, 4);}
-     else if (s16Number<-55)  {Display.PrintFixedDigitsNumber2(2000, 0, 4);}
-     else if (s16Number<-49)  {Display.PrintFixedDigitsNumber2(4000, 0, 4);}    
+   
       }   
    }
 
