@@ -215,7 +215,7 @@ else
 
    void PrintNumber(short s16Number)
    {
-      Display.SetCoursor(3, 98);
+      Display.SetCoursor(3, 90);
       if (s16Number > 0)
       {
          Display.PrintCharacter(' ');
@@ -224,9 +224,17 @@ else
       {
          //Wyswietlanie w dBm
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-         Display.SetCoursor(3, 98);
+         Display.SetCoursor(3, 90);
          Display.PrintCharacter(' ');
-         memset(pDData + 90, 0b0001000, 3); // - 
+         if (s16Number < 0) {memset(pDData + 91, 0b0001000, 3); } // znak - 
+         
+         memset(pDData + 122, 0b0110000, 1); // znak d 
+         memset(pDData + 123, 0b1001000, 3);
+         memset(pDData + 124, 0b1111111, 3);
+         memset(pDData + 126, 0b1111111, 3); // znak B 
+         memset(pDData + 127, 0b1001001, 3); 
+         memset(pDData + 128, 0b0110110, 3);
+         
       }   
    }
 
