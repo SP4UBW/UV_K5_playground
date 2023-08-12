@@ -186,7 +186,7 @@ public:
             s32Number -= powersOfTen[i];
             ++digit;
          }
-         U8NumBuff[isNegative + (8 - i)*3] = '0' + digit;   //Odleglosc miedzy znakami wyswietlanymi
+         U8NumBuff[isNegative + (8 - i)+2] = '0' + digit;   //Odleglosc miedzy znakami wyswietlanymi
 
          // We found the first non-zero digit
          if (digit != 0 && startIdx == (isNegative ? 1 : 0))
