@@ -164,7 +164,7 @@ public:
        10000000, // 10^7
        100000000 // 10^8
    };
-   void PrintFixedDigitsNumber2(int s32Number, unsigned char u8DigsToCut = 2, unsigned char u8FixedDigtsCnt = 0, unsigned char pixelDistance = 1)
+   void PrintFixedDigitsNumber2(int s32Number, unsigned char u8DigsToCut = 2, unsigned char u8FixedDigtsCnt = 0)
 {
     char U8NumBuff[11] = {0}; // 9 digits, sign, and null terminator
     int startIdx = 0;
@@ -186,11 +186,11 @@ public:
             s32Number -= powersOfTen[i];
             ++digit;
         }
-        U8NumBuff[isNegative + (8 - i) + pixelDistance] = '0' + digit;
+        U8NumBuff[isNegative + (8 - i)] = '0' + digit;
 
         // We found the first non-zero digit
         if (digit != 0 && startIdx == (isNegative ? 1 : 0))
-            startIdx = isNegative + (8 - i) + pixelDistance;
+            startIdx = isNegative + (8 - i);
     }
 
     // If the number was 0, we write a single 0.
