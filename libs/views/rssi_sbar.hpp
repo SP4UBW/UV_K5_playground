@@ -226,8 +226,8 @@ else
     //     Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
     
     //Zamiana na µV
-    s16Number = (1 << ((s16Number + 127 + 64) / 6));
-            
+    //s16Number = (1 << ((s16Number + 127 + 64) / 6));
+    s16Number = (1 << ((s16Number + 127 + 64) >> 2)) >> 1;        
     Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
 
      
