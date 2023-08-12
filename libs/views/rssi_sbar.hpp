@@ -57,12 +57,12 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-   static constexpr auto ChartStartX = 5 * 5 + 5 + 3 * 7; // 32;
+   static constexpr auto ChartStartX = 51;
    static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 1;
    static constexpr auto BlocksCnt = (128 - ChartStartX) / (BlockSizeX + BlockSpace);
-   static constexpr auto LinearBlocksCnt = 9;  //9
+   static constexpr auto LinearBlocksCnt = 9;  
    static constexpr auto VoltageOffset = 77;
    static constexpr auto MaxBarPoints = 13;
    static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
@@ -197,10 +197,7 @@ else
         }
        
        PrintSValue(RssiData.u8SValue);
-       if (s16Number > -140)
-        {
-         PrintSbar(RssiData.u8SValue);
-        }  
+       PrintSbar(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi); 
       }
      }  
@@ -277,12 +274,15 @@ else
    void PrintSbar(unsigned char u8SValue)
    {
       u8SValue = u8SValue > MaxBarPoints ? MaxBarPoints : u8SValue;
+    if (u8SValue>1) 
+     { 
       for (unsigned char i = 0; i < u8SValue; i++)
       {
          unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
          unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
          Display.DrawRectangle(u8X, 24 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
       }
+    }  
    }
 
    void PrintBatteryVoltage()
