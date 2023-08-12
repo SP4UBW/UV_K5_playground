@@ -220,7 +220,7 @@ else
       {
          Display.PrintCharacter(' ');
       }
-     if (s16Number > -140)
+     if (s16Number > -129)
       {
       Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
       }   
@@ -274,7 +274,7 @@ else
    void PrintSbar(unsigned char u8SValue)
    {
       u8SValue = u8SValue > MaxBarPoints ? MaxBarPoints : u8SValue;
-    if (u8SValue>0) 
+    if (u8SValue>1) 
      { 
       for (unsigned char i = 0; i < u8SValue; i++)
       {
