@@ -222,7 +222,13 @@ else
       }
      if (s16Number > -129)
       {
-      Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+         //Wyswietlanie w dBm
+    //     Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+    
+    //Zamiana na µV
+    s16Number = (unsigned int)round(pow(2, (s16Number + 127.0) / 6.0));
+    Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+      
       }   
    }
 
