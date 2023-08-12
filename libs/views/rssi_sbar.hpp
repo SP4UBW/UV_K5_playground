@@ -193,7 +193,8 @@ else
         {
          Display.SetCoursor(3, 5*2 + 5);                                //Cyfra 8 (szerokosc 6 pikseli)
          Display.PrintCharacter('8');
-         memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 119, 2); //Kreska pionowa do litery B do zamalowania 8 
+         //memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 119, 2); //Kreska pionowa do litery B do zamalowania 8 
+         memset(pDData + 3 + 5*2 + 3, 0b1111111, 1);  
         }
        
        PrintSValue(RssiData.u8SValue);
