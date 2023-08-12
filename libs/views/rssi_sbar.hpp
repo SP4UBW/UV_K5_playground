@@ -229,7 +229,7 @@ else
     //s16Number = (1 << ((s16Number + 127 + 64) / 6));
     //s16Number = (1 << ((s16Number + 127 + 64) >> 2)) >> 1;        
    // Display.PrintFixedDigitsNumber2((1 << ((s16Number + 127 + 64) >> 2)) >> 1, 0, 3);
-         Display.PrintCharacter('   ');
+         //Display.PrintCharacter('   ');
          Display.Print((1 << ((s16Number + 127 + 64) >> 2)) >> 1);
      
          
