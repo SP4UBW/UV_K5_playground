@@ -224,8 +224,9 @@ else
       {
          //Wyswietlanie w dBm
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+         Display.SetCoursor(3, 98);
          Display.PrintCharacter(' ');
-         memset(pDData + 100, 0b0001000, 3); // - 
+         memset(pDData + 90, 0b0001000, 3); // - 
       }   
    }
 
