@@ -233,17 +233,32 @@ else
        // Display.Print((1 << ((s16Number + 127 + 64) >> 2)) >> 1);
 
    
-          if (s16Number<-121) {Display.PrintFixedDigitsNumber2(1, 0, 2,  2);}        
-     else if (s16Number<-115) {Display.PrintFixedDigitsNumber2(2, 0, 2,  2);}        
-     else if (s16Number<-109) {Display.PrintFixedDigitsNumber2(4, 0, 2,  2);}
-     else if (s16Number<-103) {Display.PrintFixedDigitsNumber2(8, 0, 2,  2);}
-     else if (s16Number<-97)  {Display.PrintFixedDigitsNumber2(16, 0, 2, 2);}
-     else if (s16Number<-91)  {Display.PrintFixedDigitsNumber2(32, 0, 2, 2);}
-     else if (s16Number<-85)  {Display.PrintFixedDigitsNumber2(63, 0, 2, 2);}
-     else if (s16Number<-79)  {Display.PrintFixedDigitsNumber2(126, 1, 2,1);}
-     else if (s16Number<-73)  {Display.PrintFixedDigitsNumber2(250, 1, 2,1);}
-     else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 1, 2,1);}
+//          if (s16Number<-121) {Display.PrintFixedDigitsNumber2(1, 0, 2,  2);}        
+//     else if (s16Number<-115) {Display.PrintFixedDigitsNumber2(2, 0, 2,  2);}        
+//     else if (s16Number<-109) {Display.PrintFixedDigitsNumber2(4, 0, 2,  2);}
+//     else if (s16Number<-103) {Display.PrintFixedDigitsNumber2(8, 0, 2,  2);}
+//     else if (s16Number<-97)  {Display.PrintFixedDigitsNumber2(16, 0, 2, 2);}
+//     else if (s16Number<-91)  {Display.PrintFixedDigitsNumber2(32, 0, 2, 2);}
+//     else if (s16Number<-85)  {Display.PrintFixedDigitsNumber2(63, 0, 2, 2);}
+//     else if (s16Number<-79)  {Display.PrintFixedDigitsNumber2(126, 1, 2,0);}
+//     else if (s16Number<-73)  {Display.PrintFixedDigitsNumber2(250, 1, 2,0);}
+//     else if (s16Number<-67)  {Display.PrintFixedDigitsNumber2(500, 1, 2,0);}
 
+
+int thresholds[] = {-121, -115, -109, -103, -97, -91, -85, -79, -73, -67};
+int values[] = {1, 2, 4, 8, 16, 32, 63, 126, 250, 500};
+
+for (int i = 0; i < sizeof(thresholds) / sizeof(thresholds[0]); ++i)
+{
+    if (s16Number < thresholds[i])
+    {
+        Display.PrintFixedDigitsNumber2(values[i], i >= 7 ? 1 : 0, 2, i >= 7 ? 0 : 2);
+        break;  // Exit loop once the condition is met
+    }
+}
+
+
+      
   memset(pDData + 105, 0b1000000, 1); // -   
    //   }   
    }
@@ -316,10 +331,10 @@ else
       unsigned short u16Voltage = gVoltage > 1000 ? 999 : gVoltage;
       memset(gStatusBarData + VoltageOffset, 0, 4 * 5);
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
-      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1, 1);
+      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1, 0);
       memset(gStatusBarData + VoltageOffset + 7 + 1, 0b1100000, 2); // dot
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4);
-      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 0, 2, 1);
+      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 0, 2, 0);
       memcpy(gStatusBarData + VoltageOffset + 4 * 6 + 2, gSmallLeters + 128 * 2 + 102, 5); // V character
       BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
    }
