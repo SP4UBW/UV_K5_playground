@@ -198,8 +198,9 @@ else
         }
        
        PrintSValue(RssiData.u8SValue);
+       PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
-       PrintNumber(RssiData.s16Rssi); 
+        
       }
      }  
       
@@ -279,7 +280,7 @@ else
          }
       }
 
-      Display.SetCoursor(3, 32);
+      Display.SetCoursor(3, 31);
       Display.Print(C8SignalString);
    }
 
