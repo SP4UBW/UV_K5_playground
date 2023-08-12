@@ -256,7 +256,7 @@ else
          if (u8SValue > 1)
          { 
            //memcpy(pDData + 26, gSmallLeters + 109, 8);  //Litera S
-           memcpy(pDData + 29, gSmallLeters + 194, 5);  //Litera S  
+           memcpy(pDData + 29, gSmallLeters + 128 * 1 + 194, 5);  //Litera S  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
