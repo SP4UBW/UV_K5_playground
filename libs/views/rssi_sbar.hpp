@@ -253,8 +253,8 @@ for (int i = 0; i < sizeof(thresholds) / sizeof(thresholds[0]); ++i)
     if (s16Number < thresholds[i])
     {
         
-        Display.SetCoursor(3, 98);
-        Display.PrintFixedDigitsNumber2(values[i], i >= 7 ? 1 : 0, i >= 7 ? 1 : 0, 0);  //i >= 7 ? 0 : 2
+       // Display.SetCoursor(3, 98);
+        Display.PrintFixedDigitsNumber2(values[i], i >= 7 ? 1 : 0, 2, 0);  //i >= 7 ? 0 : 2
         if (i <= 7 ) {memset(pDData + 105, 0b1000000, 1);}
        
         break;  // Exit loop once the condition is met
