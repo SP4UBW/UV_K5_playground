@@ -101,7 +101,7 @@ public:
       
       if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-       {GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD
+       GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD
          return eScreenRefreshFlag::NoRefresh;
       }
 
@@ -178,8 +178,6 @@ if (bPtt)
          {   
           PrintSValue(RssiData.u8SValue);
           PrintSbar(RssiData.u8SValue);
-          //GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD  
-            
          }   
      }
 else
@@ -238,12 +236,12 @@ else
          Display.PrintCharacter(' ');
          if (s16Number < 0) {memset(pDData + 95, 0b0001000, 3); } // znak - 
          
-  //       memset(pDData + 121, 0b0110000, 1); // znak d 
-  //       memset(pDData + 122, 0b1001000, 1);
-  //       memset(pDData + 123, 0b1111111, 1);
-  //       memset(pDData + 125, 0b1111111, 1); // znak B 
-  //       memset(pDData + 126, 0b1001001, 1); 
-  //       memset(pDData + 127, 0b0110110, 1);
+         memset(pDData + 121, 0b0110000, 1); // znak d 
+         memset(pDData + 122, 0b1001000, 1);
+         memset(pDData + 123, 0b1111111, 1);
+         memset(pDData + 125, 0b1111111, 1); // znak B 
+         memset(pDData + 126, 0b1001001, 1); 
+         memset(pDData + 127, 0b0110110, 1);
          
       }   
    }
