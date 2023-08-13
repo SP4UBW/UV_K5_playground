@@ -105,7 +105,7 @@ public:
       {
        if (GPIOB->DATA & GPIO_PIN_6)   
         {     
-         delay(10000);
+         delay(250);
          GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
         } 
     //   if (!(GPIOC->DATA & 0b1))
@@ -318,7 +318,7 @@ else
     }  
    }
 
-//void delay(uint32_t milliseconds) {for (uint32_t i = 0; i < (milliseconds * 10000000); i++) {  } }
+
 void delay(uint32_t milliseconds) {
     for (volatile uint32_t i = 0; i < (milliseconds * 1000); i++) {
         uint32_t temp = i * 2 + 3;  // Dodatkowa operacja
