@@ -101,14 +101,14 @@ public:
       
       if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-      // GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD
+       GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
          return eScreenRefreshFlag::NoRefresh;
       }
 
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
          PrintBatteryVoltage();
-         GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD
+       //  GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD działa ciągle i sprawdza
          return eScreenRefreshFlag::StatusBar;
       }
 
