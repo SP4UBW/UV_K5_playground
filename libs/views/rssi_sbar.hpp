@@ -199,8 +199,11 @@ else
          memset(pDData + 3 + 5*2 + 2, 0b0000000, 1);  
          memset(pDData + 3 + 5*2 + 3, 0b1111111, 1);  
         }
+      if (!(GPIOB->DATA & GPIO_PIN_6))
+        {
+          GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD
+        }
        
-       GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD
        PrintSValue(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
