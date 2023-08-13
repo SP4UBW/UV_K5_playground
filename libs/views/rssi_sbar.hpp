@@ -103,7 +103,7 @@ public:
       
       if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-         delay(1000);
+         delay(5000);
          GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
          return eScreenRefreshFlag::NoRefresh;
       }
@@ -212,7 +212,7 @@ else
        PrintSValue(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
-      //          GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas odbioru  
+       GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas odbioru  
       }// else {GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD
      }  
       
