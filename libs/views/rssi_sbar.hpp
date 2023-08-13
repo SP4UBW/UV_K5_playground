@@ -71,7 +71,7 @@ public:
    unsigned char u8AfAmp = 0;
    bool bPtt = false;
    bool b59Mode = false;
-
+   unsigned int Light = 0;
    CRssiSbar()
    {
       Display.SetFont(&FontSmallNr);
@@ -104,17 +104,20 @@ public:
       if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
        if (GPIOB->DATA & GPIO_PIN_6)   
-        {     
-         if ((GPIOC->DATA & 0b1))
-          {
-           GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
-          }  
-          else
-         {  
-           //delay(250);
-         GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
-         }   
-        } 
+        { 
+        Light++;
+        if (Light > 500) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  
+        }
+        else {Light=0;}   
+//          {
+//           GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
+//          }  
+//          else
+//         {  
+//         delay(250);
+//       GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
+    //     }   
+    //  } 
     //   if (!(GPIOC->DATA & 0b1))
     //  {
     //     GPIOB->DATA |= GPIO_PIN_6;
