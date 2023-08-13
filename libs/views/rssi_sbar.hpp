@@ -106,30 +106,16 @@ public:
        if (GPIOB->DATA & GPIO_PIN_6)   
         { 
         Light++;
-        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  //OFF LCD after 5s
+        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  //OFF LCD po 5s
         }
-//        else {Light=0;}   
-//          {
-//           GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
-//          }  
-//          else
-//         {  
-//         delay(250);
-//       GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
-    //     }   
-    //  } 
-    //   if (!(GPIOC->DATA & 0b1))
-    //  {
-    //     GPIOB->DATA |= GPIO_PIN_6;
-    //  }  
+//GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
          return eScreenRefreshFlag::NoRefresh;
       }
 
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
          PrintBatteryVoltage();
-         //GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD działa ciągle i sprawdza
-  
+GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
               
          return eScreenRefreshFlag::StatusBar;
       }
@@ -146,7 +132,6 @@ public:
             memset(gDisplayBuffer + 128 * 2, 0, 22);
             memset(gDisplayBuffer + 128 * 6, 0, 22);
            }   
-          
          }   
       }
   
@@ -201,8 +186,6 @@ if (bPtt)
          {   
           PrintSValue(RssiData.u8SValue);
           PrintSbar(RssiData.u8SValue);
-
-          //GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas nadawania konieczne żeby nie wyłączyło   
          }   
      }
 else
@@ -223,15 +206,10 @@ else
          memset(pDData + 3 + 5*0 - 1 , 0b0000000, 1);  
          memset(pDData + 3 + 5*0 + 0, 0b1111111, 1);  
         }
-     // if (!(GPIOB->DATA & GPIO_PIN_6))   
-     //   {
-//          GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas odbioru
-     //   }
        
        PrintSValue(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
-       //GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas odbioru  
       }
      }  
       
