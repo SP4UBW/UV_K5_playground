@@ -105,7 +105,7 @@ public:
       {
        if (GPIOB->DATA & GPIO_PIN_6)   
         {     
-         delay(8000);
+         delay(50000);
          GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
         }   
          return eScreenRefreshFlag::NoRefresh;
@@ -115,6 +115,12 @@ public:
       {
          PrintBatteryVoltage();
        //  GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD działa ciągle i sprawdza
+  
+      if (!(GPIOC->DATA & 0b1))
+      {
+         GPIOB->DATA |= GPIO_PIN_6;
+      }
+         
          return eScreenRefreshFlag::StatusBar;
       }
 
