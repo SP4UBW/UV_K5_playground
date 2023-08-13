@@ -85,6 +85,8 @@ public:
          return "S-metr    59";
    }
 
+   void delay(uint32_t milliseconds) {for (uint32_t i = 0; i < (milliseconds * 1000); i++) {  } }
+
    void HandleUserAction(unsigned char u8Button) override
    {
       if (u8Button != Button::Ok)
@@ -101,7 +103,8 @@ public:
       
       if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-       GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
+         delay(1000);
+         GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
          return eScreenRefreshFlag::NoRefresh;
       }
 
@@ -179,6 +182,8 @@ if (bPtt)
          {   
           PrintSValue(RssiData.u8SValue);
           PrintSbar(RssiData.u8SValue);
+
+          GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas nadawania konieczne żeby nie wyłączyło   
          }   
      }
 else
@@ -201,13 +206,13 @@ else
         }
      // if (!(GPIOB->DATA & GPIO_PIN_6))   
      //   {
-//test          GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD
+//          GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas odbioru
      //   }
        
        PrintSValue(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
-        
+      //          GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas odbioru  
       }// else {GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD
      }  
       
@@ -304,7 +309,6 @@ else
     }  
    }
 
-//inline void ToggleBacklight() { GPIOB->DATA ^= GPIO_PIN_6; }
 
    void PrintBatteryVoltage()
    {
