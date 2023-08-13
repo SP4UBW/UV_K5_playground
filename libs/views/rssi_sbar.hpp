@@ -106,7 +106,7 @@ public:
        if (GPIOB->DATA & GPIO_PIN_6)   
         { 
         Light++;
-        if (Light > 10) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  
+        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  //OFF LCD after 5s
         }
         else {Light=0;}   
 //          {
@@ -128,7 +128,7 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
          PrintBatteryVoltage();
-       //  GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD działa ciągle i sprawdza
+         GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD działa ciągle i sprawdza
   
               
          return eScreenRefreshFlag::StatusBar;
@@ -202,7 +202,7 @@ if (bPtt)
           PrintSValue(RssiData.u8SValue);
           PrintSbar(RssiData.u8SValue);
 
-          GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas nadawania konieczne żeby nie wyłączyło   
+          //GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas nadawania konieczne żeby nie wyłączyło   
          }   
      }
 else
@@ -231,7 +231,7 @@ else
        PrintSValue(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
-       GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas odbioru  
+       //GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas odbioru  
       }
      }  
       
