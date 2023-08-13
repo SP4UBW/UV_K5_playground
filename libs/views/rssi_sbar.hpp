@@ -185,18 +185,18 @@ else
 
      if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX
       {    
-        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
-        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5);  //Napis X 
+//        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
+//        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5);  //Napis X 
         if (gDisplayBuffer[128 * 0 + 16])
          {
-          memcpy(pDData + 3 + 5*2 + 3, gSmallLeters + 128 * 1 + 96, 5); //Napis A
+          memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5); //Napis A
          }
         if (gDisplayBuffer[128 * 4 + 16])
         {
-         Display.SetCoursor(3, 5*2 + 4);                                //Cyfra 8 (szerokosc 6 pikseli)
+         Display.SetCoursor(3, 5*0 + 1);                                //Cyfra 8 (szerokosc 6 pikseli)
          Display.PrintCharacter('8');
-         memset(pDData + 3 + 5*2 + 2, 0b0000000, 1);  
-         memset(pDData + 3 + 5*2 + 3, 0b1111111, 1);  
+         memset(pDData + 3 + 5*0 - 1 , 0b0000000, 1);  
+         memset(pDData + 3 + 5*0 + 0, 0b1111111, 1);  
         }
      // if (!(GPIOB->DATA & GPIO_PIN_6))   
      //   {
