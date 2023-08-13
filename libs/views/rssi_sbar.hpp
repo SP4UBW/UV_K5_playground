@@ -105,7 +105,7 @@ public:
       {
        if (GPIOB->DATA & GPIO_PIN_6)   
         {     
-         delay(50000);
+         delay(50000000);
          GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
         } 
     //   if (!(GPIOC->DATA & 0b1))
@@ -152,11 +152,7 @@ public:
             bIsCleared = true;
             if (!Context.OriginalFwStatus.b1MenuDrawed)
             {
-      //        if (!(GPIOC->DATA & 0b1))
-      //{
-         GPIOB->DATA |= GPIO_PIN_6;
-      //}
-               return eScreenRefreshFlag::MainScreen;
+             return eScreenRefreshFlag::MainScreen;
             }
          }
 
