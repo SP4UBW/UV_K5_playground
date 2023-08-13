@@ -201,7 +201,7 @@ else
         }
      // if (!(GPIOB->DATA & GPIO_PIN_6))   
      //   {
-          GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD
+//test          GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD
      //   }
        
        PrintSValue(RssiData.u8SValue);
