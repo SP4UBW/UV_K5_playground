@@ -108,6 +108,7 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
          PrintBatteryVoltage();
+         GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD
          return eScreenRefreshFlag::StatusBar;
       }
 
