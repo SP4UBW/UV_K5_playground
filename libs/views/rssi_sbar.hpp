@@ -89,8 +89,7 @@ public:
    {
       if (u8Button != Button::Ok)
       {
-         {GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD
-         return;
+        return;
       }
        b59Mode = !b59Mode;
    }
@@ -102,6 +101,7 @@ public:
       
       if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
+       {GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD
          return eScreenRefreshFlag::NoRefresh;
       }
 
