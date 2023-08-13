@@ -85,7 +85,7 @@ public:
          return "S-metr    59";
    }
 
-   void delay(uint32_t milliseconds) {for (uint32_t i = 0; i < (milliseconds * 1000); i++) {  } }
+   
 
    void HandleUserAction(unsigned char u8Button) override
    {
@@ -108,10 +108,10 @@ public:
          delay(50000);
          GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
         } 
-       if (!(GPIOC->DATA & 0b1))
-      {
-         GPIOB->DATA |= GPIO_PIN_6;
-      }  
+    //   if (!(GPIOC->DATA & 0b1))
+    //  {
+    //     GPIOB->DATA |= GPIO_PIN_6;
+    //  }  
          return eScreenRefreshFlag::NoRefresh;
       }
 
@@ -322,6 +322,7 @@ else
     }  
    }
 
+void delay(uint32_t milliseconds) {for (uint32_t i = 0; i < (milliseconds * 1000); i++) {  } }
 
    void PrintBatteryVoltage()
    {
