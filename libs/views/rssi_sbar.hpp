@@ -103,8 +103,11 @@ public:
       
       if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-        // delay(5000);
-        // GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
+       if (GPIOB->DATA & GPIO_PIN_6)   
+        {     
+         delay(8000);
+         GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
+        }   
          return eScreenRefreshFlag::NoRefresh;
       }
 
@@ -167,7 +170,7 @@ public:
       {
          RssiData = RadioDriver.GetRssi();
       }
-GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD
+
    ProcessDrawings();
    return eScreenRefreshFlag::MainScreen;
    }
@@ -213,7 +216,7 @@ else
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
        GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD na stałe podczas odbioru  
-      }// else {GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD
+      }
      }  
       
    }
