@@ -89,6 +89,7 @@ public:
    {
       if (u8Button != Button::Ok)
       {
+         {GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD
          return;
       }
        b59Mode = !b59Mode;
