@@ -101,14 +101,14 @@ public:
       
       if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-       GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD
+      // GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD
          return eScreenRefreshFlag::NoRefresh;
       }
 
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
          PrintBatteryVoltage();
-         GPIOB->DATA |= GPIO_PIN_6;  //Wlacz LCD
+         GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD
          return eScreenRefreshFlag::StatusBar;
       }
 
