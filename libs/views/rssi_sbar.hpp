@@ -106,17 +106,15 @@ public:
        if (GPIOB->DATA & GPIO_PIN_6)   
         { 
         Light++;
-        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  //OFF LCD po 5s
+        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD po 5s
         }
-//GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
+        //GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
          return eScreenRefreshFlag::NoRefresh;
       }
 
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
          PrintBatteryVoltage();
-GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
-              
          return eScreenRefreshFlag::StatusBar;
       }
 
