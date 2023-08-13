@@ -108,7 +108,7 @@ public:
         Light++;
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  //OFF LCD after 5s
         }
-        else {Light=0;}   
+//        else {Light=0;}   
 //          {
 //           GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
 //          }  
@@ -128,7 +128,7 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
          PrintBatteryVoltage();
-         GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD działa ciągle i sprawdza
+         //GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD działa ciągle i sprawdza
   
               
          return eScreenRefreshFlag::StatusBar;
