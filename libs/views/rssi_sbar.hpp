@@ -106,7 +106,7 @@ public:
        if (GPIOB->DATA & GPIO_PIN_6)   
         { 
         Light++;
-        if (Light > 500) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  
+        if (Light > 10) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  
         }
         else {Light=0;}   
 //          {
@@ -328,12 +328,6 @@ else
     }  
    }
 
-
-//void delay(uint32_t milliseconds) {
-//    for (volatile uint32_t i = 0; i < (milliseconds * 1000); i++) {
-//        uint32_t temp = i * 2 + 3;  // Dodatkowa operacja
-//    }
-//}
    void PrintBatteryVoltage()
    {
     if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
