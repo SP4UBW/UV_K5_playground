@@ -105,7 +105,7 @@ public:
       {
        if (GPIOB->DATA & GPIO_PIN_6)   
         {     
-         delay(50000000);
+         delay(5000); delay(5000); delay(5000);
          GPIOB->DATA &= ~GPIO_PIN_6;  //Wylacz LCD brakuje warunku skanowania i wyłącza przy przełączaniu kanałów
         } 
     //   if (!(GPIOC->DATA & 0b1))
@@ -318,7 +318,7 @@ else
     }  
    }
 
-void delay(uint32_t milliseconds) {for (uint32_t i = 0; i < (milliseconds * 1000); i++) {  } }
+void delay(uint32_t milliseconds) {for (uint32_t i = 0; i < (milliseconds * 10000000); i++) {  } }
 
    void PrintBatteryVoltage()
    {
