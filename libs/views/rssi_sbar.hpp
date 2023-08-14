@@ -54,7 +54,7 @@ public:
    unsigned char u8AfAmp = 0;
    bool bPtt = false;
    bool b59Mode = false;
-   unsigned int Light = 0;
+   unsigned char Light = 0;
    CRssiSbar()
    {
       Display.SetFont(&FontSmallNr);
@@ -178,11 +178,11 @@ else
          }
         if (gDisplayBuffer[128 * 4 + 16])
         {
-         //Display.SetCoursor(3, 5*0 + 1);                                //Cyfra 8 (szerokosc 6 pikseli)
-         //Display.PrintCharacter('8');
-         memset(pDData + 3 + 5*0 + 0, 0b1111111, 1);                     //Litera B
-         memset(pDData + 3 + 5*0 + 1, 0b1001001, 3);  
-         memset(pDData + 3 + 5*0 + 4, 0b0110110, 1);  
+      Display.SetCoursor(3, 5*0 + 1);                                //Cyfra 8 (szerokosc 6 pikseli)
+      Display.PrintCharacter('8');
+           memset(pDData + 3 + 5*0 - 1, 0b0000000, 1);                     //Litera B
+           memset(pDData + 3 + 5*0 + 0, 0b1001001, 1);  
+      //   memset(pDData + 3 + 5*0 + 4, 0b0110110, 1);  
         }
        
        PrintSValue(RssiData.u8SValue);
