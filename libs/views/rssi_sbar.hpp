@@ -181,7 +181,7 @@ else
       Display.SetCoursor(3, 5*0 + 1);                                //Cyfra 8 (szerokosc 6 pikseli)
       Display.PrintCharacter('8');
            memset(pDData + 3 + 5*0 - 1, 0b0000000, 1);                     //Litera B
-           memset(pDData + 3 + 5*0 + 0, 0b1001001, 1);  
+           memset(pDData + 3 + 5*0 + 0, 0b1111111, 1);  
       //   memset(pDData + 3 + 5*0 + 4, 0b0110110, 1);  
         }
        
@@ -302,10 +302,10 @@ else
       memset(gStatusBarData + VoltageOffset, 0, 4 * 5);
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
-      memset(gStatusBarData + VoltageOffset + 7 + 1, 0b1100000, 2); // dot
-      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4);
-      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 0, 2);
-      memcpy(gStatusBarData + VoltageOffset + 4 * 6 + 2, gSmallLeters + 128 * 2 + 102, 5); // V character
+      memset(gStatusBarData + VoltageOffset + 7 + 1, 0b1100000, 1); // dot
+      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 3);
+      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
+      memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 1, gSmallLeters + 128 * 2 + 102, 5); // V character
       BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
    }
 };
