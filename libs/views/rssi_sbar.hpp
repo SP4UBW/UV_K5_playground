@@ -106,7 +106,7 @@ public:
          if (!b59Mode)
          {
           //Sprawdzenie czy wylaczony skaner/czestosciomierz
-          if (!(gDisplayBuffer[128 * 1 + 2]) && !(gDisplayBuffer[128 * 5 + 2]))  
+          if (!(gDisplayBuffer[128 * 1 + 2]))  // && !(gDisplayBuffer[128 * 5 + 2]))  
            {      
             memset(gDisplayBuffer + 128 * 2, 0, 22);
             memset(gDisplayBuffer + 128 * 6, 0, 22);
@@ -301,8 +301,8 @@ else
       memset(gStatusBarData + VoltageOffset, 0, 3 * 5);
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
-      memset(gStatusBarData + VoltageOffset + 7 + 1, 0b1100000, 1); // dot
-      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 3);
+      memset(gStatusBarData + VoltageOffset + 7 , 0b1100000, 1); // dot
+      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 2);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
       memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 1, gSmallLeters + 128 * 2 + 102, 5); // V character
       BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
