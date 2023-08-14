@@ -54,7 +54,7 @@ public:
    unsigned char u8AfAmp = 0;
    bool bPtt = false;
    bool b59Mode = false;
-   unsigned char Light = 0;
+   unsigned int Light = 0;
    CRssiSbar()
    {
       Display.SetFont(&FontSmallNr);
