@@ -7,28 +7,12 @@
 
 namespace Rssi
 {
-   inline const unsigned char U8RssiMap[] =
-       {
-         //  141, 
-         //  135,
-           129,
-           123,
-           117,
-           111,
-           105,
-           99,
-           93,
-           83,
-           73,
-           63,
-           53,
-   };
+   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, };
 
    struct TRssi
    {
       TRssi(){};
-      TRssi(signed short s16Rssi)
-          : s16Rssi(s16Rssi)
+      TRssi(signed short s16Rssi) : s16Rssi(s16Rssi)
       {
          s16Rssi *= -1;
          unsigned char i;
@@ -42,7 +26,6 @@ namespace Rssi
          }
          u8SValue = i + 1;
       }
-
       short s16Rssi;
       unsigned char u8SValue;
    };
@@ -57,7 +40,7 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-   static constexpr auto ChartStartX = 47;
+   static constexpr auto ChartStartX = 40;
    static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 1;
@@ -71,7 +54,7 @@ public:
    unsigned char u8AfAmp = 0;
    bool bPtt = false;
    bool b59Mode = false;
-   unsigned int Light = 0;
+   unsigned char Light = 0;
    CRssiSbar()
    {
       Display.SetFont(&FontSmallNr);
@@ -84,8 +67,6 @@ public:
          return "S-metr  normal";
          return "S-metr    59";
    }
-
-   
 
    void HandleUserAction(unsigned char u8Button) override
    {
@@ -148,7 +129,6 @@ public:
              return eScreenRefreshFlag::MainScreen;
             }
          }
-
          return eScreenRefreshFlag::NoRefresh;
       }
 
@@ -173,7 +153,6 @@ public:
    ProcessDrawings();
    return eScreenRefreshFlag::MainScreen;
    }
-
    void ProcessDrawings()
    {
       ClearSbarLine();
@@ -191,18 +170,19 @@ else
 
      if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX
       {    
-//        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
-//        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5);  //Napis X 
+//        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5);  //Litera R
+//        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5);  //Litera X 
         if (gDisplayBuffer[128 * 0 + 16])
          {
-          memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5); //Napis A
+          memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
          }
         if (gDisplayBuffer[128 * 4 + 16])
         {
-         Display.SetCoursor(3, 5*0 + 1);                                //Cyfra 8 (szerokosc 6 pikseli)
-         Display.PrintCharacter('8');
-         memset(pDData + 3 + 5*0 - 1 , 0b0000000, 1);  
-         memset(pDData + 3 + 5*0 + 0, 0b1111111, 1);  
+         //Display.SetCoursor(3, 5*0 + 1);                                //Cyfra 8 (szerokosc 6 pikseli)
+         //Display.PrintCharacter('8');
+         memset(pDData + 3 + 5*0 + 0, 0b1111111, 1);                     //Litera B
+         memset(pDData + 3 + 5*0 + 1, 0b1001001, 3);  
+         memset(pDData + 3 + 5*0 + 4, 0b0110110, 1);  
         }
        
        PrintSValue(RssiData.u8SValue);
@@ -224,7 +204,7 @@ else
 
    void PrintNumber(short s16Number)
    {
-      Display.SetCoursor(3, 91);
+      Display.SetCoursor(3, 84);
       if (s16Number > 0)
       {
          Display.PrintCharacter(' ');
@@ -233,16 +213,22 @@ else
       {
          //Wyswietlanie w dB bo m się nie miesci
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-         Display.SetCoursor(3, 91);
+         Display.SetCoursor(3, 84);
          Display.PrintCharacter(' ');
-         if (s16Number < 0) {memset(pDData + 95, 0b0001000, 3); } // znak - 
+         if (s16Number < 0) {memset(pDData + 88, 0b0001000, 3); } // znak - 
          
-         memset(pDData + 121, 0b0110000, 1); // znak d 
-         memset(pDData + 122, 0b1001000, 1);
-         memset(pDData + 123, 0b1111111, 1);
-         memset(pDData + 125, 0b1111111, 1); // znak B 
-         memset(pDData + 126, 0b1001001, 1); 
-         memset(pDData + 127, 0b0110110, 1);
+         memset(pDData + 113, 0b0110000, 1); // znak d 
+         memset(pDData + 114, 0b1001000, 2);
+         memset(pDData + 116, 0b1111111, 1);
+         
+         memset(pDData + 118, 0b1111111, 1); // znak B 
+         memset(pDData + 119, 0b1001001, 2); 
+         memset(pDData + 121, 0b0110110, 1);
+         
+         memset(pDData + 123, 0b1110000, 5); // znak m
+         memset(pDData + 124, 0b0001000, 1);
+         memset(pDData + 126, 0b0001000, 1);
+         
          
       }   
    }
@@ -251,9 +237,9 @@ else
    {
    if (bPtt) // print MIC
    {
-        memcpy(pDData + 26 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
-        memset(pDData + 26 + 5*1 + 1, 0b1111111, 1);                      //Napis I
-        memcpy(pDData + 26 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
+        memcpy(pDData + 24 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
+        memset(pDData + 24 + 5*1 + 1, 0b1111111, 1);                      //Napis I
+        memcpy(pDData + 24 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
         return;
    }
 
@@ -265,9 +251,9 @@ else
       }
       else if (u8SValue > 9)
       {
-         memset(pDData + 26, 0b0001000, 2); // -
-         memset(pDData + 28, 0b0111110, 1); // |
-         memset(pDData + 29, 0b0001000, 2); // -
+         memset(pDData + 19, 0b0001000, 2); // -
+         memset(pDData + 21, 0b0111110, 1); // |
+         memset(pDData + 22, 0b0001000, 2); // -
          C8SignalString[1] = '0';
          C8SignalString[0] = '0' + u8SValue - 9;
       }
@@ -275,7 +261,7 @@ else
       {
          if (u8SValue > 1)
          { 
-           memcpy(pDData + 26, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
+           memcpy(pDData + 19, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
@@ -286,7 +272,7 @@ else
          }
       }
 
-      Display.SetCoursor(3, 31);
+      Display.SetCoursor(3, 24);
       Display.Print(C8SignalString);
    }
 
