@@ -225,9 +225,9 @@ else
          memset(pDData + 119, 0b1001001, 2); 
          memset(pDData + 121, 0b0110110, 1);
          
-         memset(pDData + 123, 0b1110000, 5); // znak m
-         memset(pDData + 124, 0b0001000, 1);
-         memset(pDData + 126, 0b0001000, 1);
+    //     memset(pDData + 123, 0b1110000, 5); // znak m
+    //     memset(pDData + 124, 0b0001000, 1);
+    //     memset(pDData + 126, 0b0001000, 1);
          
          
       }   
