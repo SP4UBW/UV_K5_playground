@@ -90,12 +90,13 @@ public:
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD po 5s
         }
         //GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
+         PrintBatteryVoltage();
          return eScreenRefreshFlag::NoRefresh;
       }
 
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
-         PrintBatteryVoltage();
+        // PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
 
