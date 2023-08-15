@@ -40,7 +40,7 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-   static constexpr auto ChartStartX = 40;
+   static constexpr auto ChartStartX = 38;
    static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 1;
@@ -178,7 +178,7 @@ else
          }
         if (gDisplayBuffer[128 * 4 + 16])
         {
-         memset(pDData + 3, 0b1111111, 1); // Litera B 
+         memset(pDData + 3, 0b1111111, 1);                               //Litera B 
          memset(pDData + 4, 0b1001001, 3); 
          memset(pDData + 7, 0b0110110, 1); 
         }
@@ -205,18 +205,14 @@ else
       Display.SetCoursor(3, 84);
       if (s16Number > 0)
       {
-         //Display.PrintCharacter(' ');
          memset(pDData + 85, 0, 5);
       }
      if (s16Number > -129)
       {
          //Wyswietlanie w dBm
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-         //Display.SetCoursor(3, 84);
-         //Display.PrintCharacter(' ');
-         memset(pDData + 85, 0, 2);
-     //    if (s16Number < 0) {memset(pDData + 88, 0b0001000, 3); } // znak - 
-         
+         memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
+              
          memset(pDData + 113, 0b0110000, 1); // znak d 
          memset(pDData + 114, 0b1001000, 2);
          memset(pDData + 116, 0b1111111, 1);
@@ -236,7 +232,7 @@ else
    {
    if (bPtt) // print MIC
    {
-        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M  24
+        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
         memset(pDData + 3 + 5*1 + 1, 0b1111111, 1);                      //Napis I
         memcpy(pDData + 3 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
         return;
@@ -250,9 +246,9 @@ else
       }
       else if (u8SValue > 9)
       {
-         memset(pDData + 19, 0b0001000, 2); // -
-         memset(pDData + 21, 0b0111110, 1); // |
-         memset(pDData + 22, 0b0001000, 2); // -
+         memset(pDData + 17, 0b0001000, 2); // -
+         memset(pDData + 19, 0b0111110, 1); // |
+         memset(pDData + 20, 0b0001000, 2); // -
          C8SignalString[1] = '0';
          C8SignalString[0] = '0' + u8SValue - 9;
       }
@@ -260,7 +256,7 @@ else
       {
          if (u8SValue > 1)
          { 
-           memcpy(pDData + 19, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
+           memcpy(pDData + 17, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
@@ -271,7 +267,7 @@ else
          }
       }
 
-      Display.SetCoursor(3, 24);
+      Display.SetCoursor(3, 22);
       Display.Print(C8SignalString);
    }
 
