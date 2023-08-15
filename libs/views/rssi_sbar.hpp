@@ -206,7 +206,7 @@ else
       if (s16Number > 0)
       {
          //Display.PrintCharacter(' ');
-         memset(pDData + 86, 0, 5);
+         memset(pDData + 85, 0, 5);
       }
      if (s16Number > -129)
       {
@@ -214,7 +214,7 @@ else
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
          //Display.SetCoursor(3, 84);
          //Display.PrintCharacter(' ');
-         memset(pDData + 86, 0, 2);
+         memset(pDData + 85, 0, 2);
      //    if (s16Number < 0) {memset(pDData + 88, 0b0001000, 3); } // znak - 
          
          memset(pDData + 113, 0b0110000, 1); // znak d 
@@ -266,7 +266,7 @@ else
          } 
          else
          {
-         char C8SignalString[] = "  ";   //Wylaczenie Wskazania S po puszczeniu PTT
+         char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
          memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
          }
       }
@@ -296,7 +296,7 @@ else
          return;
       }
       unsigned short u16Voltage = gVoltage > 1000 ? 999 : gVoltage;
-      memset(gStatusBarData + VoltageOffset, 0, 3 * 5 + 1);
+      //memset(gStatusBarData + VoltageOffset, 0, 3 * 5);
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
       memset(gStatusBarData + VoltageOffset + 7 + 1, 0b1100000, 2); // dot
