@@ -202,21 +202,22 @@ else
 
    void PrintNumber(short s16Number)
    {
-      Display.SetCoursor(3, 84);
-      if (s16Number > 0)
+   if (s16Number > -129)
+    { 
+      if (s16Number >= 0)
       {
-         memset(pDData + 85, 0, 5);
-         Display.SetCoursor(3, 90);
+        // memset(pDData + 85, 0, 5);
+         Display.SetCoursor(3, 91);
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
       }
       else
       {   
-       if (s16Number > -129)
-       {
-         //Wyswietlanie w dBm
+         Display.SetCoursor(3, 84);
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
          memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
-              
+      }
+     
+         //Wyswietlanie napisu dBm
          memset(pDData + 113, 0b0110000, 1); // znak d 
          memset(pDData + 114, 0b1001000, 2);
          memset(pDData + 116, 0b1111111, 1);
@@ -228,9 +229,7 @@ else
          memset(pDData + 123, 0b1110000, 5); // znak m
          memset(pDData + 124, 0b0001000, 1);
          memset(pDData + 126, 0b0001000, 1);
-           
-       }
-      }   
+    }    
    }
 
    void PrintSValue(unsigned char u8SValue)
