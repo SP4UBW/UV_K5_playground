@@ -7,7 +7,7 @@
 
 namespace Rssi
 {
-   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13,};
+   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3};
 
    struct TRssi
    {
@@ -206,6 +206,8 @@ else
       if (s16Number > 0)
       {
          memset(pDData + 85, 0, 5);
+         Display.SetCoursor(3, 91);
+         Display.PrintFixedDigitsNumber2(s16Number, 0, 2);
       }
      if (s16Number > -129)
       {
