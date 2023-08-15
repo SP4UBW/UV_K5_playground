@@ -7,7 +7,7 @@
 
 namespace Rssi
 {
-   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 23,};
+   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43,};
 
    struct TRssi
    {
@@ -40,7 +40,7 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-   static constexpr auto ChartStartX = 38;
+   static constexpr auto ChartStartX = 35;
    static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 1;
@@ -246,9 +246,9 @@ else
       }
       else if (u8SValue > 9)
       {
-         memset(pDData + 17, 0b0001000, 2); // -
-         memset(pDData + 19, 0b0111110, 1); // |
-         memset(pDData + 20, 0b0001000, 2); // -
+         memset(pDData + 15, 0b0001000, 2); // -
+         memset(pDData + 17, 0b0111110, 1); // |
+         memset(pDData + 18, 0b0001000, 2); // -
          C8SignalString[1] = '0';
          C8SignalString[0] = '0' + u8SValue - 9;
       }
@@ -256,7 +256,7 @@ else
       {
          if (u8SValue > 1)
          { 
-           memcpy(pDData + 17, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
+           memcpy(pDData + 15, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
@@ -267,7 +267,7 @@ else
          }
       }
 
-      Display.SetCoursor(3, 22);
+      Display.SetCoursor(3, 20);
       Display.Print(C8SignalString);
    }
 
