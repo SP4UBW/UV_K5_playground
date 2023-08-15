@@ -206,11 +206,13 @@ else
       if (s16Number > 0)
       {
          memset(pDData + 85, 0, 5);
-         Display.SetCoursor(3, 91);
-         Display.PrintFixedDigitsNumber2(s16Number, 0, 2);
+         Display.SetCoursor(3, 90);
+         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
       }
-     if (s16Number > -129)
-      {
+      else
+      {   
+       if (s16Number > -129)
+       {
          //Wyswietlanie w dBm
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
          memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
@@ -227,6 +229,7 @@ else
          memset(pDData + 124, 0b0001000, 1);
          memset(pDData + 126, 0b0001000, 1);
            
+       }
       }   
    }
 
