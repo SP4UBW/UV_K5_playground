@@ -90,7 +90,6 @@ public:
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD po 5s
         }
         //GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
-         PrintBatteryVoltage();
          return eScreenRefreshFlag::NoRefresh;
       }
 
@@ -99,7 +98,7 @@ public:
         // PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
-
+PrintBatteryVoltage();
       bPtt = !(GPIOC->DATA & GPIO_PIN_5);
      
      if (!bPtt)  // wylaczenie fabrycznego smetra jak jest odbior lub wlaczone menu, pozostaje jako wskaznik nadawania
