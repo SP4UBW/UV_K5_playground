@@ -7,7 +7,7 @@
 
 namespace Rssi
 {
-   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, };
+   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 23,};
 
    struct TRssi
    {
@@ -95,10 +95,10 @@ public:
 
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
-        // PrintBatteryVoltage();
+         PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
-PrintBatteryVoltage();
+
       bPtt = !(GPIOC->DATA & GPIO_PIN_5);
      
      if (!bPtt)  // wylaczenie fabrycznego smetra jak jest odbior lub wlaczone menu, pozostaje jako wskaznik nadawania
