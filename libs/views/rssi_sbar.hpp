@@ -178,11 +178,7 @@ else
          }
         if (gDisplayBuffer[128 * 4 + 16])
         {
-   //      Display.SetCoursor(3, 5*0 + 1);                                 //Cyfra 8 (szerokosc 6 pikseli)
-   //      Display.PrintCharacter('8');
-   //      memset(pDData + 3 + 5*0 - 1, 0b0000000, 1);                     //Litera B
-   //      memset(pDData + 3 + 5*0 + 0, 0b1111111, 1);  
-         memset(pDData + 3, 0b1111111, 1); // znak B 
+         memset(pDData + 3, 0b1111111, 1); // Litera B 
          memset(pDData + 4, 0b1001001, 3); 
          memset(pDData + 7, 0b0110110, 1); 
         }
@@ -213,7 +209,7 @@ else
       }
      if (s16Number > -129)
       {
-         //Wyswietlanie w dB bo m się nie miesci
+         //Wyswietlanie w dBm
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
          Display.SetCoursor(3, 84);
          Display.PrintCharacter(' ');
@@ -271,7 +267,7 @@ else
          else
          {
          char C8SignalString[] = "  ";   //Wylaczenie Wskazania S po puszczeniu PTT
-   //memset(pDData, 0, DisplayBuff.SizeX);   
+   memset(pDData, 0, 5);   
          }
       }
 
@@ -303,8 +299,8 @@ else
       memset(gStatusBarData + VoltageOffset, 0, 3 * 5);
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
-      memset(gStatusBarData + VoltageOffset + 7 +1, 0b1100000, 1); // dot
-      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 2);
+      memset(gStatusBarData + VoltageOffset + 7 + 2, 0b1100000, 1); // dot
+      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
       memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 1, gSmallLeters + 128 * 2 + 102, 5); // V character
       BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
