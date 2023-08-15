@@ -211,9 +211,10 @@ else
       {
          //Wyswietlanie w dBm
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-         Display.SetCoursor(3, 84);
-         Display.PrintCharacter(' ');
-         if (s16Number < 0) {memset(pDData + 88, 0b0001000, 3); } // znak - 
+         //Display.SetCoursor(3, 84);
+         //Display.PrintCharacter(' ');
+     //    memset(pDData, 84, 2);
+     //    if (s16Number < 0) {memset(pDData + 88, 0b0001000, 3); } // znak - 
          
          memset(pDData + 113, 0b0110000, 1); // znak d 
          memset(pDData + 114, 0b1001000, 2);
@@ -226,9 +227,7 @@ else
          memset(pDData + 123, 0b1110000, 5); // znak m
          memset(pDData + 124, 0b0001000, 1);
          memset(pDData + 126, 0b0001000, 1);
-         
-         
-         
+           
       }   
    }
 
@@ -267,9 +266,7 @@ else
          else
          {
          char C8SignalString[] = "  ";   //Wylaczenie Wskazania S po puszczeniu PTT
-         //memset(pDData, 3, 5);           //Wylaczenie litery A lub B
-         Display.SetCoursor(3, 3);
-         Display.PrintCharacter(' ');   
+         memset(pDData, 3, 5);           //Wylaczenie litery A lub B
          }
       }
 
