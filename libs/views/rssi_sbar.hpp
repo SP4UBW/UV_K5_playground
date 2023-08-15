@@ -178,11 +178,13 @@ else
          }
         if (gDisplayBuffer[128 * 4 + 16])
         {
-      Display.SetCoursor(3, 5*0 + 1);                                //Cyfra 8 (szerokosc 6 pikseli)
-      Display.PrintCharacter('8');
-           memset(pDData + 3 + 5*0 - 1, 0b0000000, 1);                     //Litera B
-           memset(pDData + 3 + 5*0 + 0, 0b1111111, 1);  
-      //   memset(pDData + 3 + 5*0 + 4, 0b0110110, 1);  
+         Display.SetCoursor(3, 5*0 + 1);                                 //Cyfra 8 (szerokosc 6 pikseli)
+         Display.PrintCharacter('8');
+         memset(pDData + 3 + 5*0 - 1, 0b0000000, 1);                     //Litera B
+         memset(pDData + 3 + 5*0 + 0, 0b1111111, 1);  
+         //memset(pDData + 3, 0b1111111, 1); // znak B 
+         //memset(pDData + 4, 0b1001001, 3); 
+         //memset(pDData + 7, 0b0110110, 1); 
         }
        
        PrintSValue(RssiData.u8SValue);
@@ -196,7 +198,7 @@ else
    void ClearSbarLine()
    {
       //Sprawdzenie czy wylaczony skaner/czestosciomierz
-      if (!(gDisplayBuffer[128 * 1 + 2]) && !(gDisplayBuffer[128 * 5 + 2]))
+      if (!(gDisplayBuffer[128 * 1 + 2]))   // && !(gDisplayBuffer[128 * 5 + 2]))
      {  
       memset(pDData, 0, DisplayBuff.SizeX);
      }
@@ -238,9 +240,9 @@ else
    {
    if (bPtt) // print MIC
    {
-        memcpy(pDData + 24 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
-        memset(pDData + 24 + 5*1 + 1, 0b1111111, 1);                      //Napis I
-        memcpy(pDData + 24 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
+        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M  24
+        memset(pDData + 3 + 5*1 + 1, 0b1111111, 1);                      //Napis I
+        memcpy(pDData + 3 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
         return;
    }
 
@@ -269,7 +271,7 @@ else
          else
          {
          char C8SignalString[] = "  ";   //Wylaczenie Wskazania S po puszczeniu PTT
-         memset(pDData, 0, DisplayBuff.SizeX);   
+   //memset(pDData, 0, DisplayBuff.SizeX);   
          }
       }
 
@@ -301,7 +303,7 @@ else
       memset(gStatusBarData + VoltageOffset, 0, 3 * 5);
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
-      memset(gStatusBarData + VoltageOffset + 7 , 0b1100000, 1); // dot
+      memset(gStatusBarData + VoltageOffset + 7 +1, 0b1100000, 1); // dot
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 2);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
       memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 1, gSmallLeters + 128 * 2 + 102, 5); // V character
