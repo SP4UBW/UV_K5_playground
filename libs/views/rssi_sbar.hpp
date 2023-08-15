@@ -267,7 +267,9 @@ else
          else
          {
          char C8SignalString[] = "  ";   //Wylaczenie Wskazania S po puszczeniu PTT
-   memset(pDData, 0, 5);   
+         //memset(pDData, 3, 5);           //Wylaczenie litery A lub B
+         Display.SetCoursor(3, 3);
+         Display.PrintCharacter(' ');   
          }
       }
 
