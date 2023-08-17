@@ -87,8 +87,8 @@ public:
        if (GPIOB->DATA & GPIO_PIN_6)   
         { 
         Light++;
-        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD po 5s
-        }
+        if (Light > 10) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;}  //Wylacz LCD po 10s
+        } else {Light=0;}
         //GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
          return eScreenRefreshFlag::NoRefresh;
       }
@@ -291,8 +291,8 @@ else
 
    void PrintBatteryVoltage()
    {
-    if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
-      {  // disable printing when function or charging icon are printed
+    if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6] || gStatusBarData[VoltageOffset - 3])
+      {  // wylaczenie gdy ikona ladowania lub funkcji lub napis VOX
          return;
       }
       unsigned short u16Voltage = gVoltage > 1000 ? 999 : gVoltage;
