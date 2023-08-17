@@ -72,12 +72,14 @@ public:
    {
       if (u8Button != Button::Ok)
       {
-        GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
-        Light=0;
+      //  GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
+      //  Light=0;
          
         return;
       }
        b59Mode = !b59Mode;
+      GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
+      Light=0;
    }
 
    eScreenRefreshFlag HandleBackground(TViewContext &Context) override
