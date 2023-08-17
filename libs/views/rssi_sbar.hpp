@@ -291,17 +291,17 @@ else
 
    void PrintBatteryVoltage()
    {
-    if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6] || gStatusBarData[VoltageOffset - 6])
+    if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6] || gStatusBarData[VoltageOffset - 8])
       {  // wylaczenie gdy ikona ladowania lub funkcji lub napis VOX
          return;
       }
       unsigned short u16Voltage = gVoltage > 1000 ? 999 : gVoltage;
-      DisplayStatusBar.SetCoursor(0, VoltageOffset - 5);
+      DisplayStatusBar.SetCoursor(0, VoltageOffset - 7);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
-      memset(gStatusBarData + VoltageOffset + 7 + 1 - 5, 0b1100000, 2); // dot
-      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 5);
+      memset(gStatusBarData + VoltageOffset + 7 + 1 - 7, 0b1100000, 2); // dot
+      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 7);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
-      memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 5, gSmallLeters + 128 * 2 + 102, 5); // V character
+     // memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 7, gSmallLeters + 128 * 2 + 102, 5); // V character
       BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
    }
 };
