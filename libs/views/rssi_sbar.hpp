@@ -72,6 +72,7 @@ public:
    {
       if (u8Button != Button::Ok)
       {
+        GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
         Light=0;
          
         return;
