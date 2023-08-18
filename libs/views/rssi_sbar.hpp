@@ -171,7 +171,7 @@ if (bPtt)
 else
      {
 
-     if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX lub nie ma czestosciomierza
+     if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]) || (!(gDisplayBuffer[128 * 1 + 2])) ) // wylaczenie sbara jak nie ma napisow RX lub nie ma czestosciomierza
       {    
 //        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5);  //Litera R
 //        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5);  //Litera X 
