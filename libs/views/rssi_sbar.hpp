@@ -152,11 +152,11 @@ public:
       {
          RssiData = RadioDriver.GetRssi();
       }
-
-   ProcessDrawings();
+   if (!(gDisplayBuffer[128 * 1 + 2])) ProcessDrawings();
    return eScreenRefreshFlag::MainScreen;
    }
-   void ProcessDrawings()
+
+void ProcessDrawings()
    {
       ClearSbarLine();
 
@@ -267,13 +267,13 @@ else
            C8SignalString[1] = ' ';
          } 
          else
-         {
-         if (!(gDisplayBuffer[128 * 1 + 2]))
+      //   {
+      //   if (!(gDisplayBuffer[128 * 1 + 2]))
            {
             char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
             memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
            }  
-         }
+      //   }
       }
 
       Display.SetCoursor(3, 20);
