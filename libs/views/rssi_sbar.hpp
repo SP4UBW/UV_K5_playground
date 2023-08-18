@@ -119,10 +119,10 @@ public:
          }   
       }
   
-      if (RadioDriver.IsSqlOpen() || bPtt)
-      {
-         u8SqlDelayCnt = 0;
-      }
+   //   if (RadioDriver.IsSqlOpen() || bPtt)
+   //   {
+   //      u8SqlDelayCnt = 0;
+   //   }
 
       if (u8SqlDelayCnt > 10 || Context.OriginalFwStatus.b1MenuDrawed)
       {
