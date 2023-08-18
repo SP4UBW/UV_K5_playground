@@ -71,19 +71,19 @@ public:
 
    void DrawMenu()
    {
-      memset(gDisplayBuffer, 0, 128*6);
-      for(unsigned char u8Line = 0; u8Line < MenuLines; u8Line++)
-      {
-         auto* Element = GetElement(u8Selected - 1 + u8Line);
-         if(!Element)
-            continue;
+//      memset(gDisplayBuffer, 0, 128*6);
+//      for(unsigned char u8Line = 0; u8Line < MenuLines; u8Line++)
+//      {
+//         auto* Element = GetElement(u8Selected - 1 + u8Line);
+//         if(!Element)
+//            continue;
 
-         PrintTextOnScreen(Element->GetLabel(), 0, 127, u8Line << 1, 8, 0);
-      }
+//         PrintTextOnScreen(Element->GetLabel(), 0, 127, u8Line << 1, 8, 0);
+//      }
 
-      for(auto i = 0; i < 256; i++)
-         gDisplayBuffer[i + 2*128] ^= 0xFF; 
-   }
+//      for(auto i = 0; i < 256; i++)
+//         gDisplayBuffer[i + 2*128] ^= 0xFF; 
+//   }
 
    IMenuElement* GetElement(signed char s8Idx)
    {
@@ -97,12 +97,12 @@ public:
 
    bool CheckForFlashlight()
    {
-      if (GPIOC->DATA & GPIO_PIN_3)
-      {
-         GPIOC->DATA &= ~GPIO_PIN_3;
-         gFlashLightStatus = 3;
-         return true;
-      }
+ //     if (GPIOC->DATA & GPIO_PIN_3)
+ //     {
+ //        GPIOC->DATA &= ~GPIO_PIN_3;
+ //        gFlashLightStatus = 3;
+ //        return true;
+ //     }
 
       return false;
    }
