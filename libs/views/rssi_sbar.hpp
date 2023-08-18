@@ -97,9 +97,9 @@ public:
       {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       if (!gStatusBarData[VoltageOffset + 2])
-       {   
+     //  {   
        Light=0;
-       }
+     //  }
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
