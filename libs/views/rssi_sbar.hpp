@@ -95,10 +95,13 @@ public:
 
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
-         //Zerowanie licznika wylaczenia podswietlenia i wlaczenie podswietlenia
-      if (Light > 1) Light--;
-      //Light=0;
+      //Zerowanie licznika wylaczenia podswietlenia i wlaczenie podswietlenia
+      //if (Light > 1) Light--;
+      if (!gStatusBarData[VoltageOffset + 2])
+      {   
+      Light=0;
       //GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
+      }
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
