@@ -84,11 +84,11 @@ public:
       
       if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-       if (GPIOB->DATA & GPIO_PIN_6)   
-        { 
+       //if (GPIOB->DATA & GPIO_PIN_6)   
+       // { 
         Light++;
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 5s przy skanowaniu
-        } else {Light=0;}
+       // } else {Light=0;}
         //GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
          return eScreenRefreshFlag::NoRefresh;
       }
