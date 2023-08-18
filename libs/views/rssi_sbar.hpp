@@ -153,7 +153,6 @@ public:
 
 void ProcessDrawings()
    {
-    //  ClearSbarLine();
     memset(pDData, 0, DisplayBuff.SizeX);
 if (bPtt)
      {
@@ -184,13 +183,7 @@ else
        PrintSbar(RssiData.u8SValue);
       }
      }  
-      
-   }
-
-//   void ClearSbarLine()
-//   {
-//      memset(pDData, 0, DisplayBuff.SizeX);
-//   }
+    }
 
    void PrintNumber(short s16Number)
    {
