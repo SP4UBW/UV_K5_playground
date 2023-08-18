@@ -90,11 +90,11 @@ namespace Radio
 
       static void SetFrequency(unsigned int u32Freq)
       {
-         BK4819Write(0x39, ((u32Freq >> 16) & 0xFFFF));
-         BK4819Write(0x38, (u32Freq & 0xFFFF));
-         auto OldReg = BK4819Read(0x30);
-         BK4819Write(0x30, 0);
-         BK4819Write(0x30, OldReg);
+    //     BK4819Write(0x39, ((u32Freq >> 16) & 0xFFFF));
+    //     BK4819Write(0x38, (u32Freq & 0xFFFF));
+    //     auto OldReg = BK4819Read(0x30);
+    //     BK4819Write(0x30, 0);
+    //     BK4819Write(0x30, OldReg);
       }
 
       void SetAgcTable(unsigned short *p16AgcTable)
