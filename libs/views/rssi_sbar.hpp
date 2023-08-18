@@ -173,7 +173,7 @@ if (bPtt)
 else
      {
 
-     if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]) || (!(gDisplayBuffer[128 * 1 + 2])))  // wylaczenie sbara jak nie ma napisow RX lub nie ma czestosciomierza
+     if ((gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16]))  // wylaczenie sbara jak nie ma napisow RX lub nie ma czestosciomierza
       {    
 //        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5);  //Litera R
 //        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5);  //Litera X 
@@ -271,8 +271,11 @@ else
          } 
          else
          {
-         char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
-         memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
+         if (!(gDisplayBuffer[128 * 1 + 2]))
+           {
+            char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
+            memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
+           }  
          }
       }
 
