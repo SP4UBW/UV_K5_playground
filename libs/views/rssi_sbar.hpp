@@ -303,5 +303,8 @@ else
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
       memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
       BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
+      //Zerowanie licznika wylaczenia podswietlenia i wlaczenie podswietlenia
+      Light=0;
+      GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
    }
 };
