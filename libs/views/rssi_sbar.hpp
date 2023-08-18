@@ -87,7 +87,7 @@ public:
        if (GPIOB->DATA & GPIO_PIN_6)   
         { 
         Light++;
-        if (Light > 10) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 10s
+        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 5s przy skanowaniu
         } else {Light=0;}
         //GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
          return eScreenRefreshFlag::NoRefresh;
@@ -95,13 +95,11 @@ public:
 
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
-      //Zerowanie licznika wylaczenia podswietlenia i wlaczenie podswietlenia
-      //if (Light > 1) Light--;
+      //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       if (!gStatusBarData[VoltageOffset + 2])
-      {   
-      Light=0;
-      //GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
-      }
+       {   
+       Light=0;
+       }
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
