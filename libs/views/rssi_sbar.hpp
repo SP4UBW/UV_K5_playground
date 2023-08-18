@@ -97,9 +97,7 @@ public:
       {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       if (!gStatusBarData[VoltageOffset + 2])
-     //  {   
-       Light=0;
-     //  }
+         { Light=0; }
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
@@ -119,10 +117,10 @@ public:
          }   
       }
   
-   //   if (RadioDriver.IsSqlOpen() || bPtt)
-   //   {
-   //      u8SqlDelayCnt = 0;
-   //   }
+      if (RadioDriver.IsSqlOpen() || bPtt)
+      {
+         u8SqlDelayCnt = 0;
+      }
 
       if (u8SqlDelayCnt > 10 || Context.OriginalFwStatus.b1MenuDrawed)
       {
@@ -199,7 +197,7 @@ else
    void ClearSbarLine()
    {
       //Sprawdzenie czy wylaczony skaner/czestosciomierz
-      if (!(gDisplayBuffer[128 * 1 + 2]))   // && !(gDisplayBuffer[128 * 5 + 2]))
+      if (!(gDisplayBuffer[128 * 1 + 2]))
      {  
       memset(pDData, 0, DisplayBuff.SizeX);
      }
@@ -211,17 +209,16 @@ else
     { 
       if (s16Number >= 0)
       {
-        // memset(pDData + 85, 0, 5);
          Display.SetCoursor(3, 91);
-         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+      //   Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
       }
       else
       {   
          Display.SetCoursor(3, 84);
-         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-         memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
+      //   Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+      //   memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
       }
-     
+         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
          //Wyswietlanie napisu dBm
          memset(pDData + 113, 0b0110000, 1); // znak d 
          memset(pDData + 114, 0b1001000, 2);
