@@ -7,7 +7,7 @@
 
 namespace Rssi
 {
-   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, };
+   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3,};
 
    struct TRssi
    {
@@ -84,20 +84,15 @@ public:
       
       if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-       //if (GPIOB->DATA & GPIO_PIN_6)   
-       // { 
         Light++;
-        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 5s przy skanowaniu
-       // } else {Light=0;}
-        //GPIOB->DATA |= GPIO_PIN_6; //Wlacz LCD
-         return eScreenRefreshFlag::NoRefresh;
+        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
+        return eScreenRefreshFlag::NoRefresh;
       }
 
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-      if (!gStatusBarData[VoltageOffset + 2])
-         { Light=0; }
+      if (!gStatusBarData[VoltageOffset + 2]) Light=0; 
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
@@ -158,8 +153,8 @@ public:
 
 void ProcessDrawings()
    {
-      ClearSbarLine();
-
+    //  ClearSbarLine();
+    memset(pDData, 0, DisplayBuff.SizeX);
 if (bPtt)
      {
         if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
@@ -173,8 +168,6 @@ else
 
      if ( (gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16])  ) // wylaczenie sbara jak nie ma napisow RX
       {    
-//        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 206, 5);  //Litera R
-//        memcpy(pDData + 3 + 5*1 + 1, gSmallLeters + 128 * 1 + 242, 5);  //Litera X 
         if (gDisplayBuffer[128 * 0 + 16])
          {
           memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
@@ -194,14 +187,10 @@ else
       
    }
 
-   void ClearSbarLine()
-   {
-      //Sprawdzenie czy wylaczony skaner/czestosciomierz
-      if (!(gDisplayBuffer[128 * 1 + 2]))
-     {  
-      memset(pDData, 0, DisplayBuff.SizeX);
-     }
-   }
+//   void ClearSbarLine()
+//   {
+//      memset(pDData, 0, DisplayBuff.SizeX);
+//   }
 
    void PrintNumber(short s16Number)
    {
@@ -210,15 +199,15 @@ else
       if (s16Number >= 0)
       {
          Display.SetCoursor(3, 91);
-      //   Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
       }
       else
       {   
          Display.SetCoursor(3, 84);
-      //   Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-      //   memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
-      }
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+         memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
+      }
+         
          //Wyswietlanie napisu dBm
          memset(pDData + 113, 0b0110000, 1); // znak d 
          memset(pDData + 114, 0b1001000, 2);
@@ -267,13 +256,10 @@ else
            C8SignalString[1] = ' ';
          } 
          else
-      //   {
-      //   if (!(gDisplayBuffer[128 * 1 + 2]))
-           {
-            char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
-            memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
-           }  
-      //   }
+         {
+           char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
+           memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
+         }  
       }
 
       Display.SetCoursor(3, 20);
@@ -307,7 +293,9 @@ else
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
       memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
-      BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  //Przesuniecie o 20dB w dol SQL, nieanulowane po wybraniu wartosci z menu
+      
+      //Przesuniecie SQL o 20dB
+      BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
       
    }
 };
