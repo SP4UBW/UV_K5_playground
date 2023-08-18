@@ -7,7 +7,7 @@
 
 namespace Rssi
 {
-   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, };
+   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, };
 
    struct TRssi
    {
