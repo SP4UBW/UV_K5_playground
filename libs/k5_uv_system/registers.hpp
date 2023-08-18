@@ -105,9 +105,9 @@ struct TAdc
 #define GPIO_PIN_10 (1 << 10)
 #define GPIO_PIN_11 (1 << 11)
 #define GPIO_PIN_12 (1 << 12)
-//#define GPIO_PIN_13 (1 << 13)
-//#define GPIO_PIN_14 (1 << 14)
-//#define GPIO_PIN_15 (1 << 15)
+#define GPIO_PIN_13 (1 << 13)
+#define GPIO_PIN_14 (1 << 14)
+#define GPIO_PIN_15 (1 << 15)
 
 #define SYSCON_BASE 0x40000000
 #define SYSCON ((TSysCon*)SYSCON_BASE)
