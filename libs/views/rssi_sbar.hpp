@@ -279,7 +279,7 @@ else
       {  // wylaczenie gdy ikona ladowania lub funkcji lub napis VOX
          return;
       }
-      unsigned short u16Voltage = gVoltage > 1000 ? 999 : gVoltage;
+      unsigned short u16Voltage = (gVoltage > 1000 ? 999 : gVoltage) - 27; //dodana kalibracja -0.27V
       DisplayStatusBar.SetCoursor(0, VoltageOffset - 0);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
       memset(gStatusBarData + VoltageOffset + 7 + 1 - 0, 0b1100000, 2); // dot
