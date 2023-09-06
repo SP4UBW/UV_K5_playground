@@ -93,7 +93,7 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-      if (!gStatusBarData[VoltageOffset + 8 + 2]) Light=0; 
+      if (!gStatusBarData[VoltageOffset + 12 + 2]) Light=0; 
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
@@ -282,15 +282,19 @@ else
       }
      // if (gStatusBarData[VoltageOffset - 3]) {Vshift = 18;} else 
      // {
-         Vshift = 8;
-         memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0 + Vshift, gSmallLeters + 128 * 2 + 102, 5); // V character
+         Vshift = 12;
+         memset(gStatusBarData + VoltageOffset + 3 * 6 + 2 + 0 + Vshift, 0b0011111, 1); // LITERA V
+         memset(gStatusBarData + VoltageOffset + 3 * 6 + 2 + 1 + Vshift, 0b1100000, 1); // 
+         memset(gStatusBarData + VoltageOffset + 3 * 6 + 2 + 2 + Vshift, 0b0011111, 1); //    
+      
+        //memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0 + Vshift, gSmallLeters + 128 * 2 + 102, 5); // V character
      // }
       
       unsigned short u16Voltage = (gVoltage > 1000 ? 999 : gVoltage) - 27; //dodana kalibracja -0.27V
       DisplayStatusBar.SetCoursor(0, VoltageOffset - 0 + Vshift);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
       memset(gStatusBarData + VoltageOffset + 7 + 1 - 0 + Vshift, 0b1100000, 2); // dot
-      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0 + Vshift);
+      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 3 - 0 + Vshift);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
      
      //memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
