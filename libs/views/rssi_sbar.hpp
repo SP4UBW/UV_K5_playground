@@ -55,7 +55,7 @@ public:
    bool bPtt = false;
    bool b59Mode = false;
    unsigned char Light = 0;
-   unsigned char Vshift = 0;
+
    CRssiSbar()
    {
       Display.SetFont(&FontSmallNr);
@@ -93,7 +93,7 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-      if (!gStatusBarData[VoltageOffset + 12 + 2]) Light=0; 
+      if (!gStatusBarData[VoltageOffset + 2]) Light=0; 
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
@@ -280,24 +280,17 @@ else
       {  // wylaczenie gdy ikona ladowania lub funkcji //lub napis VOX
          return;
       }
-     // if (gStatusBarData[VoltageOffset - 3]) {Vshift = 18;} else 
-     // {
-         Vshift = 12;
-         memset(gStatusBarData + VoltageOffset + 3 * 6 + 0 + 0 + Vshift, 0b0011111, 3); // LITERA V
-         memset(gStatusBarData + VoltageOffset + 3 * 6 + 0 + 1 + Vshift, 0b1100000, 1); // 
-              
-        //memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0 + Vshift, gSmallLeters + 128 * 2 + 102, 5); // V character
-     // }
-      
+      if (gStatusBarData[VoltageOffset - 3]) {memset(gStatusBarData + VoltageOffset + 14, 0b1000000, 1);} else 
+      {
       unsigned short u16Voltage = (gVoltage > 1000 ? 999 : gVoltage) - 27; //dodana kalibracja -0.27V
-      DisplayStatusBar.SetCoursor(0, VoltageOffset - 0 + Vshift);
+      DisplayStatusBar.SetCoursor(0, VoltageOffset - 0);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
-      memset(gStatusBarData + VoltageOffset + 7 + 1 - 0 + Vshift, 0b1100000, 2); // dot
-      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 3 - 0 + Vshift);
+      memset(gStatusBarData + VoltageOffset + 7 + 1 - 0, 0b1100000, 2); // dot
+      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
      
-     //memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
-      
+      memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
+      }
       //Przesuniecie SQL o 20dB
       BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
       
