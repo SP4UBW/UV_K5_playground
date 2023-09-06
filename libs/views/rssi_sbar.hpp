@@ -93,7 +93,7 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-      if (!gStatusBarData[VoltageOffset + 2]) Light=0; 
+      if (!gStatusBarData[VoltageOffset + 14 + 2]) Light=0; 
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
@@ -282,7 +282,7 @@ else
       }
      // if (gStatusBarData[VoltageOffset - 3]) {Vshift = 18;} else 
      // {
-         Vshift = 18;
+         Vshift = 14;
         // memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
      // }
       
