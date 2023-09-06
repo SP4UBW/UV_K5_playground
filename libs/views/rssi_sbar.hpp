@@ -141,8 +141,11 @@ public:
       else if (bPtt)
       {
          RssiData.s16Rssi = RadioDriver.GetAFAmplitude();
-         RssiData.s16Rssi = RssiData.s16Rssi < 62 ? 0 : RssiData.s16Rssi - 45; 
-         RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
+//         RssiData.s16Rssi = RssiData.s16Rssi < 62 ? 0 : RssiData.s16Rssi - 45; 
+//         RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
+RssiData.u8SValue = (MaxBarPoints * (RssiData.s16Rssi = RssiData.s16Rssi < 62 ? 0 : RssiData.s16Rssi - 45)) >> 6;
+
+         
       }
       else
       {
@@ -176,7 +179,7 @@ else
         {
          memset(pDData + 3, 0b1111111, 1);                               //Litera B 
          memset(pDData + 4, 0b1001001, 3); 
-         memset(pDData + 7, 0b0110110, 1); 
+         memset(pDData + 7, 0b0110110, 1);
         }
        
        PrintSValue(RssiData.u8SValue);
