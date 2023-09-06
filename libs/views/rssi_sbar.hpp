@@ -283,10 +283,9 @@ else
      // if (gStatusBarData[VoltageOffset - 3]) {Vshift = 18;} else 
      // {
          Vshift = 12;
-         memset(gStatusBarData + VoltageOffset + 3 * 6 + 1 + 0 + Vshift, 0b0011111, 3); // LITERA V
-         memset(gStatusBarData + VoltageOffset + 3 * 6 + 1 + 1 + Vshift, 0b1100000, 1); // 
-        // memset(gStatusBarData + VoltageOffset + 3 * 6 + 1 + 2 + Vshift, 0b0011111, 1); //    
-      
+         memset(gStatusBarData + VoltageOffset + 3 * 6 + 0 + 0 + Vshift, 0b0011111, 3); // LITERA V
+         memset(gStatusBarData + VoltageOffset + 3 * 6 + 0 + 1 + Vshift, 0b1100000, 1); // 
+              
         //memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0 + Vshift, gSmallLeters + 128 * 2 + 102, 5); // V character
      // }
       
