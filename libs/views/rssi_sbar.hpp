@@ -93,7 +93,7 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-      if (!gStatusBarData[VoltageOffset + 21]) Light=0; //Srodek litery V lub kropka jak VOX
+      if (!gStatusBarData[VoltageOffset + 22]) Light=0; //Srodek litery V lub kropka jak VOX
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
@@ -280,7 +280,7 @@ else
       {  // wylaczenie gdy ikona ladowania lub funkcji
          return;
       }
-      if (gStatusBarData[VoltageOffset - 3]) {memset(gStatusBarData + VoltageOffset + 21, 0b1000000, 1);} else 
+      if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 22, 0b1000000, 1); else 
       {
       //unsigned short u16Voltage = (gVoltage > 1000 ? 999 : gVoltage) - 25; //dodana kalibracja -0.25V
       unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
@@ -294,7 +294,7 @@ else
       }
       //Przesuniecie SQL o 20dB
       //BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
-      BK4819Write(0x78, 10280);  //Wyliczenie dla 20dB
+      BK4819Write(0x78, 10280);  //Wyliczenie dla 20dB - dla skrócenia kodu
       
    }
 };
