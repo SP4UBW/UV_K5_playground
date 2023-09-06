@@ -93,7 +93,7 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-      if (!gStatusBarData[VoltageOffset + 2]) Light=0; 
+      if (!gStatusBarData[VoltageOffset + 21]) Light=0; 
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
@@ -280,7 +280,7 @@ else
       {  // wylaczenie gdy ikona ladowania lub funkcji //lub napis VOX
          return;
       }
-      if (gStatusBarData[VoltageOffset - 3]) {memset(gStatusBarData + VoltageOffset + 14, 0b1000000, 1);} else 
+      if (gStatusBarData[VoltageOffset - 3]) {memset(gStatusBarData + VoltageOffset + 21, 0b1000000, 1);} else 
       {
       unsigned short u16Voltage = (gVoltage > 1000 ? 999 : gVoltage) - 27; //dodana kalibracja -0.27V
       DisplayStatusBar.SetCoursor(0, VoltageOffset - 0);
