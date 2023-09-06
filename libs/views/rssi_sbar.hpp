@@ -277,10 +277,10 @@ else
    void PrintBatteryVoltage()
    {
     if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
-      {  // wylaczenie gdy ikona ladowania lub funkcji //lub napis VOX
+      {  // wylaczenie gdy ikona ladowania lub funkcji
          return;
       }
-      if (gStatusBarData[VoltageOffset - 3]) {memset(gStatusBarData + VoltageOffset + 22, 0b1000000, 1);} else 
+      if (gStatusBarData[VoltageOffset - 3]) {memset(gStatusBarData + VoltageOffset + 21, 0b1000000, 3);} else 
       {
       unsigned short u16Voltage = (gVoltage > 1000 ? 999 : gVoltage) - 25; //dodana kalibracja -0.25V
       DisplayStatusBar.SetCoursor(0, VoltageOffset - 0);
