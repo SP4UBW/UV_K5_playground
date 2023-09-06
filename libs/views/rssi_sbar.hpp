@@ -280,11 +280,11 @@ else
       {  // wylaczenie gdy ikona ladowania lub funkcji //lub napis VOX
          return;
       }
-      if (gStatusBarData[VoltageOffset - 3]) {Vshift = 18;} else 
-      {
-         Vshift = 0;
-         memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
-      }
+     // if (gStatusBarData[VoltageOffset - 3]) {Vshift = 18;} else 
+     // {
+         Vshift = 18;
+        // memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
+     // }
       
       unsigned short u16Voltage = (gVoltage > 1000 ? 999 : gVoltage) - 27; //dodana kalibracja -0.27V
       DisplayStatusBar.SetCoursor(0, VoltageOffset - 0 + Vshift);
