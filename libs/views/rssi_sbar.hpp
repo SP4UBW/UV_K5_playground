@@ -93,7 +93,7 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-     // if (!gStatusBarData[VoltageOffset + 22]) Light=0; //Srodek litery V lub kropka jak VOX
+      if (!gStatusBarData[VoltageOffset + 22]) Light=0; //Srodek litery V lub kropka jak VOX
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
