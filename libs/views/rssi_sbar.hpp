@@ -247,14 +247,14 @@ void ProcessDrawings()
       }
       else if (u8SValue > 9)
       {
-         if (u8SValue < 19)  //Ograniczenie do +90dBm
-          {  
+        // if (u8SValue < 19)  //Ograniczenie do +90dBm
+        //  {  
            memset(pDData + 15, 0b0001000, 2); // -
            memset(pDData + 17, 0b0111110, 1); // |
            memset(pDData + 18, 0b0001000, 2); // -
            C8SignalString[1] = '0';
            C8SignalString[0] = '0' + u8SValue - 9;
-          }   
+        //  }   
       }
       else
       {
