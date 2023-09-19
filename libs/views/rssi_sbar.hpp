@@ -7,7 +7,7 @@
 
 namespace Rssi
 {
-   inline const short U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3, -7, -17, -27};
+   inline const short U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3, -7,};
 
    struct TRssi
    {
@@ -122,7 +122,7 @@ public:
       //if (RadioDriver.IsSqlOpen() || bPtt) u8SqlDelayCnt = 0;   
       
       if (RadioDriver.IsSqlOpen()) u8SqlDelayCnt = 0;
-      if (u8SqlDelayCnt > 10 || Context.OriginalFwStatus.b1MenuDrawed)
+      if (u8SqlDelayCnt > 3 || Context.OriginalFwStatus.b1MenuDrawed)
       {
          if (!bIsCleared)
          {
@@ -178,13 +178,17 @@ void ProcessDrawings()
       {    
         if (gDisplayBuffer[128 * 0 + 16])
          {
-          memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
+          memset(pDData + 3, 0b0000010, 3);                               //strzałka w górę 
+          memset(pDData + 4, 0b1111111, 1);
+          memcpy(pDData + 7 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
          }
         if (gDisplayBuffer[128 * 4 + 16])
          {
-          memset(pDData + 3, 0b1111111, 1);                               //Litera B 
-          memset(pDData + 4, 0b1001001, 3); 
-          memset(pDData + 7, 0b0110110, 1);
+          memset(pDData + 3, 0b0100000, 3);                               //strzałka w dół 
+          memset(pDData + 4, 0b1111111, 1);  
+          memset(pDData + 7, 0b1111111, 1);                               //Litera B 
+          memset(pDData + 8, 0b1001001, 3); 
+          memset(pDData +11, 0b0110110, 1);
          }
        
        PrintSValue(RssiData.u8SValue);
@@ -243,7 +247,7 @@ void ProcessDrawings()
       }
       else if (u8SValue > 9)
       {
-         if (u8SValue < 20)
+         if (u8SValue < 19)  //Ograniczenie do +90dBm
           {  
            memset(pDData + 15, 0b0001000, 2); // -
            memset(pDData + 17, 0b0111110, 1); // |
