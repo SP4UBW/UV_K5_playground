@@ -7,7 +7,7 @@
 
 namespace Rssi
 {
-   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3,};
+   inline const short U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3, -7, -16};
 
    struct TRssi
    {
@@ -243,11 +243,14 @@ void ProcessDrawings()
       }
       else if (u8SValue > 9)
       {
-         memset(pDData + 15, 0b0001000, 2); // -
-         memset(pDData + 17, 0b0111110, 1); // |
-         memset(pDData + 18, 0b0001000, 2); // -
-         C8SignalString[1] = '0';
-         C8SignalString[0] = '0' + u8SValue - 9;
+         if (u8SValue <= 99)
+          {  
+           memset(pDData + 15, 0b0001000, 2); // -
+           memset(pDData + 17, 0b0111110, 1); // |
+           memset(pDData + 18, 0b0001000, 2); // -
+           C8SignalString[1] = '0';
+           C8SignalString[0] = '0' + u8SValue - 9;
+          }   
       }
       else
       {
