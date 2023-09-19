@@ -7,7 +7,7 @@
 
 namespace Rssi
 {
-   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3,};
+   inline const unsigned char U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23,};
 
    struct TRssi
    {
@@ -40,15 +40,15 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-//   static constexpr auto ChartStartX = 35;
-//   static constexpr auto BlockSizeX = 3;
-//   static constexpr auto BlockSizeY = 7;
-//   static constexpr auto BlockSpace = 1;
-//   static constexpr auto BlocksCnt = (128 - ChartStartX) / (BlockSizeX + BlockSpace);
-//   static constexpr auto LinearBlocksCnt = 9;  
+   static constexpr auto ChartStartX = 35;
+   static constexpr auto BlockSizeX = 3;
+   static constexpr auto BlockSizeY = 7;
+   static constexpr auto BlockSpace = 1;
+   static constexpr auto BlocksCnt = (128 - ChartStartX) / (BlockSizeX + BlockSpace);
+   static constexpr auto LinearBlocksCnt = 9;  
    static constexpr auto VoltageOffset = 77;
    static constexpr auto MaxBarPoints = 13;
-//static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
+   static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
    unsigned int u32DrawVoltagePsc = 0;
    Rssi::TRssi RssiData;
    unsigned char u8AfAmp = 0;
@@ -82,14 +82,17 @@ public:
    {
       static bool bIsCleared = true;
       static unsigned char u8SqlDelayCnt = 0xFF;
-      
-      if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
+
+     if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-        Light++;
-        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
+        //Light++;
+        //if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
         return eScreenRefreshFlag::NoRefresh;
       }
-
+      
+      Light++; if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
+      
+      
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
@@ -161,7 +164,7 @@ public:
 
 void ProcessDrawings()
    {
-      memset(gDisplayBuffer + 384, 0, DisplayBuff.SizeX);
+      memset(pDData, 0, DisplayBuff.SizeX);
 if (bPtt)
      {
         if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
@@ -177,14 +180,14 @@ else
       {    
         if (gDisplayBuffer[128 * 0 + 16])
          {
-          memcpy(gDisplayBuffer + 384 + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
+          memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
          }
         if (gDisplayBuffer[128 * 4 + 16])
-        {
-         memset(gDisplayBuffer + 384 + 3, 0b1111111, 1);                               //Litera B 
-         memset(gDisplayBuffer + 384 + 4, 0b1001001, 3); 
-         memset(gDisplayBuffer + 384 + 7, 0b0110110, 1);
-        }
+         {
+          memset(pDData + 3, 0b1111111, 1);                               //Litera B 
+          memset(pDData + 4, 0b1001001, 3); 
+          memset(pDData + 7, 0b0110110, 1);
+         }
        
        PrintSValue(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi);
@@ -206,21 +209,21 @@ else
       {   
          Display.SetCoursor(3, 84);
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-         memset(gDisplayBuffer + 384 + 85, 0, 2);          //Skrocenie znaku minus
+         memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
       }
          
          //Wyswietlanie napisu dBm
-         memset(gDisplayBuffer + 384 + 113, 0b0110000, 1); // znak d 
-         memset(gDisplayBuffer + 384 + 114, 0b1001000, 2);
-         memset(gDisplayBuffer + 384 + 116, 0b1111111, 1);
+         memset(pDData + 113, 0b0110000, 1); // znak d 
+         memset(pDData + 114, 0b1001000, 2);
+         memset(pDData + 116, 0b1111111, 1);
          
-         memset(gDisplayBuffer + 384 + 118, 0b1111111, 1); // znak B 
-         memset(gDisplayBuffer + 384 + 119, 0b1001001, 2); 
-         memset(gDisplayBuffer + 384 + 121, 0b0110110, 1);
+         memset(pDData + 118, 0b1111111, 1); // znak B 
+         memset(pDData + 119, 0b1001001, 2); 
+         memset(pDData + 121, 0b0110110, 1);
          
-         memset(gDisplayBuffer + 384 + 123, 0b1110000, 5); // znak m
-         memset(gDisplayBuffer + 384 + 124, 0b0001000, 1);
-         memset(gDisplayBuffer + 384 + 126, 0b0001000, 1);
+         memset(pDData + 123, 0b1110000, 5); // znak m
+         memset(pDData + 124, 0b0001000, 1);
+         memset(pDData + 126, 0b0001000, 1);
     }    
    }
 
@@ -228,9 +231,9 @@ else
    {
    if (bPtt) // print MIC
    {
-        memcpy(gDisplayBuffer + 384 + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
-        memset(gDisplayBuffer + 384 + 3 + 5*1 + 1, 0b1111111, 1);                      //Napis I
-        memcpy(gDisplayBuffer + 384 + 3 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
+        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
+        memset(pDData + 3 + 5*1 + 1, 0b1111111, 1);                      //Napis I
+        memcpy(pDData + 3 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
         return;
    }
 
@@ -242,9 +245,9 @@ else
       }
       else if (u8SValue > 9)
       {
-         memset(gDisplayBuffer + 384 + 15, 0b0001000, 2); // -
-         memset(gDisplayBuffer + 384 + 17, 0b0111110, 1); // |
-         memset(gDisplayBuffer + 384 + 18, 0b0001000, 2); // -
+         memset(pDData + 15, 0b0001000, 2); // -
+         memset(pDData + 17, 0b0111110, 1); // |
+         memset(pDData + 18, 0b0001000, 2); // -
          C8SignalString[1] = '0';
          C8SignalString[0] = '0' + u8SValue - 9;
       }
@@ -252,27 +255,20 @@ else
       {
          if (u8SValue > 1)
          { 
-           memcpy(gDisplayBuffer + 384 + 15, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
+           memcpy(pDData + 15, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
          else
          {
            char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
-           memset(gDisplayBuffer + 384 + 3, 0, 5);           //Wylaczenie litery A lub B
+           memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
          }  
       }
 
       Display.SetCoursor(3, 20);
       Display.Print(C8SignalString);
    }
-
-   //static constexpr auto ChartStartX = 35;
-   //static constexpr auto BlockSizeX = 3;
-   ///static constexpr auto BlockSizeY = 7;
-   //static constexpr auto BlockSpace = 1;
-   ///static constexpr auto BlocksCnt = (128 - ChartStartX) / (BlockSizeX + BlockSpace);
-   //static constexpr auto LinearBlocksCnt = 9;  
 
 void PrintSbar(unsigned char u8SValue)
    {
@@ -281,26 +277,12 @@ void PrintSbar(unsigned char u8SValue)
      { 
       for (unsigned char i = 0; i < u8SValue; i++)
       {
-         unsigned char u8BlockHeight = i + 1 > 7 ? 7 : i + 1;
-         unsigned char u8X = i * 4 + 35;
-         Display.DrawRectangle(u8X, 31 - u8BlockHeight, 3, u8BlockHeight, i < 9);
+         unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
+         unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
+         Display.DrawRectangle(u8X, 24 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
       }
     }  
    }
-
-//void PrintSbar(unsigned char u8SValue)
-   //{
-   //   u8SValue = u8SValue > MaxBarPoints ? MaxBarPoints : u8SValue;
-   // if (u8SValue>1) 
-   //  { 
-   //   for (unsigned char i = 0; i < u8SValue; i++)
-   //   {
-   //      unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
-   //      unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
-   //      Display.DrawRectangle(u8X, 24 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
-   //   }
-   // }  
-   //}
 
    void PrintBatteryVoltage()
    {
@@ -320,8 +302,7 @@ void PrintSbar(unsigned char u8SValue)
      
       memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
       }
-      //Przesuniecie SQL o 20dB
-      //BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
+      //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
       BK4819Write(0x78, 10280);  //Wyliczenie dla 20dB - dla skrócenia kodu
       
    }
