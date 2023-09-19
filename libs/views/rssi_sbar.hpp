@@ -124,10 +124,10 @@ if (!bPtt && !b59Mode && !(gDisplayBuffer[128 * 1 + 2]))
     memset(gDisplayBuffer + 128 * 6, 0, 22);
 }
 
-      if (RadioDriver.IsSqlOpen() || bPtt)
-      {
-         u8SqlDelayCnt = 0;
-      }
+    //  if (RadioDriver.IsSqlOpen() || bPtt)
+    //  {
+    //     u8SqlDelayCnt = 0;
+    //  }
 
       if (u8SqlDelayCnt > 10 || Context.OriginalFwStatus.b1MenuDrawed)
       {
