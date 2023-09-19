@@ -44,7 +44,6 @@ public:
    static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 1;
-   //static constexpr auto BlocksCnt = (128 - ChartStartX) / (BlockSizeX + BlockSpace);
    static constexpr auto LinearBlocksCnt = 9;  
    static constexpr auto VoltageOffset = 77;
    static constexpr auto MaxBarPoints = 13;
@@ -101,30 +100,26 @@ public:
 
       bPtt = !(GPIOC->DATA & GPIO_PIN_5);
      
-//     if (!bPtt)  // wylaczenie fabrycznego smetra jak jest odbior lub wlaczone menu, pozostaje jako wskaznik nadawania
-//      { 
-//         if (!b59Mode)
-//         {
-//          //Sprawdzenie czy wylaczony skaner/czestosciomierz
-//          if (!(gDisplayBuffer[128 * 1 + 2]))  
-//           {      
-//            //Sprawdzenie czy wylaczone kopiowanie czestotliwosci/radio FM
-//          //  if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))  
-//          //   {
-//              memset(gDisplayBuffer + 128 * 2, 0, 22);
-//              memset(gDisplayBuffer + 128 * 6, 0, 22);
-//           //  }   
-//           }   
-//         }   
-//      }
+     if (!bPtt)  // wylaczenie fabrycznego smetra jak jest odbior lub wlaczone menu, pozostaje jako wskaznik nadawania
+      { 
+         //Sprawdzenie czy wylaczone menu
+         if (!b59Mode)
+         {
+          //Sprawdzenie czy wylaczony skaner/czestosciomierz
+          if (!(gDisplayBuffer[128 * 1 + 2]))  
+           {      
+            //Sprawdzenie czy wylaczone kopiowanie czestotliwosci/radio FM
+            if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))  
+             {
+              memset(gDisplayBuffer + 128 * 2, 0, 22);
+              memset(gDisplayBuffer + 128 * 6, 0, 22);
+             }   
+           }   
+         }   
+      }
 
-if (!bPtt && !b59Mode && !(gDisplayBuffer[128 * 1 + 2]))
-{
-    memset(gDisplayBuffer + 128 * 2, 0, 22);
-    memset(gDisplayBuffer + 128 * 6, 0, 22);
-}
 
-      //if (RadioDriver.IsSqlOpen() || bPtt) u8SqlDelayCnt = 0;
+      //if (RadioDriver.IsSqlOpen() || bPtt) u8SqlDelayCnt = 0;   
       
       if (RadioDriver.IsSqlOpen()) u8SqlDelayCnt = 0;
       if (u8SqlDelayCnt > 10 || Context.OriginalFwStatus.b1MenuDrawed)
@@ -143,20 +138,21 @@ if (!bPtt && !b59Mode && !(gDisplayBuffer[128 * 1 + 2]))
       u8SqlDelayCnt++;
       bIsCleared = false;
 
-      if(b59Mode)
+      if (b59Mode)
       {
          RssiData = 0;
       }
-      else if (bPtt)
-      {
-         RssiData.s16Rssi = RadioDriver.GetAFAmplitude();
-         RssiData.s16Rssi = RssiData.s16Rssi < 62 ? 0 : RssiData.s16Rssi - 45; 
-         RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
-      }
+    //  else if (bPtt)
+    //  {
+    //     RssiData.s16Rssi = RadioDriver.GetAFAmplitude();
+    //     RssiData.s16Rssi = RssiData.s16Rssi < 62 ? 0 : RssiData.s16Rssi - 45; 
+    //     RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
+    //  }
       else
       {
          RssiData = RadioDriver.GetRssi();
       }
+         
    if (!(gDisplayBuffer[128 * 1 + 2]) && ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3])))
     {
     ProcessDrawings();
@@ -167,16 +163,16 @@ if (!bPtt && !b59Mode && !(gDisplayBuffer[128 * 1 + 2]))
 void ProcessDrawings()
    {
       memset(pDData, 0, DisplayBuff.SizeX);
-if (bPtt)
-     {
-        if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
-         {   
-          PrintSValue(RssiData.u8SValue);
-          PrintSbar(RssiData.u8SValue);
-         }   
-     }
-else
-     {
+//if (bPtt)
+//     {
+//        if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
+//         {   
+//          PrintSValue(RssiData.u8SValue);
+//          PrintSbar(RssiData.u8SValue);
+//         }   
+//     }
+//else
+//     {
 
      if ( (gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16])  ) // wylaczenie sbara jak nie ma napisow RX
       {    
@@ -195,7 +191,7 @@ else
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
       }
-     }  
+//   }  
     }
 
    void PrintNumber(short s16Number)
@@ -231,13 +227,13 @@ else
 
    void PrintSValue(unsigned char u8SValue)
    {
-   if (bPtt) // print MIC
-   {
-        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
-        memset(pDData + 3 + 5*1 + 1, 0b1111111, 1);                      //Napis I
-        memcpy(pDData + 3 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
-        return;
-   }
+ //  if (bPtt) // print MIC
+ //  {
+ //       memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
+ //       memset(pDData + 3 + 5*1 + 1, 0b1111111, 1);                      //Napis I
+ //       memcpy(pDData + 3 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
+ //       return;
+ //  }
 
       char C8SignalString[] = "  ";
       if(b59Mode)
