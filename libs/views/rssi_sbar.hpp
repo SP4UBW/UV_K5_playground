@@ -107,8 +107,12 @@ public:
           //Sprawdzenie czy wylaczony skaner/czestosciomierz
           if (!(gDisplayBuffer[128 * 1 + 2]))  
            {      
-            memset(gDisplayBuffer + 128 * 2, 0, 22);
-            memset(gDisplayBuffer + 128 * 6, 0, 22);
+            //Sprawdzenie czy wylaczone kopiowanie czestotliwosci/radio FM
+            if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))  
+             {
+              memset(gDisplayBuffer + 128 * 2, 0, 22);
+              memset(gDisplayBuffer + 128 * 6, 0, 22);
+             }   
            }   
          }   
       }
@@ -148,13 +152,17 @@ public:
       {
          RssiData = RadioDriver.GetRssi();
       }
-   if (!(gDisplayBuffer[128 * 1 + 2])) ProcessDrawings();
+   if (!(gDisplayBuffer[128 * 1 + 2])) 
+    {
+      if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))
+      ProcessDrawings();
+    }
    return eScreenRefreshFlag::MainScreen;
    }
 
 void ProcessDrawings()
    {
-    memset(pDData, 0, DisplayBuff.SizeX);
+      memset(pDData, 0, DisplayBuff.SizeX);
 if (bPtt)
      {
         if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
