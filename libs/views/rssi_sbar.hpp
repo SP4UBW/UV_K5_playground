@@ -152,10 +152,9 @@ public:
       {
          RssiData = RadioDriver.GetRssi();
       }
-   if (!(gDisplayBuffer[128 * 1 + 2])) 
+   if (!(gDisplayBuffer[128 * 1 + 2]) && ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3])))
     {
-      if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))
-      ProcessDrawings();
+    ProcessDrawings();
     }
    return eScreenRefreshFlag::MainScreen;
    }
