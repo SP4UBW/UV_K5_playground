@@ -44,7 +44,7 @@ public:
    static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 1;
-   static constexpr auto BlocksCnt = (128 - ChartStartX) / (BlockSizeX + BlockSpace);
+   //static constexpr auto BlocksCnt = (128 - ChartStartX) / (BlockSizeX + BlockSpace);
    static constexpr auto LinearBlocksCnt = 9;  
    static constexpr auto VoltageOffset = 77;
    static constexpr auto MaxBarPoints = 13;
@@ -85,12 +85,12 @@ public:
 
      if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-        //Light++;
-        //if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
+        Light++;
+        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
         return eScreenRefreshFlag::NoRefresh;
       }
       
-      Light++; if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
+     // Light++; if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
       
       
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
