@@ -108,11 +108,11 @@ public:
           if (!(gDisplayBuffer[128 * 1 + 2]))  
            {      
             //Sprawdzenie czy wylaczone kopiowanie czestotliwosci/radio FM
-            if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))  
-             {
+          //  if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))  
+          //   {
               memset(gDisplayBuffer + 128 * 2, 0, 22);
               memset(gDisplayBuffer + 128 * 6, 0, 22);
-             }   
+           //  }   
            }   
          }   
       }
