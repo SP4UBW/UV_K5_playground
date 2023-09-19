@@ -90,8 +90,6 @@ public:
         return eScreenRefreshFlag::NoRefresh;
       }
       
-     // Light++; if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
-      
       
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
@@ -103,23 +101,29 @@ public:
 
       bPtt = !(GPIOC->DATA & GPIO_PIN_5);
      
-     if (!bPtt)  // wylaczenie fabrycznego smetra jak jest odbior lub wlaczone menu, pozostaje jako wskaznik nadawania
-      { 
-         if (!b59Mode)
-         {
-          //Sprawdzenie czy wylaczony skaner/czestosciomierz
-          if (!(gDisplayBuffer[128 * 1 + 2]))  
-           {      
-            //Sprawdzenie czy wylaczone kopiowanie czestotliwosci/radio FM
-          //  if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))  
-          //   {
-              memset(gDisplayBuffer + 128 * 2, 0, 22);
-              memset(gDisplayBuffer + 128 * 6, 0, 22);
-           //  }   
-           }   
-         }   
-      }
-  
+//     if (!bPtt)  // wylaczenie fabrycznego smetra jak jest odbior lub wlaczone menu, pozostaje jako wskaznik nadawania
+//      { 
+//         if (!b59Mode)
+//         {
+//          //Sprawdzenie czy wylaczony skaner/czestosciomierz
+//          if (!(gDisplayBuffer[128 * 1 + 2]))  
+//           {      
+//            //Sprawdzenie czy wylaczone kopiowanie czestotliwosci/radio FM
+//          //  if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))  
+//          //   {
+//              memset(gDisplayBuffer + 128 * 2, 0, 22);
+//              memset(gDisplayBuffer + 128 * 6, 0, 22);
+//           //  }   
+//           }   
+//         }   
+//      }
+
+if (!bPtt && !b59Mode && !(gDisplayBuffer[128 * 1 + 2]))
+{
+    memset(gDisplayBuffer + 128 * 2, 0, 22);
+    memset(gDisplayBuffer + 128 * 6, 0, 22);
+}
+
       if (RadioDriver.IsSqlOpen() || bPtt)
       {
          u8SqlDelayCnt = 0;
