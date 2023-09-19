@@ -48,7 +48,7 @@ public:
    static constexpr auto LinearBlocksCnt = 9;  
    static constexpr auto VoltageOffset = 77;
    static constexpr auto MaxBarPoints = 13;
-   static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
+//static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
    unsigned int u32DrawVoltagePsc = 0;
    Rssi::TRssi RssiData;
    unsigned char u8AfAmp = 0;
@@ -161,7 +161,7 @@ public:
 
 void ProcessDrawings()
    {
-      memset(pDData, 0, DisplayBuff.SizeX);
+      memset(gDisplayBuffer + 384, 0, DisplayBuff.SizeX);
 if (bPtt)
      {
         if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
@@ -177,13 +177,13 @@ else
       {    
         if (gDisplayBuffer[128 * 0 + 16])
          {
-          memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
+          memcpy(gDisplayBuffer + 384 + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
          }
         if (gDisplayBuffer[128 * 4 + 16])
         {
-         memset(pDData + 3, 0b1111111, 1);                               //Litera B 
-         memset(pDData + 4, 0b1001001, 3); 
-         memset(pDData + 7, 0b0110110, 1);
+         memset(gDisplayBuffer + 384 + 3, 0b1111111, 1);                               //Litera B 
+         memset(gDisplayBuffer + 384 + 4, 0b1001001, 3); 
+         memset(gDisplayBuffer + 384 + 7, 0b0110110, 1);
         }
        
        PrintSValue(RssiData.u8SValue);
@@ -206,21 +206,21 @@ else
       {   
          Display.SetCoursor(3, 84);
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-         memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
+         memset(gDisplayBuffer + 384 + 85, 0, 2);          //Skrocenie znaku minus
       }
          
          //Wyswietlanie napisu dBm
-         memset(pDData + 113, 0b0110000, 1); // znak d 
-         memset(pDData + 114, 0b1001000, 2);
-         memset(pDData + 116, 0b1111111, 1);
+         memset(gDisplayBuffer + 384 + 113, 0b0110000, 1); // znak d 
+         memset(gDisplayBuffer + 384 + 114, 0b1001000, 2);
+         memset(gDisplayBuffer + 384 + 116, 0b1111111, 1);
          
-         memset(pDData + 118, 0b1111111, 1); // znak B 
-         memset(pDData + 119, 0b1001001, 2); 
-         memset(pDData + 121, 0b0110110, 1);
+         memset(gDisplayBuffer + 384 + 118, 0b1111111, 1); // znak B 
+         memset(gDisplayBuffer + 384 + 119, 0b1001001, 2); 
+         memset(gDisplayBuffer + 384 + 121, 0b0110110, 1);
          
-         memset(pDData + 123, 0b1110000, 5); // znak m
-         memset(pDData + 124, 0b0001000, 1);
-         memset(pDData + 126, 0b0001000, 1);
+         memset(gDisplayBuffer + 384 + 123, 0b1110000, 5); // znak m
+         memset(gDisplayBuffer + 384 + 124, 0b0001000, 1);
+         memset(gDisplayBuffer + 384 + 126, 0b0001000, 1);
     }    
    }
 
@@ -228,9 +228,9 @@ else
    {
    if (bPtt) // print MIC
    {
-        memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
-        memset(pDData + 3 + 5*1 + 1, 0b1111111, 1);                      //Napis I
-        memcpy(pDData + 3 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
+        memcpy(gDisplayBuffer + 384 + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
+        memset(gDisplayBuffer + 384 + 3 + 5*1 + 1, 0b1111111, 1);                      //Napis I
+        memcpy(gDisplayBuffer + 384 + 3 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
         return;
    }
 
@@ -242,9 +242,9 @@ else
       }
       else if (u8SValue > 9)
       {
-         memset(pDData + 15, 0b0001000, 2); // -
-         memset(pDData + 17, 0b0111110, 1); // |
-         memset(pDData + 18, 0b0001000, 2); // -
+         memset(gDisplayBuffer + 384 + 15, 0b0001000, 2); // -
+         memset(gDisplayBuffer + 384 + 17, 0b0111110, 1); // |
+         memset(gDisplayBuffer + 384 + 18, 0b0001000, 2); // -
          C8SignalString[1] = '0';
          C8SignalString[0] = '0' + u8SValue - 9;
       }
@@ -252,14 +252,14 @@ else
       {
          if (u8SValue > 1)
          { 
-           memcpy(pDData + 15, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
+           memcpy(gDisplayBuffer + 384 + 15, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
          else
          {
            char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
-           memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
+           memset(gDisplayBuffer + 384 + 3, 0, 5);           //Wylaczenie litery A lub B
          }  
       }
 
