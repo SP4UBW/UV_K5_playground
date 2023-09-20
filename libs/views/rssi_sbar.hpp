@@ -72,8 +72,8 @@ public:
    {
       if (u8Button != Button::Ok)
       {
-       memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A 
-         
+        
+       GPIOB->DATA &= ~GPIO_PIN_6;  
          
        return;
       }
