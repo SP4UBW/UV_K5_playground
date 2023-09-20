@@ -72,7 +72,10 @@ public:
    {
       if (u8Button != Button::Ok)
       {
-        return;
+       memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A 
+         
+         
+       return;
       }
        b59Mode = !b59Mode;
    }
