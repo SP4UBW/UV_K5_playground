@@ -137,9 +137,8 @@ public:
             bIsCleared = true;
             if (!Context.OriginalFwStatus.b1MenuDrawed)
             {
-             memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 8, gSmallLeters + 128 * 2 + 102, 5); // V character
-               return eScreenRefreshFlag::MainScreen;
-            }
+             return eScreenRefreshFlag::MainScreen;
+            } else memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 8, gSmallLeters + 128 * 2 + 102, 5); // V character
          }
          return eScreenRefreshFlag::NoRefresh;
       }
