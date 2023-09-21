@@ -108,12 +108,12 @@ public:
           //Sprawdzenie czy wylaczony skaner/czestosciomierz
           if (!(gDisplayBuffer[128 * 1 + 2]))  
            {      
-            //Sprawdzenie czy wylaczone kopiowanie czestotliwosci/radio FM
-            if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))  
-             {
+            //Sprawdzenie czy wylaczone kopiowanie czestotliwosci/radio FM (niepotrzebne jak nie ma rysowania przy PTT)
+            //if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))  
+            // {
               memset(gDisplayBuffer + 128 * 2, 0, 22);
               memset(gDisplayBuffer + 128 * 6, 0, 22);
-             }   
+            // }   
            }   
          }   
       }
@@ -304,18 +304,17 @@ void PrintSbar(unsigned char u8SValue)
  
           
  //Wartosc w procentach
-       DisplayStatusBar.SetCoursor(0, VoltageOffset);
-      //DisplayStatusBar.PrintFixedDigitsNumber2((u16Voltage - 712) * 100 >> 7, 0, 3);
-
+         //Prosta linia od 0 do 100% zastapiona dwoma prostymi       
+         //DisplayStatusBar.PrintFixedDigitsNumber2((u16Voltage - 712) * 100 >> 7, 0, 3);
+DisplayStatusBar.SetCoursor(0, VoltageOffset);
 unsigned char percentage;
 if (u16Voltage >= 840) percentage = 100;
 else if (u16Voltage >= 810) percentage = 89 + ((u16Voltage - 810) >> 1);
 else if (u16Voltage >= 680) percentage = ((u16Voltage - 680) * 100) >> 5;
 else percentage = 0;
 
-if (percentage == 100) {
-        DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
-    } else if (percentage >= 10) 
+if (percentage == 100) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
+     else if (percentage >= 10) 
            {
            DisplayStatusBar.SetCoursor(0, VoltageOffset + 7);
            DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 2);
@@ -325,7 +324,6 @@ if (percentage == 100) {
            DisplayStatusBar.SetCoursor(0, VoltageOffset + 14);
            DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 1);
            }
-          //memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
            memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 0, 0b0100011, 1); // %
            memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 1, 0b0010011, 1);  
            memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 2, 0b0001000, 1);  
