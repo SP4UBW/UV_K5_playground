@@ -91,11 +91,11 @@ public:
         return eScreenRefreshFlag::NoRefresh;
       }
    
-      if (!b59Mode)
-         {
+     // if (!b59Mode)
+     //    {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX   
-         } 
+     //    } 
       
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
        {
