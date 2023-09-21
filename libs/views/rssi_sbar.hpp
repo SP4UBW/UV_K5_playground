@@ -325,10 +325,11 @@ if (percentage == 100) {
            DisplayStatusBar.SetCoursor(0, VoltageOffset + 14);
            DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 1);
            }
-           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 0, 0b1100011, 5); // %
-           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 1, 0b0010011, 1);  
-           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 2, 0b0001000, 1);  
-           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 3, 0b1100100, 1);  
+          memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
+          // memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 0, 0b1100011, 1); // %
+          // memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 1, 0b0010011, 1);  
+          // memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 2, 0b0001000, 1);  
+          // memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 3, 0b1100100, 1);  
           // memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 4, 0b1100011, 1);  
          
  
