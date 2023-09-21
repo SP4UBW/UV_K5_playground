@@ -309,11 +309,30 @@ void PrintSbar(unsigned char u8SValue)
 unsigned char percentage;
 
 if (u16Voltage >= 840) percentage = 100;
-else if (u16Voltage >= 810) percentage = 90 + ((u16Voltage - 810) >> 2);
-else if (u16Voltage >= 720) percentage = ((u16Voltage - 712) * 100) >> 7;
+else if (u16Voltage >= 810) percentage = 90 + ((u16Voltage - 810) >> 1);
+else if (u16Voltage >= 680) percentage = ((u16Voltage - 680) * 100) >> 5;
 else percentage = 0;
+
+if (percentage == 100) {
+        DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
+    } else if (percentage >= 10) 
+           {
+           DisplayStatusBar.SetCoursor(0, VoltageOffset + 7);
+           DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 2);
+           }
+      else 
+           {
+           DisplayStatusBar.SetCoursor(0, VoltageOffset + 14);
+           DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 1);
+           }
          
-DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 3);         
+//DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 3);         
+
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 2 + 0, 0b1100011, 1); // %
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 2 + 1, 0b0010011, 1);  
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 2 + 2, 0b0001000, 1);  
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 2 + 3, 0b1100100, 1);  
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 2 + 4, 0b1100011, 1);  
          
  //     memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
       }
