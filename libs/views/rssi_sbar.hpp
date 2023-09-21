@@ -72,9 +72,11 @@ public:
    {
       if (u8Button != Button::Ok)
       {
-       return;
+      PrintBatteryVoltage();
+         return;
       }
        b59Mode = !b59Mode;
+      
    }
 
    eScreenRefreshFlag HandleBackground(TViewContext &Context) override
