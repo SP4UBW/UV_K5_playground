@@ -95,7 +95,7 @@ public:
          {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX   
-         } else memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 8, gSmallLeters + 128 * 2 + 102, 5); // V character
+         } 
       
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
        {
@@ -137,7 +137,8 @@ public:
             bIsCleared = true;
             if (!Context.OriginalFwStatus.b1MenuDrawed)
             {
-             return eScreenRefreshFlag::MainScreen;
+             memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 8, gSmallLeters + 128 * 2 + 102, 5); // V character
+               return eScreenRefreshFlag::MainScreen;
             }
          }
          return eScreenRefreshFlag::NoRefresh;
