@@ -91,12 +91,9 @@ public:
         return eScreenRefreshFlag::NoRefresh;
       }
    
-     // if (!b59Mode)
-     //    {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX   
-     //    } 
-      
+           
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
        {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
@@ -138,7 +135,11 @@ public:
             if (!Context.OriginalFwStatus.b1MenuDrawed)
             {
              return eScreenRefreshFlag::MainScreen;
-            } else memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 8, gSmallLeters + 128 * 2 + 102, 5); // V character
+            } else 
+               {
+               //Wlaczone menu   
+               Light=0;
+               }   
          }
          return eScreenRefreshFlag::NoRefresh;
       }
