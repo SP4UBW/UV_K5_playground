@@ -305,7 +305,7 @@ void PrintSbar(unsigned char u8SValue)
       //Wartosc w procentach
       int percentage = ((u16Voltage - 680) * 100) / (840 - 680);    
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
-      DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 3, 0);
+      DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 3);
          
  //     memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
       }
