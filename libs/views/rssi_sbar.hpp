@@ -93,7 +93,7 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
       {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-      if (!gStatusBarData[VoltageOffset + 22]) Light=0; //Srodek litery V lub kropka jak VOX
+      if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
          PrintBatteryVoltage();
          return eScreenRefreshFlag::StatusBar;
       }
@@ -291,7 +291,7 @@ void PrintSbar(unsigned char u8SValue)
       {  // wylaczenie gdy ikona ladowania lub funkcji
          return;
       }
-      if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 22, 0b1000000, 1); else 
+      if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
       {
       unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
  //Wartosc w woltach
