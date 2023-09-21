@@ -155,8 +155,7 @@ public:
          
    if (!(gDisplayBuffer[128 * 1 + 2]) && ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3])))
     {
-    memcpy(gDisplayBuffer + 128 * 0, gSmallLeters - 768 * 1 , 768);  //Litera S wąska
-    //   ProcessDrawings();
+     ProcessDrawings();
     }
    return eScreenRefreshFlag::MainScreen;
    }
@@ -310,7 +309,7 @@ void PrintSbar(unsigned char u8SValue)
 
 unsigned char percentage;
 if (u16Voltage >= 840) percentage = 100;
-else if (u16Voltage >= 810) percentage = 90 + ((u16Voltage - 810) >> 1);
+else if (u16Voltage >= 810) percentage = 89 + ((u16Voltage - 810) >> 1);
 else if (u16Voltage >= 680) percentage = ((u16Voltage - 680) * 100) >> 5;
 else percentage = 0;
 
@@ -326,12 +325,12 @@ if (percentage == 100) {
            DisplayStatusBar.SetCoursor(0, VoltageOffset + 14);
            DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 1);
            }
-          memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
-          // memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 0, 0b1100011, 1); // %
-          // memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 1, 0b0010011, 1);  
-          // memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 2, 0b0001000, 1);  
-          // memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 3, 0b1100100, 1);  
-          // memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 4, 0b1100011, 1);  
+          //memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 0, 0b0100011, 1); // %
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 1, 0b0010011, 1);  
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 2, 0b0001000, 1);  
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 3, 0b1100100, 1);  
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 4, 0b1100010, 1);  
          
  
       }
