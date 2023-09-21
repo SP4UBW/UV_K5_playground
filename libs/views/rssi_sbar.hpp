@@ -308,16 +308,11 @@ void PrintSbar(unsigned char u8SValue)
 
 unsigned char percentage;
 
-if (u16Voltage >= 840)
-    percentage = 100;
-else if (u16Voltage >= 810)
-    percentage = (-3333 * u16Voltage + 2900000 + 500) / 10000; // +500 to dodanie połowy wartości przed podzieleniem przez 10000 w celu zaokrąglenia
-else if (u16Voltage >= 720)
-    percentage = (-778 * u16Voltage + 724710 + 50) / 1000; // +50 to dodanie połowy wartości przed podzieleniem przez 1000 w celu zaokrąglenia
-else if (u16Voltage >= 680)
-    percentage = (-50 * u16Voltage + 36000 + 50) / 100; // +50 to dodanie połowy wartości przed podzieleniem przez 100 w celu zaokrąglenia
-else
-    percentage = 0;  
+if (u16Voltage >= 840) percentage = 100;
+else if (u16Voltage >= 810) percentage = 90 + ((u16Voltage - 810) >> 2);
+else if (u16Voltage >= 720) percentage = ((u16Voltage - 712) * 100) >> 7;
+else percentage = 0;
+         
 DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 3);         
          
  //     memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
