@@ -294,14 +294,20 @@ void PrintSbar(unsigned char u8SValue)
       if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 22, 0b1000000, 1); else 
       {
       unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
+      //Wartosc w woltach
+ //     DisplayStatusBar.SetCoursor(0, VoltageOffset);
+ //     DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
+ //     memset(gStatusBarData + VoltageOffset + 7 + 1 - 0, 0b1100000, 2); // dot
+ //     DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
+ //     DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
+ //     memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
 
+      //Wartosc w procentach
+      int percentage = ((u16Voltage - 680) * 100) / (840 - 680);    
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
-      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
-      memset(gStatusBarData + VoltageOffset + 7 + 1 - 0, 0b1100000, 2); // dot
-      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
-      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
-     
-      memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
+      DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 3, 0);
+         
+ //     memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character
       }
       //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
       BK4819Write(0x78, 10280);  //Wyliczenie dla 20dB - dla skrócenia kodu
