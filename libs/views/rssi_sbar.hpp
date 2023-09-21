@@ -72,7 +72,7 @@ public:
    {
       if (u8Button != Button::Ok)
       {
-      PrintBatteryVoltage();
+      
          return;
       }
        b59Mode = !b59Mode;
@@ -94,9 +94,13 @@ public:
       
   //    if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
   //    {
+      if (!b59Mode)
+         {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
-         PrintBatteryVoltage();
+     
+      PrintBatteryVoltage();
+         }  
   //       return eScreenRefreshFlag::StatusBar;
   //    }
 
