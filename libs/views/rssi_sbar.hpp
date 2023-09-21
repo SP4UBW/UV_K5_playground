@@ -133,11 +133,7 @@ public:
             if (!Context.OriginalFwStatus.b1MenuDrawed)
             {
              return eScreenRefreshFlag::MainScreen;
-            } else 
-               {
-               //Wlaczone menu   
-               Light=0;
-               }   
+            } else Light=0;
          }
          return eScreenRefreshFlag::NoRefresh;
       }
@@ -316,8 +312,8 @@ void PrintSbar(unsigned char u8SValue)
 DisplayStatusBar.SetCoursor(0, VoltageOffset);
 unsigned char percentage;
 if (u16Voltage >= 840) percentage = 100;
-else if (u16Voltage >= 810) percentage = 89 + ((u16Voltage - 810) >> 1);
-else if (u16Voltage >= 680) percentage = ((u16Voltage - 680) * 100) >> 5;
+    else if (u16Voltage >= 810) percentage = 89 + ((u16Voltage - 810) >> 1);
+    else if (u16Voltage >= 680) percentage = (u16Voltage - 680) * 89 >> 7;
 else percentage = 0;
 
 if (percentage == 100) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
