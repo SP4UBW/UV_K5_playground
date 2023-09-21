@@ -155,7 +155,8 @@ public:
          
    if (!(gDisplayBuffer[128 * 1 + 2]) && ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3])))
     {
-    ProcessDrawings();
+    memcpy(gDisplayBuffer + 128 * 0, gSmallLeters + 128 * 0 , 768);  //Litera S wąska
+    //   ProcessDrawings();
     }
    return eScreenRefreshFlag::MainScreen;
    }
