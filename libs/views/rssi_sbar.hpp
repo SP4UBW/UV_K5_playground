@@ -311,7 +311,7 @@ void PrintSbar(unsigned char u8SValue)
          //DisplayStatusBar.PrintFixedDigitsNumber2((u16Voltage - 712) * 100 >> 7, 0, 3);
 DisplayStatusBar.SetCoursor(0, VoltageOffset);
 unsigned char percentage;
-if (u16Voltage >= 840) percentage = 100;
+if (u16Voltage >= 831) percentage = 100;
     else if (u16Voltage >= 810) percentage = 89 + ((u16Voltage - 810) >> 1);
     else if (u16Voltage >= 680) percentage = (u16Voltage - 680) * 88 >> 7;
 else percentage = 0;
