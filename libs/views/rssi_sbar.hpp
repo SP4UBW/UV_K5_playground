@@ -90,19 +90,21 @@ public:
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
         return eScreenRefreshFlag::NoRefresh;
       }
-      
-      
-  //    if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
-  //    {
+   
       if (!b59Mode)
          {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-      if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
-     
-      PrintBatteryVoltage();
-         }  
-  //       return eScreenRefreshFlag::StatusBar;
-  //    }
+      if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX   
+         }
+      
+      if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
+       {
+      //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
+      //if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
+       PrintBatteryVoltage();
+         
+         return eScreenRefreshFlag::StatusBar;
+       }
 
       bPtt = !(GPIOC->DATA & GPIO_PIN_5);
      
