@@ -125,8 +125,11 @@ public:
       //if (RadioDriver.IsSqlOpen() || bPtt) u8SqlDelayCnt = 0;   
       
       if (RadioDriver.IsSqlOpen()) u8SqlDelayCnt = 0;
+    
       if (u8SqlDelayCnt > 10 || Context.OriginalFwStatus.b1MenuDrawed)
       {
+         DisplayStatusBar.SetCoursor(0, VoltageOffset);
+         DisplayStatusBar.PrintFixedDigitsNumber2(0, 0, 1);  //Zmienna light na statusie
          if (!bIsCleared)
          {
             bIsCleared = true;
@@ -136,9 +139,9 @@ public:
             } else 
                   {
                    //Light=0;
-                   //memset(gStatusBarData + VoltageOffset, Light, 1);
-                   DisplayStatusBar.SetCoursor(0, VoltageOffset);
-                   DisplayStatusBar.PrintFixedDigitsNumber2(Light, 0, 1);  //Zmienna light na statusie
+                   //memset(gStatusBarData + VoltageOffset, , 1);
+                 //  DisplayStatusBar.SetCoursor(0, VoltageOffset);
+                 //  DisplayStatusBar.PrintFixedDigitsNumber2(0, 0, 1);  //Zmienna light na statusie
                   }   
          }
          return eScreenRefreshFlag::NoRefresh;
