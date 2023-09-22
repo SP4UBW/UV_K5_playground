@@ -128,11 +128,12 @@ public:
     
       if (u8SqlDelayCnt > 10 || Context.OriginalFwStatus.b1MenuDrawed)
       {
-         DisplayStatusBar.SetCoursor(0, VoltageOffset);
-         DisplayStatusBar.PrintFixedDigitsNumber2(0, 0, 1);  //Zmienna light na statusie
+         
          if (!bIsCleared)
          {
             bIsCleared = true;
+            memset(gStatusBarData + VoltageOffset, , 1);
+            DisplayStatusBar.SetCoursor(0, VoltageOffset);
             if (!Context.OriginalFwStatus.b1MenuDrawed)
             {
              return eScreenRefreshFlag::MainScreen;
