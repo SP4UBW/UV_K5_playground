@@ -88,17 +88,15 @@ public:
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
         return eScreenRefreshFlag::NoRefresh;
       }
-   
-      //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-      //if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX   
-           
-      if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
+
+      if (Context.ViewStack.GetTop()) // || !(u32DrawVoltagePsc++ % 8))
        {
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
-         PrintBatteryVoltage();
+      
+       PrintBatteryVoltage();
          
-         return eScreenRefreshFlag::StatusBar;
+       return eScreenRefreshFlag::StatusBar;
        }
 
       bPtt = !(GPIOC->DATA & GPIO_PIN_5);
@@ -128,22 +126,13 @@ public:
     
       if (u8SqlDelayCnt > 10 || Context.OriginalFwStatus.b1MenuDrawed)
       {
-         
          if (!bIsCleared)
          {
             bIsCleared = true;
-            memset(gStatusBarData + VoltageOffset, , 1);
-            DisplayStatusBar.SetCoursor(0, VoltageOffset);
-            if (!Context.OriginalFwStatus.b1MenuDrawed)
+           if (!Context.OriginalFwStatus.b1MenuDrawed)
             {
              return eScreenRefreshFlag::MainScreen;
-            } else 
-                  {
-                   //Light=0;
-                   //memset(gStatusBarData + VoltageOffset, , 1);
-                 //  DisplayStatusBar.SetCoursor(0, VoltageOffset);
-                 //  DisplayStatusBar.PrintFixedDigitsNumber2(0, 0, 1);  //Zmienna light na statusie
-                  }   
+            }  
          }
          return eScreenRefreshFlag::NoRefresh;
       }
@@ -306,7 +295,8 @@ void PrintSbar(unsigned char u8SValue)
       }
       if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
       {
- memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1);  //Testowo żeby cos było
+       
+         memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1);  //Testowo żeby cos było
          
  //     unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
  //Wartosc w woltach
