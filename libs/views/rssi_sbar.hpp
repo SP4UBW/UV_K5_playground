@@ -94,7 +94,7 @@ public:
       
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
-      
+      Light++;
        PrintBatteryVoltage();
          
        return eScreenRefreshFlag::StatusBar;
@@ -115,7 +115,7 @@ public:
             // {
               memset(gDisplayBuffer + 128 * 2, 0, 22);
               memset(gDisplayBuffer + 128 * 6, 0, 22);
-              Light++;
+              
             // }   
            }   
          }   
