@@ -40,7 +40,7 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-   static constexpr auto ChartStartX = 35;
+   static constexpr auto ChartStartX = 34;
    static constexpr auto BlockSizeX = 3;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 1;
@@ -84,7 +84,7 @@ public:
 
      if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-      //  Light++;
+        Light++;
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
         return eScreenRefreshFlag::NoRefresh;
       }
@@ -94,7 +94,7 @@ public:
       
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
-      Light++;
+      //Light++;
        PrintBatteryVoltage();
          
        return eScreenRefreshFlag::StatusBar;
@@ -291,8 +291,8 @@ void PrintSbar(unsigned char u8SValue)
 
    void PrintBatteryVoltage()
    {
-    if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
-      {  // wylaczenie gdy ikona ladowania lub funkcji
+    if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6] || gDisplayBuffer[128 * 3 + 49])
+      {  // wylaczenie gdy ikona ladowania lub funkcji lub wlaczone menu
          return;
       }
       if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
@@ -300,14 +300,14 @@ void PrintSbar(unsigned char u8SValue)
        
          memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1);  //Testowo żeby cos było
          
- //     unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
+      unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
  //Wartosc w woltach
- //     DisplayStatusBar.SetCoursor(0, VoltageOffset);
- //     DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
- //     memset(gStatusBarData + VoltageOffset + 7 + 1 - 0, 0b1100000, 2); // dot
- //     DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
- //     DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
- //     memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
+      DisplayStatusBar.SetCoursor(0, VoltageOffset);
+      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
+      memset(gStatusBarData + VoltageOffset + 7 + 1 - 0, 0b1100000, 2); // dot
+      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
+      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
+      memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
  
           
  //Wartosc w procentach
