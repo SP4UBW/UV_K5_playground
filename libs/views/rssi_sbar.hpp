@@ -105,7 +105,7 @@ public:
        {  
         if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3]))
         {Light_check = 0; } else  {Light_check = 1;}
-           
+       Light_check = 0;    
        PrintBatteryVoltage();
        } 
        return eScreenRefreshFlag::StatusBar;
@@ -309,7 +309,7 @@ void PrintSbar(unsigned char u8SValue)
       //if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
       if (gStatusBarData[VoltageOffset - 3]) Light_check = 1; else 
       {
-       
+      Light_check = 1; 
       //   memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1);  //Testowo żeby cos było
          
       unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
