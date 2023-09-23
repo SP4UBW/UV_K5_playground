@@ -101,7 +101,7 @@ public:
        if (!gDisplayBuffer[128 * 3 + 49]) 
        {  
         if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3]))
-        {return} else  PrintBatteryVoltage();
+        { } else  PrintBatteryVoltage();
        } 
        return eScreenRefreshFlag::StatusBar;
        }
