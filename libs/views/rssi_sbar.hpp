@@ -101,13 +101,13 @@ public:
       //if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
       if (Light_check == 0) Light=0; //Srodek litery V lub kropka jak VOX
           
-       if (!gDisplayBuffer[128 * 3 + 49]) 
-       {  
-        if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3]))
-        {Light_check = 0; } else  {Light_check = 1;}
-       Light_check = 0;    
+//       if (!gDisplayBuffer[128 * 3 + 49]) 
+//       {  
+//        if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3]))
+//        {Light_check = 0; } else  {Light_check = 1;}
+       //Light_check = 0;    
        PrintBatteryVoltage();
-       } 
+//       } 
        return eScreenRefreshFlag::StatusBar;
        }
 
@@ -302,14 +302,15 @@ void PrintSbar(unsigned char u8SValue)
 
    void PrintBatteryVoltage()
    {
-    if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
+  //  Light_check = 0;
+      if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
       {  // wylaczenie gdy ikona ladowania lub funkcji lub wlaczone menu
          return;
       }
       //if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
-      if (gStatusBarData[VoltageOffset - 3]) Light_check = 1; else 
+      if (!gStatusBarData[VoltageOffset - 3]) //Light_check = 0; else 
       {
-      Light_check = 1; 
+       
       //   memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1);  //Testowo żeby cos było
          
       unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
@@ -321,7 +322,8 @@ void PrintSbar(unsigned char u8SValue)
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
       memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
  
-          
+ //    Light_check = 1;
+         
  //Wartosc w procentach
          //Prosta linia od 0 do 100% zastapiona dwoma prostymi       
          //DisplayStatusBar.PrintFixedDigitsNumber2((u16Voltage - 712) * 100 >> 7, 0, 3);
