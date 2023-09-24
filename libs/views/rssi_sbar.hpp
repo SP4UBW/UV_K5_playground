@@ -302,7 +302,7 @@ void PrintSbar(unsigned char u8SValue)
       }
       if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
       {
-      unsigned short u16Voltage = gVoltage + 25; //dodana kalibracja -0.25V   
+      unsigned short u16Voltage = gVoltage - 15; //dodana kalibracja -0.25V   
  //Wartosc w woltach
  //     DisplayStatusBar.SetCoursor(0, VoltageOffset);
  //     DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
