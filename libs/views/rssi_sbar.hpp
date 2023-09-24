@@ -89,7 +89,8 @@ public:
         if (gDisplayBuffer[128 * 3 + 49]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
   //      if (gStatusBarData[49]) //Sprawdzenie DW
   //        {
-  //         if (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
+        if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);   
+        if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
   //        }
         return eScreenRefreshFlag::NoRefresh;
       }
