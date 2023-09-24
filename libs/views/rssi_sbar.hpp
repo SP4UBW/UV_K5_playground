@@ -304,40 +304,40 @@ void PrintSbar(unsigned char u8SValue)
       {
       unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
  //Wartosc w woltach
-      DisplayStatusBar.SetCoursor(0, VoltageOffset);
-      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
-      memset(gStatusBarData + VoltageOffset + 7 + 1 - 0, 0b1100000, 2); // dot
-      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
-      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
-      memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
+ //     DisplayStatusBar.SetCoursor(0, VoltageOffset);
+ //     DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
+ //     memset(gStatusBarData + VoltageOffset + 7 + 1 - 0, 0b1100000, 2); // dot
+ //     DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
+ //     DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
+ //     memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
          
 //Wartosc w procentach
          //Prosta linia od 0 do 100% zastapiona dwoma prostymi       
          //DisplayStatusBar.PrintFixedDigitsNumber2((u16Voltage - 712) * 100 >> 7, 0, 3);
-//DisplayStatusBar.SetCoursor(0, VoltageOffset);
+DisplayStatusBar.SetCoursor(0, VoltageOffset);
 
-//unsigned char percentage;
-//if (u16Voltage >= 831) percentage = 100;
-//    else if (u16Voltage >= 810) percentage = 89 + ((u16Voltage - 810) >> 1);
-//    else if (u16Voltage >= 680) percentage = (u16Voltage - 680) * 88 >> 7;
-//else percentage = 0;
+unsigned char percentage;
+if (u16Voltage >= 831) percentage = 100;
+    else if (u16Voltage >= 810) percentage = 89 + ((u16Voltage - 810) >> 1);
+    else if (u16Voltage >= 680) percentage = (u16Voltage - 680) * 88 >> 7;
+else percentage = 0;
 
-//if (percentage == 100) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
-//     else if (percentage >= 10) 
-//           {
-//           DisplayStatusBar.SetCoursor(0, VoltageOffset + 7);
-//           DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 2);
-//           }
-//      else 
-//           {
-//           DisplayStatusBar.SetCoursor(0, VoltageOffset + 14);
-//           DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 1);
-//           }
-      //     memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 0, 0b0100011, 1); // %
-      //     memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 1, 0b0010011, 1);  
-      //     memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 2, 0b0001000, 1);  
-      //     memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 3, 0b1100100, 1);  
-      //     memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 4, 0b1100010, 1);  
+if (percentage == 100) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
+     else if (percentage >= 10) 
+           {
+           DisplayStatusBar.SetCoursor(0, VoltageOffset + 7);
+           DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 2);
+           }
+      else 
+           {
+           DisplayStatusBar.SetCoursor(0, VoltageOffset + 14);
+           DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 1);
+           }
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 0, 0b0100011, 1); // %
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 1, 0b0010011, 1);  
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 2, 0b0001000, 1);  
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 3, 0b1100100, 1);  
+           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 4, 0b1100010, 1);  
          
  
       }
