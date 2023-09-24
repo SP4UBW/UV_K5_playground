@@ -54,7 +54,6 @@ public:
    bool bPtt = false;
    bool b59Mode = false;
    unsigned char Light = 0;
-   //unsigned char Light_check = 1;
 
    CRssiSbar()
    {
@@ -88,10 +87,10 @@ public:
         Light++;
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
         if (gDisplayBuffer[128 * 3 + 49]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
-        if (gStatusBarData[49]) //Sprawdzenie DW
-          {
-           if (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
-          }
+  //      if (gStatusBarData[49]) //Sprawdzenie DW
+  //        {
+  //         if (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
+  //        }
         return eScreenRefreshFlag::NoRefresh;
       }
 
@@ -302,7 +301,6 @@ void PrintSbar(unsigned char u8SValue)
 
    void PrintBatteryVoltage()
    {
-  //  Light_check = 0;
       if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
       {  // wylaczenie gdy ikona ladowania lub funkcji lub wlaczone menu
          return;
