@@ -86,12 +86,10 @@ public:
       {
         Light++;
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
-        if (gDisplayBuffer[128 * 3 + 49]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
-  //      if (gStatusBarData[49]) //Sprawdzenie DW
-  //        {
-        if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);   
-        if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
-  //        }
+        if (gDisplayBuffer[128 * 3 + 49]) Light=0; //{ Light=0; memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);}
+        if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0; //{ Light=0; memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);}   
+        if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0; //{ Light=0; memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);}
+ 
         return eScreenRefreshFlag::NoRefresh;
       }
 
@@ -99,15 +97,9 @@ public:
        {
       
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-      if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
-
-//       if (!gDisplayBuffer[128 * 3 + 49]) 
-//       {  
-//        if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3]))
-//        {Light_check = 0; } else  {Light_check = 1;}
-   
+     //if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
+       
        PrintBatteryVoltage();
-//       } 
        return eScreenRefreshFlag::StatusBar;
        }
 
@@ -115,7 +107,7 @@ public:
      
      if (!bPtt)  // wylaczenie fabrycznego smetra jak jest odbior lub wlaczone menu, pozostaje jako wskaznik nadawania
       { 
-         //Sprawdzenie czy wylaczone menu
+         
          if (!b59Mode)
          {
           //Sprawdzenie czy wylaczony skaner/czestosciomierz
@@ -123,11 +115,12 @@ public:
            {      
             //Sprawdzenie czy wylaczone kopiowanie czestotliwosci/radio FM (niepotrzebne jak nie ma rysowania przy PTT)
             //if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))  
-            // {
+            if (!gDisplayBuffer[128 * 3 + 49]) //Sprawdzenie czy wylaczone menu
+             {
               memset(gDisplayBuffer + 128 * 2, 0, 22);
               memset(gDisplayBuffer + 128 * 6, 0, 22);
               
-            // }   
+             }   
            }   
          }   
       }
@@ -201,7 +194,7 @@ void ProcessDrawings()
           memset(pDData + 4, 0b1001001, 3); 
           memset(pDData + 7, 0b0110110, 1);
          }
-       
+       Light=0;  //Podtrzymanie podswietlenia jak jest odbior
        PrintSValue(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
@@ -306,8 +299,9 @@ void PrintSbar(unsigned char u8SValue)
       {  // wylaczenie gdy ikona ladowania lub funkcji lub wlaczone menu
          return;
       }
-      if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
-       {
+      Light=0; 
+      if (!gStatusBarData[VoltageOffset - 3]) //memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
+      {
        
  //   memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1);  //Testowo żeby cos było
          
