@@ -324,17 +324,19 @@ unsigned char percentage;
 
 percentage = (u16Voltage - 712) * 100 >> 7;
          
-if (percentage == 100) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
+if (percentage >= 100) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
      else if (percentage >= 10) 
            {
            DisplayStatusBar.SetCoursor(0, VoltageOffset + 7);
            DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 2);
            }
-      else 
+      else if (percentage >= 0)
            {
            DisplayStatusBar.SetCoursor(0, VoltageOffset + 14);
            DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 1);
            }
+       else DisplayStatusBar.PrintFixedDigitsNumber2(0, 0, 1);
+         
            memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 0, 0b0100011, 1); // %
            memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 1, 0b0010011, 1);  
            memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 2, 0b0001000, 1);  
