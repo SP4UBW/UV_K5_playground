@@ -314,7 +314,7 @@ void PrintSbar(unsigned char u8SValue)
 //Wartosc w procentach
 DisplayStatusBar.SetCoursor(0, VoltageOffset);
 signed char percentage;         
-percentage = (u16Voltage - 700) * 100 >> 7;
+percentage = (u16Voltage - 712) * 100 >> 7;
          
 if (percentage >= 100) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
      else if (percentage >= 10) 
