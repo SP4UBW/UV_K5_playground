@@ -299,7 +299,7 @@ void PrintSbar(unsigned char u8SValue)
       {  // wylaczenie gdy ikona ladowania lub funkcji lub wlaczone menu
          return;
       }
-      Light=0; 
+     //Light=0; 
       if (!gStatusBarData[VoltageOffset - 3]) //memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
       {
        
