@@ -86,9 +86,9 @@ public:
       {
         Light++;               //GPIOB->DATA |= GPIO_PIN_6; wlaczenie podswietlenia
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
-        if (gDisplayBuffer[128 * 3 + 49]) Light=0; //{ Light=0; memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);}
-        if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0; //{ Light=0; memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);}   
-        if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0; //{ Light=0; memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);}
+        if (gDisplayBuffer[128 * 3 + 49]) Light=0;
+        if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0;
+        if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0;
  
         return eScreenRefreshFlag::NoRefresh;
       }
@@ -96,7 +96,7 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
        {
       
-      //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
+     //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
      if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
        
        PrintBatteryVoltage();
@@ -253,9 +253,9 @@ void ProcessDrawings()
       {
          if (u8SValue < 19)  //Ograniczenie do +90dBm
           {  
-           memset(pDData + 15, 0b0001000, 2); // -
-           memset(pDData + 17, 0b0111110, 1); // |
-           memset(pDData + 18, 0b0001000, 2); // -
+           memset(pDData + 14, 0b0001000, 2); // -
+           memset(pDData + 16, 0b0111110, 1); // |
+           memset(pDData + 17, 0b0001000, 2); // -
            C8SignalString[1] = '0';
            C8SignalString[0] = '0' + u8SValue - 9;
           }   
@@ -264,7 +264,7 @@ void ProcessDrawings()
       {
          if (u8SValue > 1)
          { 
-           memcpy(pDData + 15, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
+           memcpy(pDData + 14, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
@@ -275,7 +275,7 @@ void ProcessDrawings()
          }  
       }
 
-      Display.SetCoursor(3, 20);
+      Display.SetCoursor(3, 19);
       Display.Print(C8SignalString);
       Light=0; GPIOB->DATA |= GPIO_PIN_6;  //Podtrzymanie podswietlenia jak jest odbior
    }
@@ -297,14 +297,11 @@ void PrintSbar(unsigned char u8SValue)
    void PrintBatteryVoltage()
    {
       if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
-      {  // wylaczenie gdy ikona ladowania lub funkcji lub wlaczone menu
+      {  // wylaczenie gdy ikona ladowania lub funkcji
          return;
       }
       if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
       {
-       
- //   memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1);  //Testowo żeby cos było
-         
       unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
  //Wartosc w woltach
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
