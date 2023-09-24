@@ -88,9 +88,9 @@ public:
         Light++;
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
         //if (gDisplayBuffer[128 * 3 + 49]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
-        if (gDisplayBuffer[128 * 3 + 49]) Light_check = 0; 
+        //if (gDisplayBuffer[128 * 3 + 49]) Light_check = 0; 
         //if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3])) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
-        if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3])) Light_check = 0; 
+        //if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3])) Light_check = 0; 
         return eScreenRefreshFlag::NoRefresh;
       }
 
@@ -99,7 +99,9 @@ public:
       
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       //if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
-      if (Light_check == 0) Light=0; //Srodek litery V lub kropka jak VOX
+      
+          if (gDisplayBuffer[128 * 1 + 3] || gDisplayBuffer[128 * 5 + 3]) Light = 0;
+          //if (Light_check == 0) Light=0; //Srodek litery V lub kropka jak VOX
           
 //       if (!gDisplayBuffer[128 * 3 + 49]) 
 //       {  
