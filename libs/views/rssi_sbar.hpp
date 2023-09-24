@@ -325,7 +325,7 @@ if (percentage == 100) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3);
            DisplayStatusBar.SetCoursor(0, VoltageOffset + 7);
            DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 2);
            }
-      else //if (percentage >= 0)
+      else if (percentage >= 0)
            {
            DisplayStatusBar.SetCoursor(0, VoltageOffset + 14);
            DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 1);
