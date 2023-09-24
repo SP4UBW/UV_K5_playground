@@ -316,7 +316,7 @@ DisplayStatusBar.SetCoursor(0, VoltageOffset);
 unsigned char percentage;         
 percentage = (u16Voltage - 712) * 100 >> 7;
          
-if (percentage >= 100) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
+if (percentage >= 100 && percentage <= 150) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
      else if (percentage >= 10) 
            {
            DisplayStatusBar.SetCoursor(0, VoltageOffset + 7);
