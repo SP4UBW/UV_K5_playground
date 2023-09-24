@@ -84,7 +84,7 @@ public:
 
      if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-        Light++;
+        Light++;               //GPIOB->DATA |= GPIO_PIN_6; wlaczenie podswietlenia
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
         if (gDisplayBuffer[128 * 3 + 49]) Light=0; //{ Light=0; memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);}
         if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0; //{ Light=0; memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);}   
@@ -194,7 +194,7 @@ void ProcessDrawings()
           memset(pDData + 4, 0b1001001, 3); 
           memset(pDData + 7, 0b0110110, 1);
          }
-       Light=0;  //Podtrzymanie podswietlenia jak jest odbior
+       
        PrintSValue(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
@@ -277,6 +277,7 @@ void ProcessDrawings()
 
       Display.SetCoursor(3, 20);
       Display.Print(C8SignalString);
+      Light=0; GPIOB->DATA |= GPIO_PIN_6;  //Podtrzymanie podswietlenia jak jest odbior
    }
 
 void PrintSbar(unsigned char u8SValue)
@@ -299,7 +300,7 @@ void PrintSbar(unsigned char u8SValue)
       {  // wylaczenie gdy ikona ladowania lub funkcji lub wlaczone menu
          return;
       }
-      if (!gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
+      if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
       {
        
  //   memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1);  //Testowo żeby cos było
