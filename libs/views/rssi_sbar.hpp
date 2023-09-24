@@ -54,7 +54,7 @@ public:
    bool bPtt = false;
    bool b59Mode = false;
    unsigned char Light = 0;
-   unsigned char Light_check = 1;
+   //unsigned char Light_check = 1;
 
    CRssiSbar()
    {
@@ -87,10 +87,9 @@ public:
       {
         Light++;
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
-        //if (gDisplayBuffer[128 * 3 + 49]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
-        //if (gDisplayBuffer[128 * 3 + 49]) Light_check = 0; 
-        //if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3])) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
-        //if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3])) Light_check = 0; 
+        if (gDisplayBuffer[128 * 3 + 49]) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
+        if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3])) memset(gStatusBarData + VoltageOffset + 23, 0b0000000, 1);
+        
         return eScreenRefreshFlag::NoRefresh;
       }
 
@@ -98,16 +97,13 @@ public:
        {
       
       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-      //if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
-      
-          if (gDisplayBuffer[128 * 1 + 3] || gDisplayBuffer[128 * 5 + 3]) Light = 0;
-          //if (Light_check == 0) Light=0; //Srodek litery V lub kropka jak VOX
-          
+      if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
+
 //       if (!gDisplayBuffer[128 * 3 + 49]) 
 //       {  
 //        if ((gStatusBarData[VoltageOffset + 49]) && (!gDisplayBuffer[128 * 1 + 3] || !gDisplayBuffer[128 * 5 + 3]))
 //        {Light_check = 0; } else  {Light_check = 1;}
-       //Light_check = 0;    
+   
        PrintBatteryVoltage();
 //       } 
        return eScreenRefreshFlag::StatusBar;
@@ -309,11 +305,10 @@ void PrintSbar(unsigned char u8SValue)
       {  // wylaczenie gdy ikona ladowania lub funkcji lub wlaczone menu
          return;
       }
-      //if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
-      if (!gStatusBarData[VoltageOffset - 3]) //Light_check = 0; else 
-      {
+      if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
+       {
        
-      //   memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1);  //Testowo żeby cos było
+ //   memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1);  //Testowo żeby cos było
          
       unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
  //Wartosc w woltach
@@ -323,10 +318,8 @@ void PrintSbar(unsigned char u8SValue)
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
       memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
- 
- //    Light_check = 1;
          
- //Wartosc w procentach
+//Wartosc w procentach
          //Prosta linia od 0 do 100% zastapiona dwoma prostymi       
          //DisplayStatusBar.PrintFixedDigitsNumber2((u16Voltage - 712) * 100 >> 7, 0, 3);
 //DisplayStatusBar.SetCoursor(0, VoltageOffset);
