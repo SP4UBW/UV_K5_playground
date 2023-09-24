@@ -209,15 +209,15 @@ void ProcessDrawings()
       if (s16Number >= 0)
       {
          Display.SetCoursor(3, 91);
-         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+        // Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
       }
       else
       {   
          Display.SetCoursor(3, 84);
-         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-         memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
+        //Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+        // memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
       }
-         
+         Display.PrintFixedDigitsNumber2(s16Number, 0, 3); 
          //Wyswietlanie napisu dBm
          memset(pDData + 113, 0b0110000, 1); // znak d 
          memset(pDData + 114, 0b1001000, 2);
@@ -314,7 +314,7 @@ void PrintSbar(unsigned char u8SValue)
 //Wartosc w procentach
 DisplayStatusBar.SetCoursor(0, VoltageOffset);
 unsigned char percentage;         
-percentage = (u16Voltage - 712) * 100 >> 7;
+percentage = (u16Voltage - 700) * 100 >> 7;
          
 if (percentage >= 100 && percentage <= 150) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
      else if (percentage >= 10) 
