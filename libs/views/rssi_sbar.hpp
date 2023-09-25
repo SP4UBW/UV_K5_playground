@@ -86,9 +86,9 @@ public:
       {
         Light++;               //GPIOB->DATA |= GPIO_PIN_6; wlaczenie podswietlenia
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
-        if (gDisplayBuffer[128 * 3 + 49]) Light=0;
-        if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0;
-        if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0;
+        //if (gDisplayBuffer[128 * 3 + 49]) Light=0;
+        //if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0;
+        //if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0;
  
         return eScreenRefreshFlag::NoRefresh;
       }
