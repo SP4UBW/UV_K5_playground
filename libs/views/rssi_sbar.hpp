@@ -104,9 +104,6 @@ public:
        }
 
       bPtt = !(GPIOC->DATA & GPIO_PIN_5);
-     
-     
-
 
       //if (RadioDriver.IsSqlOpen() || bPtt) u8SqlDelayCnt = 0;   
       
@@ -152,14 +149,6 @@ public:
 
 void ProcessDrawings()
    {
-
-    //  if (!bPtt)  // wylaczenie fabrycznego smetra jak jest odbior lub wlaczone menu, pozostaje jako wskaznik nadawania
-    //  { 
-         
-         
-    //  }
-      
-      
       memset(pDData, 0, DisplayBuff.SizeX);
 //if (bPtt)
 //     {
@@ -200,15 +189,15 @@ void ProcessDrawings()
       if (s16Number >= 0)
       {
          Display.SetCoursor(3, 91);
-        // Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
       }
       else
       {   
          Display.SetCoursor(3, 84);
-        //Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-        // memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
+         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
+         memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
       }
-         Display.PrintFixedDigitsNumber2(s16Number, 0, 3); 
+        // Display.PrintFixedDigitsNumber2(s16Number, 0, 3); 
          //Wyswietlanie napisu dBm
          memset(pDData + 113, 0b0110000, 1); // znak d 
          memset(pDData + 114, 0b1001000, 2);
