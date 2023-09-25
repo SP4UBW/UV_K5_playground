@@ -86,9 +86,9 @@ public:
       {
         Light++;               //GPIOB->DATA |= GPIO_PIN_6; wlaczenie podswietlenia
         if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
-        //if (gDisplayBuffer[128 * 3 + 49]) Light=0;
-        //if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0;
-        //if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0;
+        if (gDisplayBuffer[128 * 3 + 49]) Light=0;
+        if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0;
+        if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0;
  
         return eScreenRefreshFlag::NoRefresh;
       }
@@ -105,25 +105,7 @@ public:
 
       bPtt = !(GPIOC->DATA & GPIO_PIN_5);
      
-     if (!bPtt)  // wylaczenie fabrycznego smetra jak jest odbior lub wlaczone menu, pozostaje jako wskaznik nadawania
-      { 
-         
-         if (!b59Mode)
-         {
-          //Sprawdzenie czy wylaczony skaner/czestosciomierz
-          if (!(gDisplayBuffer[128 * 1 + 2]))  
-           {      
-            //Sprawdzenie czy wylaczone kopiowanie czestotliwosci/radio FM (niepotrzebne jak nie ma rysowania przy PTT)
-            //if ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3]))  
-            if (!gDisplayBuffer[128 * 3 + 49]) //Sprawdzenie czy wylaczone menu
-             {
-              memset(gDisplayBuffer + 128 * 2, 0, 22);
-              memset(gDisplayBuffer + 128 * 6, 0, 22);
-              
-             }   
-           }   
-         }   
-      }
+     
 
 
       //if (RadioDriver.IsSqlOpen() || bPtt) u8SqlDelayCnt = 0;   
@@ -170,6 +152,14 @@ public:
 
 void ProcessDrawings()
    {
+
+    //  if (!bPtt)  // wylaczenie fabrycznego smetra jak jest odbior lub wlaczone menu, pozostaje jako wskaznik nadawania
+    //  { 
+         
+         
+    //  }
+      
+      
       memset(pDData, 0, DisplayBuff.SizeX);
 //if (bPtt)
 //     {
@@ -194,7 +184,8 @@ void ProcessDrawings()
           memset(pDData + 4, 0b1001001, 3); 
           memset(pDData + 7, 0b0110110, 1);
          }
-       
+       memset(gDisplayBuffer + 128 * 2, 0, 22);
+       memset(gDisplayBuffer + 128 * 6, 0, 22);
        PrintSValue(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
@@ -304,38 +295,38 @@ void PrintSbar(unsigned char u8SValue)
       {
       unsigned short u16Voltage = gVoltage - 25; //dodana kalibracja -0.25V   
  //Wartosc w woltach
- //     DisplayStatusBar.SetCoursor(0, VoltageOffset);
- //     DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
- //     memset(gStatusBarData + VoltageOffset + 7 + 1 - 0, 0b1100000, 2); // dot
- //     DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
- //     DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
- //     memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
+      DisplayStatusBar.SetCoursor(0, VoltageOffset);
+      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
+      memset(gStatusBarData + VoltageOffset + 7 + 1 - 0, 0b1100000, 2); // dot
+      DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
+      DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
+      memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
          
 //Wartosc w procentach
-DisplayStatusBar.SetCoursor(0, VoltageOffset);
-unsigned char percentage;         
-//if (u16Voltage >= 831) percentage = 100;
-if (u16Voltage >= 810) percentage = 89 + ((u16Voltage - 810) >> 1);
-else if (u16Voltage >= 680) percentage = (u16Voltage - 680) * 88 >> 7;
-else percentage = 0;
+//DisplayStatusBar.SetCoursor(0, VoltageOffset);
+//unsigned char percentage;         
+
+//if (u16Voltage >= 810) percentage = 89 + ((u16Voltage - 810) >> 1);
+//else if (u16Voltage >= 680) percentage = (u16Voltage - 680) * 88 >> 7;
+//else percentage = 0;
          
-if (percentage >= 100) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
-     else if (percentage >= 10) 
-           {
-           DisplayStatusBar.SetCoursor(0, VoltageOffset + 7);
-           DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 2);
-           }
-      else if (percentage >= 0)
-           {
-           DisplayStatusBar.SetCoursor(0, VoltageOffset + 14);
-           DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 1);
-           }
+//if (percentage >= 100) DisplayStatusBar.PrintFixedDigitsNumber2(100, 0, 3); 
+//     else if (percentage >= 10) 
+//           {
+//           DisplayStatusBar.SetCoursor(0, VoltageOffset + 7);
+//           DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 2);
+//           }
+//      else if (percentage >= 0)
+//           {
+//           DisplayStatusBar.SetCoursor(0, VoltageOffset + 14);
+//           DisplayStatusBar.PrintFixedDigitsNumber2(percentage, 0, 1);
+//           }
          
-           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 0, 0b0100011, 1); // %
-           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 1, 0b0010011, 1);  
-           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 2, 0b0001000, 1);  
-           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 3, 0b1100100, 1);  
-           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 4, 0b1100010, 1);  
+//           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 0, 0b0100011, 1); // %
+//           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 1, 0b0010011, 1);  
+//           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 2, 0b0001000, 1);  
+//           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 3, 0b1100100, 1);  
+//           memset(gStatusBarData + VoltageOffset + 3 * 6 + 5 + 4, 0b1100010, 1);  
          
  
       }
