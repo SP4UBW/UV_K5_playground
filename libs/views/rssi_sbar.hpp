@@ -81,12 +81,11 @@ public:
    {
       static bool bIsCleared = true;
       static unsigned char u8SqlDelayCnt = 0xFF;
-      Light++;
-      if (Light > 100) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
+     
      if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-        //Light++;               //GPIOB->DATA |= GPIO_PIN_6; wlaczenie podswietlenia
-        //if (Light > 100) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
+        Light++;               //GPIOB->DATA |= GPIO_PIN_6; wlaczenie podswietlenia
+        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
         if (gDisplayBuffer[128 * 3 + 49]) Light=0;
         if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0;
         if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0;
@@ -258,7 +257,7 @@ void ProcessDrawings()
 
       Display.SetCoursor(3, 19);
       Display.Print(C8SignalString);
-     // Light=0; GPIOB->DATA |= GPIO_PIN_6;  //Podtrzymanie podswietlenia jak jest odbior
+      Light=5; GPIOB->DATA |= GPIO_PIN_6;  //Podtrzymanie podswietlenia jak jest odbior
    }
 
 void PrintSbar(unsigned char u8SValue)
