@@ -257,7 +257,7 @@ void ProcessDrawings()
 
       Display.SetCoursor(3, 19);
       Display.Print(C8SignalString);
-      Light=5; GPIOB->DATA |= GPIO_PIN_6;  //Podtrzymanie podswietlenia jak jest odbior
+     // Light=5; GPIOB->DATA |= GPIO_PIN_6;  //Podtrzymanie podswietlenia jak jest odbior
    }
 
 void PrintSbar(unsigned char u8SValue)
