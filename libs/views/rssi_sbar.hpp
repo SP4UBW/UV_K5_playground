@@ -253,13 +253,13 @@ void ProcessDrawings()
            C8SignalString[0] = '0' + u8SValue - 9;
            }
           //Wyswietlanie napisu dB
-         memset(pDData - 256 + RXAB * 128 + 33, 0b0110000, 1); // znak d
-         memset(pDData - 256 + RXAB * 128 + 34, 0b1001000, 2);
-         memset(pDData - 256 + RXAB * 128 + 36, 0b1111111, 1);
+         memset(pDData - 256 + RXAB * 128 + 35, 0b0110000, 1); // znak d
+         memset(pDData - 256 + RXAB * 128 + 36, 0b1001000, 2);
+         memset(pDData - 256 + RXAB * 128 + 38, 0b1111111, 1);
          
-         memset(pDData - 256 + RXAB * 128 + 38, 0b1111111, 1); // znak B 
-         memset(pDData - 256 + RXAB * 128 + 39, 0b1001001, 2); 
-         memset(pDData - 256 + RXAB * 128 + 41, 0b0110110, 1);   
+         memset(pDData - 256 + RXAB * 128 + 40, 0b1111111, 1); // znak B 
+         memset(pDData - 256 + RXAB * 128 + 41, 0b1001001, 2); 
+         memset(pDData - 256 + RXAB * 128 + 43, 0b0110110, 1);   
           }   
       }
       else
