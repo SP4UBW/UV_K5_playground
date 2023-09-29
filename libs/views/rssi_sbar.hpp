@@ -16,7 +16,7 @@ namespace Rssi
       {
          s16Rssi *= -1;
          unsigned char i;
-         for (i = 0; i < sizeof(U8RssiMap); i++)
+         for (i = 1; i < sizeof(U8RssiMap); i++)
          {
             if (s16Rssi >= U8RssiMap[i])
             {
