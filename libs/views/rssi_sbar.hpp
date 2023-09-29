@@ -153,7 +153,7 @@ public:
 void ProcessDrawings()
    {
       //memset(pDData, 0, DisplayBuff.SizeX);
-      memset(pDData, 0, 512);
+      
 //if (bPtt)
 //     {
 //        if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
@@ -169,14 +169,16 @@ void ProcessDrawings()
       {    
         if (gDisplayBuffer[128 * 0 + 16])
          {
+          memset(pDData, 0, 512);
           memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
          }
-       // if (gDisplayBuffer[128 * 4 + 16])
-       //  {
-       //   memset(pDData + 3, 0b1111111, 1);                               //Litera B 
-       //   memset(pDData + 4, 0b1001001, 3); 
-       //   memset(pDData + 7, 0b0110110, 1);
-       //  }
+        if (gDisplayBuffer[128 * 4 + 16])
+         {
+          memset(pDData - 512, 0, 512);
+          memset(pDData + 3, 0b1111111, 1);                               //Litera B 
+          memset(pDData + 4, 0b1001001, 3); 
+          memset(pDData + 7, 0b0110110, 1);
+         }
        memset(gDisplayBuffer + 128 * 2, 0, 22);
        memset(gDisplayBuffer + 128 * 6, 0, 22);
        PrintSValue(RssiData.u8SValue);
