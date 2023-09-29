@@ -237,7 +237,7 @@ void ProcessDrawings()
       }
       else if (u8SValue > 9)
       {
-         if (u8SValue < 23)  //Ograniczenie do +99dBm
+         if (u8SValue < 23)  //Ograniczenie do +99dBm 
           {  
            memset(pDData - 256 + RXAB * 128 + 14, 0b0001000, 2); // -
            memset(pDData - 256 + RXAB * 128 + 16, 0b0111110, 1); // |
