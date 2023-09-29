@@ -165,8 +165,8 @@ void ProcessDrawings()
 //else
 //     {
 
-     if ( (gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16])  ) // wylaczenie sbara jak nie ma napisow RX
-      {    
+   //  if ( (gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16])  ) // wlaczenie sbara jak jest RX
+   //   {    
         if (!gDisplayBuffer[128 * 0 + 14] && gDisplayBuffer[128 * 0 + 16])
          {
           memset(gDisplayBuffer + 128 * 2, 0, 22);
@@ -189,7 +189,7 @@ void ProcessDrawings()
        PrintSValue(RssiData.u8SValue);
        PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
-      }
+//     }
 //   }  
     }
 
@@ -205,7 +205,7 @@ void ProcessDrawings()
       
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3); 
          //Wyswietlanie napisu dBm
-         memset(pDData - 256 + RXAB * 128 + 111, 0b0110000, 1); // znak d   (pddata -256) + RXAB * 128   pDData = gDisplayBuffer + 128 * 3;
+         memset(pDData - 256 + RXAB * 128 + 111, 0b0110000, 1); // znak d
          memset(pDData - 256 + RXAB * 128 + 112, 0b1001000, 2);
          memset(pDData - 256 + RXAB * 128 + 114, 0b1111111, 1);
          
@@ -270,11 +270,11 @@ void ProcessDrawings()
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
-         else
-         {
-           char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
+        // else
+        // {
+          //char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
           //memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
-         }  
+        // }  
       }
 
       Display.SetCoursor(RXAB+1, 19);
