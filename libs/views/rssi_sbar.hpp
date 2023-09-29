@@ -48,9 +48,7 @@ public:
    static constexpr auto VoltageOffset = 77;
    static constexpr auto MaxBarPoints = 18;
    static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
-   static inline unsigned char *const pDData1 = gDisplayBuffer + 128 * 4;
-   static inline unsigned char *const pDData2 = gDisplayBuffer + 128 * 5;
-   static inline unsigned char *const pDData3 = gDisplayBuffer + 128 * 6;
+   
    unsigned int u32DrawVoltagePsc = 0;
    Rssi::TRssi RssiData;
    unsigned char u8AfAmp = 0;
@@ -239,13 +237,29 @@ void ProcessDrawings()
       }
       else if (u8SValue > 9)
       {
-         if (u8SValue < 19)  //Ograniczenie do +90dBm
+         if (u8SValue < 23)  //Ograniczenie do +99dBm
           {  
            memset(pDData - 256 + RXAB * 128 + 14, 0b0001000, 2); // -
            memset(pDData - 256 + RXAB * 128 + 16, 0b0111110, 1); // |
            memset(pDData - 256 + RXAB * 128 + 17, 0b0001000, 2); // -
+           if (u8SValue > 18)
+           {  
+           C8SignalString[1] = '9';
+           C8SignalString[0] = '9';
+           } 
+           else
+           {
            C8SignalString[1] = '0';
            C8SignalString[0] = '0' + u8SValue - 9;
+           }
+          //Wyswietlanie napisu dB
+         memset(pDData - 256 + RXAB * 128 + 33, 0b0110000, 1); // znak d
+         memset(pDData - 256 + RXAB * 128 + 34, 0b1001000, 2);
+         memset(pDData - 256 + RXAB * 128 + 36, 0b1111111, 1);
+         
+         memset(pDData - 256 + RXAB * 128 + 38, 0b1111111, 1); // znak B 
+         memset(pDData - 256 + RXAB * 128 + 39, 0b1001001, 2); 
+         memset(pDData - 256 + RXAB * 128 + 41, 0b0110110, 1);   
           }   
       }
       else
@@ -290,7 +304,7 @@ void PrintSbar(unsigned char u8SValue)
       }
       if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 23, 0b1000000, 1); else 
       {
-      unsigned short u16Voltage = gVoltage - 30; //dodana kalibracja -0.30V   
+      unsigned short u16Voltage = gVoltage - 0; //dodana kalibracja -0.30V   
  //Wartosc w woltach
       DisplayStatusBar.SetCoursor(0, VoltageOffset);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
