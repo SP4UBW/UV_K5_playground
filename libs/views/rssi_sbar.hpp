@@ -16,7 +16,7 @@ namespace Rssi
       {
          s16Rssi *= -1;
          unsigned char i;
-         for (i = 1; i < sizeof(U8RssiMap); i++)
+         for (i = 2; i < sizeof(U8RssiMap); i++)
          {
             if (s16Rssi >= U8RssiMap[i])
             {
@@ -56,7 +56,7 @@ public:
    unsigned char u8AfAmp = 0;
    bool bPtt = false;
    bool b59Mode = false;
-   //unsigned char Light = 0;
+   unsigned char Light = 0;
    unsigned char RXAB = 0;
    CRssiSbar()
    {
@@ -87,11 +87,11 @@ public:
      
      if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
-    //    Light++;               //GPIOB->DATA |= GPIO_PIN_6; wlaczenie podswietlenia
-    //    if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
-    //    if (gDisplayBuffer[128 * 3 + 49]) Light=0;
-    //    if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0;
-    //    if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0;
+        Light++;               //GPIOB->DATA |= GPIO_PIN_6; wlaczenie podswietlenia
+        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
+        if (gDisplayBuffer[128 * 3 + 49]) Light=0;
+        if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0;
+        if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0;
  
         return eScreenRefreshFlag::NoRefresh;
       }
@@ -100,9 +100,9 @@ public:
        {
       
      //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
-     // if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
+      if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
        
-      // PrintBatteryVoltage();
+       PrintBatteryVoltage();
       //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
       BK4819Write(0x78, 10280);  //Wyliczenie dla 20dB - dla skrócenia kodu   
        return eScreenRefreshFlag::StatusBar;
@@ -281,7 +281,7 @@ void PrintSbar(unsigned char u8SValue)
       }
     }  
    }
-/*
+
    void PrintBatteryVoltage()
    {
       if (gStatusBarData[VoltageOffset + 4 * 6 + 1] || gStatusBarData[VoltageOffset + 4 * 6 - 6])
@@ -328,11 +328,11 @@ void PrintSbar(unsigned char u8SValue)
  
       }
       //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
-      BK4819Write(0x78, 10280);  //Wyliczenie dla 20dB - dla skrócenia kodu
+      //BK4819Write(0x78, 10280);  //Wyliczenie dla 20dB - dla skrócenia kodu
       
    }
 
-*/
+
 };
 
 
