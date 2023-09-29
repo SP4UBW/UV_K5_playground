@@ -292,6 +292,8 @@ void PrintSbar(unsigned char u8SValue)
          unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
          unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
          Display.DrawRectangle(u8X, RXAB*8 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
+
+         Display.DrawRectangle(1, RXAB*8-4, 127, 24);
       }
     }  
    }
