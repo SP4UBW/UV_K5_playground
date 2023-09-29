@@ -46,7 +46,7 @@ public:
    static constexpr auto BlockSpace = 2;
    static constexpr auto LinearBlocksCnt = 9;  
    static constexpr auto VoltageOffset = 77;
-   static constexpr auto MaxBarPoints = 17;
+   static constexpr auto MaxBarPoints = 18;
    static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
    static inline unsigned char *const pDData1 = gDisplayBuffer + 128 * 4;
    static inline unsigned char *const pDData2 = gDisplayBuffer + 128 * 5;
@@ -280,7 +280,7 @@ void PrintSbar(unsigned char u8SValue)
       {
          unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
          unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
-         Display.DrawRectangle(u8X, 24 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
+         Display.DrawRectangle(u8X - 128, 24 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
       }
     }  
    }
