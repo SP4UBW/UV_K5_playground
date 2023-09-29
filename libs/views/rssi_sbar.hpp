@@ -57,7 +57,7 @@ public:
    bool bPtt = false;
    bool b59Mode = false;
    //unsigned char Light = 0;
-
+   unsigned char RXAB = 0;
    CRssiSbar()
    {
       Display.SetFont(&FontSmallNr);
@@ -173,12 +173,14 @@ void ProcessDrawings()
          {
           memset(gDisplayBuffer + 128 * 2, 0, 22);
           memset(pDData, 0, 512);
+          RXAB = 4;  //Linia w ktorej ma byc wyswietlane
          // memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
          }
         if (gDisplayBuffer[128 * 4 + 16])
          {
           memset(gDisplayBuffer + 128 * 6, 0, 22);
           memset(pDData - 384, 0, 512);
+          RXAB = 1;  //Linia w ktorej ma byc wyswietlane
           //memset(pDData + 3, 0b1111111, 1);                               //Litera B 
           //memset(pDData + 4, 0b1001001, 3); 
           //memset(pDData + 7, 0b0110110, 1);
@@ -186,8 +188,8 @@ void ProcessDrawings()
        //memset(gDisplayBuffer + 128 * 2, 0, 22);
        //memset(gDisplayBuffer + 128 * 6, 0, 22);
          
-     //  PrintSValue(RssiData.u8SValue);
-     //  PrintNumber(RssiData.s16Rssi);
+       PrintSValue(RssiData.u8SValue);
+       PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
       }
 //   }  
@@ -197,30 +199,25 @@ void ProcessDrawings()
    {
    if (s16Number > -129)
     { 
-      if (s16Number >= 0)
-      {
-         Display.SetCoursor(3, 91);
-         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-      }
+      if (s16Number >= 0)    
+         Display.SetCoursor(RXAB+1, 91);  //2 lub 5
       else
-      {   
-         Display.SetCoursor(3, 84);
-         Display.PrintFixedDigitsNumber2(s16Number, 0, 3);
-         memset(pDData + 85, 0, 2);          //Skrocenie znaku minus
-      }
-        // Display.PrintFixedDigitsNumber2(s16Number, 0, 3); 
+         Display.SetCoursor(RXAB+1, 84);
+              
+      
+         Display.PrintFixedDigitsNumber2(s16Number, 0, 3); 
          //Wyswietlanie napisu dBm
-         memset(pDData + 113, 0b0110000, 1); // znak d 
-         memset(pDData + 114, 0b1001000, 2);
-         memset(pDData + 116, 0b1111111, 1);
+         memset(pDData - 256 + RXAB * 128 + 113, 0b0110000, 1); // znak d   (pddata -256) + RXAB * 128   pDData = gDisplayBuffer + 128 * 3;
+         memset(pDData - 256 + RXAB * 128 + 114, 0b1001000, 2);
+         memset(pDData - 256 + RXAB * 128 + 116, 0b1111111, 1);
          
-         memset(pDData + 118, 0b1111111, 1); // znak B 
-         memset(pDData + 119, 0b1001001, 2); 
-         memset(pDData + 121, 0b0110110, 1);
+         memset(pDData - 256 + RXAB * 128 + 118, 0b1111111, 1); // znak B 
+         memset(pDData - 256 + RXAB * 128 + 119, 0b1001001, 2); 
+         memset(pDData - 256 + RXAB * 128 + 121, 0b0110110, 1);
          
-         memset(pDData + 123, 0b1110000, 5); // znak m
-         memset(pDData + 124, 0b0001000, 1);
-         memset(pDData + 126, 0b0001000, 1);
+         memset(pDData - 256 + RXAB * 128 + 123, 0b1110000, 5); // znak m
+         memset(pDData - 256 + RXAB * 128 + 124, 0b0001000, 1);
+         memset(pDData - 256 + RXAB * 128 + 126, 0b0001000, 1);
     }    
    }
 
@@ -244,9 +241,9 @@ void ProcessDrawings()
       {
          if (u8SValue < 19)  //Ograniczenie do +90dBm
           {  
-           memset(pDData + 14, 0b0001000, 2); // -
-           memset(pDData + 16, 0b0111110, 1); // |
-           memset(pDData + 17, 0b0001000, 2); // -
+           memset(pDData - 256 + RXAB * 128 + 14, 0b0001000, 2); // -
+           memset(pDData - 256 + RXAB * 128 + 16, 0b0111110, 1); // |
+           memset(pDData - 256 + RXAB * 128 + 17, 0b0001000, 2); // -
            C8SignalString[1] = '0';
            C8SignalString[0] = '0' + u8SValue - 9;
           }   
@@ -255,18 +252,18 @@ void ProcessDrawings()
       {
          if (u8SValue > 1)
          { 
-           memcpy(pDData + 14, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
+           memcpy(pDData - 256 + RXAB * 128 + 14, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
          else
          {
            char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
-           memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
+          //memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
          }  
       }
 
-      Display.SetCoursor(3, 19);
+      Display.SetCoursor(RXAB+1, 19);
       Display.Print(C8SignalString);
 
    }
@@ -280,7 +277,7 @@ void PrintSbar(unsigned char u8SValue)
       {
          unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
          unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
-         Display.DrawRectangle(u8X, 8 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
+         Display.DrawRectangle(u8X, RXAB*8 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
       }
     }  
    }
