@@ -165,16 +165,14 @@ void ProcessDrawings()
 //else
 //     {
 
-   //  if ( (gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16])  ) // wlaczenie sbara jak jest RX
-   //   {    
+     if ( (gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16])  ) // wlaczenie sbara jak jest RX
+      {    
         if (!gDisplayBuffer[128 * 0 + 14] && gDisplayBuffer[128 * 0 + 16])
          {
           memset(gDisplayBuffer + 128 * 2, 0, 22);
           memset(pDData, 0, 512);
           RXAB = 4;  //Linia w ktorej ma byc wyswietlane
-       PrintSValue(RssiData.u8SValue);
-       PrintNumber(RssiData.s16Rssi);
-       PrintSbar(RssiData.u8SValue);   
+  
          // memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
          }
         if (gDisplayBuffer[128 * 4 + 16])
@@ -182,9 +180,7 @@ void ProcessDrawings()
           memset(gDisplayBuffer + 128 * 6, 0, 22);
           memset(pDData - 384, 0, 512);
           RXAB = 1;  //Linia w ktorej ma byc wyswietlane
-       PrintSValue(RssiData.u8SValue);
-       PrintNumber(RssiData.s16Rssi);
-       PrintSbar(RssiData.u8SValue);
+
           //memset(pDData + 3, 0b1111111, 1);                               //Litera B 
           //memset(pDData + 4, 0b1001001, 3); 
           //memset(pDData + 7, 0b0110110, 1);
@@ -192,10 +188,10 @@ void ProcessDrawings()
        //memset(gDisplayBuffer + 128 * 2, 0, 22);
        //memset(gDisplayBuffer + 128 * 6, 0, 22);
          
-     //  PrintSValue(RssiData.u8SValue);
-     //  PrintNumber(RssiData.s16Rssi);
-     //  PrintSbar(RssiData.u8SValue);
-//     }
+       PrintNumber(RssiData.s16Rssi);
+       PrintSValue(RssiData.u8SValue);
+       PrintSbar(RssiData.u8SValue);
+      }
 //   }  
     }
 
@@ -259,13 +255,16 @@ void ProcessDrawings()
            C8SignalString[0] = '0' + u8SValue - 9;
            }
           //Wyswietlanie napisu dB
-         memset(pDData - 256 + RXAB * 128 + 35, 0b0110000, 1); // znak d
-         memset(pDData - 256 + RXAB * 128 + 36, 0b1001000, 2);
-         memset(pDData - 256 + RXAB * 128 + 38, 0b1111111, 1);
+         //memset(pDData - 256 + RXAB * 128 + 35, 0b0110000, 1); // znak d
+         //memset(pDData - 256 + RXAB * 128 + 36, 0b1001000, 2);
+         //memset(pDData - 256 + RXAB * 128 + 38, 0b1111111, 1);
          
-         memset(pDData - 256 + RXAB * 128 + 40, 0b1111111, 1); // znak B 
-         memset(pDData - 256 + RXAB * 128 + 41, 0b1001001, 2); 
-         memset(pDData - 256 + RXAB * 128 + 43, 0b0110110, 1);   
+         //memset(pDData - 256 + RXAB * 128 + 40, 0b1111111, 1); // znak B 
+         //memset(pDData - 256 + RXAB * 128 + 41, 0b1001001, 2); 
+         //memset(pDData - 256 + RXAB * 128 + 43, 0b0110110, 1);   
+           
+           memcpy(pDData - 256 + RXAB * 128 + 35, pDData - 256 + RXAB * 128 + 111, 9); // dB character 
+           //memset(pDData - 256 + RXAB * 128 + 111, 0b0110000, 1); // znaki dB  
           }   
       }
       else
