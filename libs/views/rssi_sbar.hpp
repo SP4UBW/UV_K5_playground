@@ -40,13 +40,13 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-   static constexpr auto ChartStartX = 34;
-   static constexpr auto BlockSizeX = 3;
+   static constexpr auto ChartStartX = 3-128;
+   static constexpr auto BlockSizeX = 5;
    static constexpr auto BlockSizeY = 7;
-   static constexpr auto BlockSpace = 1;
+   static constexpr auto BlockSpace = 2;
    static constexpr auto LinearBlocksCnt = 9;  
    static constexpr auto VoltageOffset = 77;
-   static constexpr auto MaxBarPoints = 13;
+   static constexpr auto MaxBarPoints = 17;
    static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
    static inline unsigned char *const pDData1 = gDisplayBuffer + 128 * 4;
    static inline unsigned char *const pDData2 = gDisplayBuffer + 128 * 5;
@@ -103,6 +103,8 @@ public:
      // if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
        
       // PrintBatteryVoltage();
+      //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
+      BK4819Write(0x78, 10280);  //Wyliczenie dla 20dB - dla skrócenia kodu   
        return eScreenRefreshFlag::StatusBar;
        }
 
@@ -169,20 +171,23 @@ void ProcessDrawings()
       {    
         if (gDisplayBuffer[128 * 0 + 16])
          {
+          memset(gDisplayBuffer + 128 * 2, 0, 22);
           memset(pDData, 0, 512);
-          memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
+         // memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
          }
         if (gDisplayBuffer[128 * 4 + 16])
          {
-          memset(pDData - 512, 0, 512);
-          memset(pDData + 3, 0b1111111, 1);                               //Litera B 
-          memset(pDData + 4, 0b1001001, 3); 
-          memset(pDData + 7, 0b0110110, 1);
+          memset(gDisplayBuffer + 128 * 6, 0, 22);
+          memset(pDData - 384, 0, 512);
+          //memset(pDData + 3, 0b1111111, 1);                               //Litera B 
+          //memset(pDData + 4, 0b1001001, 3); 
+          //memset(pDData + 7, 0b0110110, 1);
          }
-       memset(gDisplayBuffer + 128 * 2, 0, 22);
-       memset(gDisplayBuffer + 128 * 6, 0, 22);
-       PrintSValue(RssiData.u8SValue);
-       PrintNumber(RssiData.s16Rssi);
+       //memset(gDisplayBuffer + 128 * 2, 0, 22);
+       //memset(gDisplayBuffer + 128 * 6, 0, 22);
+         
+     //  PrintSValue(RssiData.u8SValue);
+     //  PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
       }
 //   }  
@@ -263,7 +268,7 @@ void ProcessDrawings()
 
       Display.SetCoursor(3, 19);
       Display.Print(C8SignalString);
-     // Light=5; GPIOB->DATA |= GPIO_PIN_6;  //Podtrzymanie podswietlenia jak jest odbior
+
    }
 
 void PrintSbar(unsigned char u8SValue)
