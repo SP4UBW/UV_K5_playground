@@ -172,6 +172,9 @@ void ProcessDrawings()
           memset(gDisplayBuffer + 128 * 2, 0, 22);
           memset(pDData, 0, 512);
           RXAB = 4;  //Linia w ktorej ma byc wyswietlane
+       PrintSValue(RssiData.u8SValue);
+       PrintNumber(RssiData.s16Rssi);
+       PrintSbar(RssiData.u8SValue);   
          // memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
          }
         if (gDisplayBuffer[128 * 4 + 16])
@@ -179,6 +182,9 @@ void ProcessDrawings()
           memset(gDisplayBuffer + 128 * 6, 0, 22);
           memset(pDData - 384, 0, 512);
           RXAB = 1;  //Linia w ktorej ma byc wyswietlane
+       PrintSValue(RssiData.u8SValue);
+       PrintNumber(RssiData.s16Rssi);
+       PrintSbar(RssiData.u8SValue);
           //memset(pDData + 3, 0b1111111, 1);                               //Litera B 
           //memset(pDData + 4, 0b1001001, 3); 
           //memset(pDData + 7, 0b0110110, 1);
@@ -186,9 +192,9 @@ void ProcessDrawings()
        //memset(gDisplayBuffer + 128 * 2, 0, 22);
        //memset(gDisplayBuffer + 128 * 6, 0, 22);
          
-       PrintSValue(RssiData.u8SValue);
-       PrintNumber(RssiData.s16Rssi);
-       PrintSbar(RssiData.u8SValue);
+     //  PrintSValue(RssiData.u8SValue);
+     //  PrintNumber(RssiData.s16Rssi);
+     //  PrintSbar(RssiData.u8SValue);
 //     }
 //   }  
     }
