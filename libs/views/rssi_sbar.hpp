@@ -167,7 +167,7 @@ void ProcessDrawings()
 
      if ( (gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16])  ) // wylaczenie sbara jak nie ma napisow RX
       {    
-        if (!gDisplayBuffer[128 * 0 + 14] && (gDisplayBuffer[128 * 0 + 16])
+        if (!gDisplayBuffer[128 * 0 + 14] && gDisplayBuffer[128 * 0 + 16])
          {
           memset(gDisplayBuffer + 128 * 2, 0, 22);
           memset(pDData, 0, 512);
