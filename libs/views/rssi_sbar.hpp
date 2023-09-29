@@ -7,7 +7,7 @@
 
 namespace Rssi
 {
-   inline const short U8RssiMap[] = { 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3, -7, -17,};
+   inline const short U8RssiMap[] = { 141, 135, 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3, -7, -17,};
 
    struct TRssi
    {
@@ -16,7 +16,7 @@ namespace Rssi
       {
          s16Rssi *= -1;
          unsigned char i;
-         for (i = 2; i < sizeof(U8RssiMap); i++)
+         for (i = 0; i < sizeof(U8RssiMap); i++)
          {
             if (s16Rssi >= U8RssiMap[i])
             {
