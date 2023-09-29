@@ -198,24 +198,24 @@ void ProcessDrawings()
    if (s16Number > -129)
     { 
       if (s16Number >= 0)    
-         Display.SetCoursor(RXAB+1, 91);  //2 lub 5
+         Display.SetCoursor(RXAB+1, 89);  //2 lub 5
       else
-         Display.SetCoursor(RXAB+1, 84);
+         Display.SetCoursor(RXAB+1, 82);
               
       
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3); 
          //Wyswietlanie napisu dBm
-         memset(pDData - 256 + RXAB * 128 + 113, 0b0110000, 1); // znak d   (pddata -256) + RXAB * 128   pDData = gDisplayBuffer + 128 * 3;
-         memset(pDData - 256 + RXAB * 128 + 114, 0b1001000, 2);
-         memset(pDData - 256 + RXAB * 128 + 116, 0b1111111, 1);
+         memset(pDData - 256 + RXAB * 128 + 111, 0b0110000, 1); // znak d   (pddata -256) + RXAB * 128   pDData = gDisplayBuffer + 128 * 3;
+         memset(pDData - 256 + RXAB * 128 + 112, 0b1001000, 2);
+         memset(pDData - 256 + RXAB * 128 + 114, 0b1111111, 1);
          
-         memset(pDData - 256 + RXAB * 128 + 118, 0b1111111, 1); // znak B 
-         memset(pDData - 256 + RXAB * 128 + 119, 0b1001001, 2); 
-         memset(pDData - 256 + RXAB * 128 + 121, 0b0110110, 1);
+         memset(pDData - 256 + RXAB * 128 + 116, 0b1111111, 1); // znak B 
+         memset(pDData - 256 + RXAB * 128 + 117, 0b1001001, 2); 
+         memset(pDData - 256 + RXAB * 128 + 119, 0b0110110, 1);
          
-         memset(pDData - 256 + RXAB * 128 + 123, 0b1110000, 5); // znak m
+         memset(pDData - 256 + RXAB * 128 + 121, 0b1110000, 5); // znak m
+         memset(pDData - 256 + RXAB * 128 + 122, 0b0001000, 1);
          memset(pDData - 256 + RXAB * 128 + 124, 0b0001000, 1);
-         memset(pDData - 256 + RXAB * 128 + 126, 0b0001000, 1);
     }    
    }
 
@@ -284,6 +284,7 @@ void ProcessDrawings()
 
 void PrintSbar(unsigned char u8SValue)
    {
+     Display.DrawRectangle(0, RXAB*8-4, 128, 24, false);
       u8SValue = u8SValue > MaxBarPoints ? MaxBarPoints : u8SValue;
     if (u8SValue>1) 
      { 
@@ -292,8 +293,6 @@ void PrintSbar(unsigned char u8SValue)
          unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
          unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
          Display.DrawRectangle(u8X, RXAB*8 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
-
-         Display.DrawRectangle(1, RXAB*8-4, 127, 24, false);
       }
     }  
    }
