@@ -40,7 +40,7 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-   static constexpr auto ChartStartX = 3;
+   static constexpr auto ChartStartX = 2;
    static constexpr auto BlockSizeX = 5;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 2;
@@ -165,7 +165,7 @@ void ProcessDrawings()
 //else
 //     {
 
-     if ( (gDisplayBuffer[128 * 0 + 16]) || (gDisplayBuffer[128 * 4 + 16])  ) // wlaczenie sbara jak jest RX
+     if ( (RssiData > -129) && (gDisplayBuffer[128 * 0 + 16] || gDisplayBuffer[128 * 4 + 16])  ) // wlaczenie sbara jak jest RX
       {    
         if (!gDisplayBuffer[128 * 0 + 14] && gDisplayBuffer[128 * 0 + 16])
          {
@@ -200,9 +200,9 @@ void ProcessDrawings()
    if (s16Number > -129)
     { 
       if (s16Number >= 0)    
-         Display.SetCoursor(RXAB+1, 89);  //2 lub 5
+         Display.SetCoursor(RXAB+1, 88);  //2 lub 5
       else
-         Display.SetCoursor(RXAB+1, 82);
+         Display.SetCoursor(RXAB+1, 81);
               
       
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3); 
@@ -254,18 +254,9 @@ void ProcessDrawings()
            C8SignalString[1] = '0';
            C8SignalString[0] = '0' + u8SValue - 9;
            }
-          //Wyswietlanie napisu dB
-         //memset(pDData - 256 + RXAB * 128 + 35, 0b0110000, 1); // znak d
-         //memset(pDData - 256 + RXAB * 128 + 36, 0b1001000, 2);
-         //memset(pDData - 256 + RXAB * 128 + 38, 0b1111111, 1);
-         
-         //memset(pDData - 256 + RXAB * 128 + 40, 0b1111111, 1); // znak B 
-         //memset(pDData - 256 + RXAB * 128 + 41, 0b1001001, 2); 
-         //memset(pDData - 256 + RXAB * 128 + 43, 0b0110110, 1);   
-           
+           //Wyswietlanie napisu dB
            memcpy(pDData - 256 + RXAB * 128 + 35, pDData - 256 + RXAB * 128 + 111, 9); // dB character 
-           //memset(pDData - 256 + RXAB * 128 + 111, 0b0110000, 1); // znaki dB  
-          }   
+           }   
       }
       else
       {
