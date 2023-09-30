@@ -187,7 +187,7 @@ void ProcessDrawings()
          }
        //memset(gDisplayBuffer + 128 * 2, 0, 22);
        //memset(gDisplayBuffer + 128 * 6, 0, 22);
-       GPIOB->DATA |= GPIO_PIN_6; //wlaczenie podswietlenia  
+       //GPIOB->DATA |= GPIO_PIN_6; //wlaczenie podswietlenia  
        PrintNumber(RssiData.s16Rssi);
        PrintSValue(RssiData.u8SValue);
        PrintSbar(RssiData.u8SValue);
