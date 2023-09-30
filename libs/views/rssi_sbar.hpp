@@ -40,7 +40,7 @@ template <
 class CRssiSbar : public IView, public IMenuElement
 {
 public:
-   static constexpr auto ChartStartX = 2;
+   static constexpr auto ChartStartX = 3;
    static constexpr auto BlockSizeX = 5;
    static constexpr auto BlockSizeY = 7;
    static constexpr auto BlockSpace = 2;
