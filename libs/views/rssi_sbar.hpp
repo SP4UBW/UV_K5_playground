@@ -165,7 +165,7 @@ void ProcessDrawings()
 //else
 //     {
 
-     if ( (RssiData > -129) && (gDisplayBuffer[128 * 0 + 16] || gDisplayBuffer[128 * 4 + 16])  ) // wlaczenie sbara jak jest RX
+     if ( (RssiData.s16Rssi > -129) && (gDisplayBuffer[128 * 0 + 16] || gDisplayBuffer[128 * 4 + 16])  ) // wlaczenie sbara jak jest RX
       {    
         if (!gDisplayBuffer[128 * 0 + 14] && gDisplayBuffer[128 * 0 + 16])
          {
