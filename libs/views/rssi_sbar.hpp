@@ -86,7 +86,7 @@ public:
      if (Context.OriginalFwStatus.b1RadioSpiCommInUse || Context.OriginalFwStatus.b1LcdSpiCommInUse)
       {
         Light++;               //GPIOB->DATA |= GPIO_PIN_6; wlaczenie podswietlenia
-        if (Light > 5) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 6s przy skanowaniu
+        if (Light > 9) {Light=0; GPIOB->DATA &= ~GPIO_PIN_6;} //Wylacz LCD po 10s przy skanowaniu
         if (gDisplayBuffer[128 * 3 + 49]) Light=0;
         if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0;
         if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0;
@@ -97,19 +97,15 @@ public:
       if (Context.ViewStack.GetTop() || !(u32DrawVoltagePsc++ % 8))
        {
       
-     //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
+       //Zerowanie licznika wylaczenia podswietlenia jak wcisniety klawisz UP/DOWN
       if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
        
        PrintBatteryVoltage();
-      //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
-      BK4819Write(0x78, 10280);  //Wyliczenie dla 20dB - dla skrócenia kodu   
+       //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
+       BK4819Write(0x78, 0x2828);  //Wyliczenie dla 20dB - dla skrócenia kodu   
        return eScreenRefreshFlag::StatusBar;
        }
 
-      // bPtt = !(GPIOC->DATA & GPIO_PIN_5);
-
-      //if (RadioDriver.IsSqlOpen() || bPtt) u8SqlDelayCnt = 0;   
-      
       if (RadioDriver.IsSqlOpen()) u8SqlDelayCnt = 0;
     
       if (u8SqlDelayCnt > 10 || Context.OriginalFwStatus.b1MenuDrawed)
@@ -128,43 +124,15 @@ public:
       u8SqlDelayCnt++;
       bIsCleared = false;
 
-      if (b59Mode)
-      {
-         RssiData = 0;
-      }
-    //  else if (bPtt)
-    //  {
-    //     RssiData.s16Rssi = RadioDriver.GetAFAmplitude();
-    //     RssiData.s16Rssi = RssiData.s16Rssi < 62 ? 0 : RssiData.s16Rssi - 45; 
-    //     RssiData.u8SValue = (MaxBarPoints * RssiData.s16Rssi) >> 6;
-    //  }
-      else
-      {
-         RssiData = RadioDriver.GetRssi();
-      }
+   if (b59Mode) RssiData = 0; else RssiData = RadioDriver.GetRssi();
          
-   if (!(gDisplayBuffer[128 * 1 + 2])) //&& ((gDisplayBuffer[128 * 0 + 3]) || (gDisplayBuffer[128 * 4 + 3])))
-    {
+   if (!gDisplayBuffer[128 * 1 + 2])
      ProcessDrawings();
-    }
-   return eScreenRefreshFlag::MainScreen;
+     return eScreenRefreshFlag::MainScreen;
    }
 
 void ProcessDrawings()
    {
-      //memset(pDData, 0, DisplayBuff.SizeX);
-      
-//if (bPtt)
-//     {
-//        if ((gDisplayBuffer[128 * 2 + 1]) || (gDisplayBuffer[128 * 6 + 1]))  // wylaczenie MIC i sbar jak DISABLE TX
-//         {   
-//          PrintSValue(RssiData.u8SValue);
-//          PrintSbar(RssiData.u8SValue);
-//         }   
-//     }
-//else
-//     {
-
      if ( (RadioDriver.IsSqlOpen()) && (gDisplayBuffer[128 * 0 + 16] || gDisplayBuffer[128 * 4 + 16])  ) // wlaczenie sbara jak jest RX
       {    
         if (!gDisplayBuffer[128 * 0 + 14] && gDisplayBuffer[128 * 0 + 16])
@@ -172,27 +140,18 @@ void ProcessDrawings()
           memset(gDisplayBuffer + 128 * 2, 0, 22);
           memset(pDData, 0, 512);
           RXAB = 4;  //Linia w ktorej ma byc wyswietlane
-  
-         // memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
          }
         if (gDisplayBuffer[128 * 4 + 16])
          {
           memset(gDisplayBuffer + 128 * 6, 0, 22);
           memset(pDData - 384, 0, 512);
           RXAB = 1;  //Linia w ktorej ma byc wyswietlane
-
-          //memset(pDData + 3, 0b1111111, 1);                               //Litera B 
-          //memset(pDData + 4, 0b1001001, 3); 
-          //memset(pDData + 7, 0b0110110, 1);
          }
-       //memset(gDisplayBuffer + 128 * 2, 0, 22);
-       //memset(gDisplayBuffer + 128 * 6, 0, 22);
-       //GPIOB->DATA |= GPIO_PIN_6; //wlaczenie podswietlenia  
+  
        PrintNumber(RssiData.s16Rssi);
        PrintSValue(RssiData.u8SValue);
        PrintSbar(RssiData.u8SValue);
       }
-//   }  
     }
 
    void PrintNumber(short s16Number)
@@ -223,14 +182,6 @@ void ProcessDrawings()
 
    void PrintSValue(unsigned char u8SValue)
    {
- //  if (bPtt) // print MIC
- //  {
- //       memcpy(pDData + 3 + 5*0 + 0, gSmallLeters + 128 * 1 + 102, 5);   //Napis M
- //       memset(pDData + 3 + 5*1 + 1, 0b1111111, 1);                      //Napis I
- //       memcpy(pDData + 3 + 5*2 - 2, gSmallLeters + 128 * 1 + 108, 5);   //Napis C
- //       return;
- //  }
-
       char C8SignalString[] = "  ";
       if(b59Mode)
       {
@@ -266,11 +217,6 @@ void ProcessDrawings()
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
          } 
-        // else
-        // {
-          //char C8SignalString[] = "  ";       //Wylaczenie Wskazania S po puszczeniu PTT
-          //memset(pDData + 3, 0, 5);           //Wylaczenie litery A lub B
-        // }  
       }
 
       Display.SetCoursor(RXAB+1, 19);
