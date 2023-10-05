@@ -280,7 +280,7 @@ void ProcessDrawings()
 
 void PrintSbar(unsigned char u8SValue)
    {
-     Display.DrawRectangle(0, RXAB*8-4, 128, 24, false);
+     Display.DrawRectangle(0, RXAB*8-1, 128, 24, false);
       u8SValue = u8SValue > MaxBarPoints ? MaxBarPoints : u8SValue;
     if (u8SValue>1) 
      { 
