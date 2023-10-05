@@ -148,7 +148,7 @@ void ProcessDrawings()
           RXAB = 1;  //Linia w ktorej ma byc wyswietlane
          }
   
-       PrintNumber(RssiData.s16Rssi);
+      // PrintNumber(RssiData.s16Rssi);
        PrintSValue(RssiData.u8SValue);
        PrintSbar(RssiData.u8SValue);
       }
