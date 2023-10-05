@@ -280,7 +280,7 @@ void ProcessDrawings()
 
 void PrintSbar(unsigned char u8SValue)
    {
-     Display.DrawRectangle(0, RXAB*8-1, 128, 24, false);
+     Display.DrawRectangle(0, RXAB*8-5, 128, 24, false);
       u8SValue = u8SValue > MaxBarPoints ? MaxBarPoints : u8SValue;
     if (u8SValue>1) 
      { 
@@ -288,7 +288,7 @@ void PrintSbar(unsigned char u8SValue)
       {
          unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
          unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
-         Display.DrawRectangle(u8X, RXAB*8 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
+         Display.DrawRectangle(u8X, RXAB*8-3 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
       }
     }  
    }
