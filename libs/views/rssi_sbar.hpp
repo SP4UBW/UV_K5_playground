@@ -42,9 +42,9 @@ class CRssiSbar : public IView, public IMenuElement
 public:
    static constexpr auto ChartStartX = 3;
    static constexpr auto BlockSizeX = 5;
-   static constexpr auto BlockSizeY = 7;
+   static constexpr auto BlockSizeY = 9;
    static constexpr auto BlockSpace = 2;
-   static constexpr auto LinearBlocksCnt = 9;  
+   static constexpr auto LinearBlocksCnt = 18;  
    static constexpr auto VoltageOffset = 77;
    static constexpr auto MaxBarPoints = 18;
    static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
