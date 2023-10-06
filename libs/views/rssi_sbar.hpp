@@ -46,7 +46,7 @@ public:
    static constexpr auto BlockSpace = 2;
    static constexpr auto LinearBlocksCnt = 17;  
    static constexpr auto VoltageOffset = 77;
-   static constexpr auto MaxBarPoints = 18;
+   static constexpr auto MaxBarPoints = 17;
    static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
    
    unsigned int u32DrawVoltagePsc = 0;
@@ -184,11 +184,11 @@ void ProcessDrawings()
    void PrintSValue(unsigned char u8SValue, short s16Number)
    {
       Display.SetCoursor(RXAB+1, 22);
-      char C8SignalString[] = "  ";
+      char C8SignalString[] = " ";
       if(b59Mode)
       {
          C8SignalString[0] = '5';
-         C8SignalString[1] = '9';
+      //   C8SignalString[1] = '9';
       }
         else if (s16Number > -93)
       {
@@ -218,7 +218,7 @@ void ProcessDrawings()
          { 
            memcpy(pDData - 256 + RXAB * 128 + 3, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = (u8SValue > 9) ? '9' : '0' + u8SValue;
-           C8SignalString[1] = ' ';
+           //C8SignalString[1] = ' ';
            Display.SetCoursor(RXAB+1, 8);
            Display.Print(C8SignalString);   
          } 
