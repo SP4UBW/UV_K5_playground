@@ -150,7 +150,7 @@ void ProcessDrawings()
   
       // PrintNumber(RssiData.s16Rssi);
       // PrintSValue(RssiData.u8SValue);
-       PrintSValue(RssiData.s16Rssi, RssiData.u8SValue);  
+       PrintSValue(RssiData.u8SValue, RssiData.s16Rssi);  
        PrintSbar(RssiData.u8SValue);
       }
     }
