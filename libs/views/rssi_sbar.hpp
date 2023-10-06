@@ -190,11 +190,8 @@ void ProcessDrawings()
          C8SignalString[0] = '5';
          C8SignalString[1] = '9';
       }
-      //else if (u8SValue > 9) 
         else if (s16Number > -93)
       {
-         //if (u8SValue < 23)  //Ograniczenie do +99dBm 
-         // {  
            memset(pDData - 256 + RXAB * 128 + 14, 0b0001000, 2); // -
            memset(pDData - 256 + RXAB * 128 + 16, 0b0111110, 1); // |
            memset(pDData - 256 + RXAB * 128 + 17, 0b0001000, 2); // -
@@ -207,9 +204,14 @@ void ProcessDrawings()
            Display.PrintFixedDigitsNumber2(s16Number + 93, 0, 2);
            }
            //Wyswietlanie napisu dB
-           memcpy(pDData - 256 + RXAB * 128 + 35, pDData - 256 + RXAB * 128 + 111, 9); // dB character 
-          // }   
+          // memcpy(pDData - 256 + RXAB * 128 + 35, pDData - 256 + RXAB * 128 + 111, 9); // dB character 
+         memset(pDData - 256 + RXAB * 128 + 35, 0b0110000, 1); // znak d
+         memset(pDData - 256 + RXAB * 128 + 36, 0b1001000, 2);
+         memset(pDData - 256 + RXAB * 128 + 38, 0b1111111, 1);
          
+         memset(pDData - 256 + RXAB * 128 + 40, 0b1111111, 1); // znak B 
+         memset(pDData - 256 + RXAB * 128 + 41, 0b1001001, 2); 
+         memset(pDData - 256 + RXAB * 128 + 43, 0b0110110, 1);
       }
       else
       {
@@ -218,14 +220,9 @@ void ProcessDrawings()
            memcpy(pDData - 256 + RXAB * 128 + 14, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
-           //Display.SetCoursor(RXAB+1, 19);
            Display.Print(C8SignalString);   
          } 
       }
-
-     // Display.SetCoursor(RXAB+1, 19);
-     // Display.Print(C8SignalString);
-
    }
 
 void PrintSbar(unsigned char u8SValue)
