@@ -183,46 +183,33 @@ void ProcessDrawings()
 
    void PrintSValue(unsigned char u8SValue, short s16Number)
    {
-      Display.SetCoursor(RXAB+1, 22);
+      Display.SetCoursor(RXAB+1, 22+2);
       char C8SignalString[] = " ";
-      if(b59Mode)
+      if (b59Mode)  C8SignalString[0] = '5';
+        else if (s16Number >= -93)
       {
-         C8SignalString[0] = '5';
-      //   C8SignalString[1] = '9';
-      }
-        else if (s16Number > -93)
-      {
-           memset(pDData - 256 + RXAB * 128 + 17, 0b0001000, 2); // -
-           memset(pDData - 256 + RXAB * 128 + 19, 0b0111110, 1); // |
-           memset(pDData - 256 + RXAB * 128 + 20, 0b0001000, 2); // -
-           if (s16Number > 6)
-           {  
-           Display.PrintFixedDigitsNumber2(99, 0, 2);
-           } 
-           else
-           {
-           Display.PrintFixedDigitsNumber2(s16Number + 93, 0, 2);
-           }
+           memset(pDData - 256 + RXAB * 128 + 17+2, 0b0001000, 2); // -
+           memset(pDData - 256 + RXAB * 128 + 19+2, 0b0111110, 1); // |
+           memset(pDData - 256 + RXAB * 128 + 20+2, 0b0001000, 2); // -
+           if (s16Number > 6)  Display.PrintFixedDigitsNumber2(99, 0, 2);
+            else  Display.PrintFixedDigitsNumber2(s16Number + 93, 0, 2);
+
            //Wyswietlanie napisu dB
-         memset(pDData - 256 + RXAB * 128 + 38, 0b0110000, 1); // znak d
-         memset(pDData - 256 + RXAB * 128 + 39, 0b1001000, 2);
-         memset(pDData - 256 + RXAB * 128 + 41, 0b1111111, 1);
+         memset(pDData - 256 + RXAB * 128 + 38+3, 0b0110000, 1); // znak d
+         memset(pDData - 256 + RXAB * 128 + 39+3, 0b1001000, 2);
+         memset(pDData - 256 + RXAB * 128 + 41+3, 0b1111111, 1);
          
-         memset(pDData - 256 + RXAB * 128 + 43, 0b1111111, 1); // znak B 
-         memset(pDData - 256 + RXAB * 128 + 44, 0b1001001, 2); 
-         memset(pDData - 256 + RXAB * 128 + 46, 0b0110110, 1);
+         memset(pDData - 256 + RXAB * 128 + 43+3, 0b1111111, 1); // znak B 
+         memset(pDData - 256 + RXAB * 128 + 44+3, 0b1001001, 2); 
+         memset(pDData - 256 + RXAB * 128 + 46+3, 0b0110110, 1);
       }
-      //else
-      //{
          if (u8SValue > 1)
          { 
            memcpy(pDData - 256 + RXAB * 128 + 3, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = (u8SValue > 9) ? '9' : '0' + u8SValue;
-           //C8SignalString[1] = ' ';
            Display.SetCoursor(RXAB+1, 8);
            Display.Print(C8SignalString);   
          } 
-     // }
    }
 
 void PrintSbar(unsigned char u8SValue)
