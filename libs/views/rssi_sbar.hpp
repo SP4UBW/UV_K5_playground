@@ -147,9 +147,7 @@ void ProcessDrawings()
           memset(pDData - 384, 0, 512);
           RXAB = 1;  //Linia w ktorej ma byc wyswietlane
          }
-  
-      // PrintNumber(RssiData.s16Rssi);
-      // PrintSValue(RssiData.u8SValue);
+
        PrintSValue(RssiData.u8SValue, RssiData.s16Rssi);  
        PrintSbar(RssiData.u8SValue);
       }
@@ -186,13 +184,13 @@ void ProcessDrawings()
       Display.SetCoursor(RXAB+1, 22+3);
       char C8SignalString[] = " ";
       if (b59Mode)  C8SignalString[0] = '5';
-        else if (s16Number >= -92)
+        else if (s16Number > -92)
       {
            memset(pDData - 256 + RXAB * 128 + 17+2, 0b0001000, 2); // -
            memset(pDData - 256 + RXAB * 128 + 19+2, 0b0111110, 1); // |
            memset(pDData - 256 + RXAB * 128 + 20+2, 0b0001000, 2); // -
            if (s16Number > 6)  Display.PrintFixedDigitsNumber2(99, 0, 2);
-            else  Display.PrintFixedDigitsNumber2(s16Number + 93, 0, 2);
+            else  Display.PrintFixedDigitsNumber2(s16Number + 92, 0, 2);
 
            //Wyswietlanie napisu dB
          memset(pDData - 256 + RXAB * 128 + 38+3, 0b0110000, 1); // znak d
