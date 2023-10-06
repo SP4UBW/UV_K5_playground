@@ -151,7 +151,8 @@ void ProcessDrawings()
           memset(pDData - 256 + RXAB * 128 + 121, 0b1001001, 3); 
           memset(pDData - 256 + RXAB * 128 + 124, 0b0110110, 1);  
          }
-
+           memcpy(pDData - 256 + RXAB * 128 + 111, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
+           memcpy(pDData - 256 + RXAB * 128 + 117, gSmallLeters + 128 * 1 + 242, 5);  //Napis X
        PrintSValue(RssiData.u8SValue, RssiData.s16Rssi);  
        PrintSbar(RssiData.u8SValue);
       }
