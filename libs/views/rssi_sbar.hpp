@@ -52,7 +52,7 @@ public:
    unsigned int u32DrawVoltagePsc = 0;
    Rssi::TRssi RssiData;
    unsigned char u8AfAmp = 0;
-   bool bPtt = false;
+   // bool bPtt = false;
    bool b59Mode = false;
    unsigned char Light = 0;
    unsigned char RXAB = 0;
@@ -149,7 +149,8 @@ void ProcessDrawings()
          }
   
       // PrintNumber(RssiData.s16Rssi);
-       PrintSValue(RssiData.u8SValue);
+      // PrintSValue(RssiData.u8SValue);
+       PrintSValue(RssiData.s16Rssi, RssiData.u8SValue);  
        PrintSbar(RssiData.u8SValue);
       }
     }
@@ -180,47 +181,50 @@ void ProcessDrawings()
     }    
    }
 
-   void PrintSValue(unsigned char u8SValue)
+   void PrintSValue(unsigned char u8SValue, short s16Number)
    {
+      Display.SetCoursor(RXAB+1, 19);
       char C8SignalString[] = "  ";
       if(b59Mode)
       {
          C8SignalString[0] = '5';
          C8SignalString[1] = '9';
       }
-      else if (u8SValue > 9)
+      //else if (u8SValue > 9) 
+        else if (s16Number > -93)
       {
-         if (u8SValue < 23)  //Ograniczenie do +99dBm 
-          {  
+         //if (u8SValue < 23)  //Ograniczenie do +99dBm 
+         // {  
            memset(pDData - 256 + RXAB * 128 + 14, 0b0001000, 2); // -
            memset(pDData - 256 + RXAB * 128 + 16, 0b0111110, 1); // |
            memset(pDData - 256 + RXAB * 128 + 17, 0b0001000, 2); // -
-           if (u8SValue > 18)
+           if (s16Number > 6)
            {  
-           C8SignalString[1] = '9';
-           C8SignalString[0] = '9';
+           Display.PrintFixedDigitsNumber2(99, 0, 2);
            } 
            else
            {
-           C8SignalString[1] = '0';
-           C8SignalString[0] = '0' + u8SValue - 9;
+           Display.PrintFixedDigitsNumber2(s16Number + 93, 0, 2);
            }
            //Wyswietlanie napisu dB
            memcpy(pDData - 256 + RXAB * 128 + 35, pDData - 256 + RXAB * 128 + 111, 9); // dB character 
-           }   
+          // }   
+         
       }
       else
       {
-         if (u8SValue > 1)
+         if (u8SValue > 1 && u8SValue < 10)
          { 
            memcpy(pDData - 256 + RXAB * 128 + 14, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
            C8SignalString[0] = '0' + u8SValue;
            C8SignalString[1] = ' ';
+           //Display.SetCoursor(RXAB+1, 19);
+           Display.Print(C8SignalString);   
          } 
       }
 
-      Display.SetCoursor(RXAB+1, 19);
-      Display.Print(C8SignalString);
+     // Display.SetCoursor(RXAB+1, 19);
+     // Display.Print(C8SignalString);
 
    }
 
