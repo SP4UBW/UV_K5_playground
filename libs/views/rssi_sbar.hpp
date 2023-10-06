@@ -140,16 +140,16 @@ void ProcessDrawings()
           memset(gDisplayBuffer + 128 * 2, 0, 22);
           memset(pDData, 0, 512);
           RXAB = 4;  //Linia w ktorej ma byc wyswietlane
-          //memcpy(pDData - 256 + RXAB * 128 + 120, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
+          memcpy(pDData - 256 + RXAB * 128 + 120, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
          }
         if (gDisplayBuffer[128 * 4 + 16])
          {
           memset(gDisplayBuffer + 128 * 6, 0, 22);
           memset(pDData - 384, 0, 512);
           RXAB = 1;  //Linia w ktorej ma byc wyswietlane
-         // memset(pDData - 256 + RXAB * 128 + 120, 0b1111111, 1);                    //Litera B 
-         // memset(pDData - 256 + RXAB * 128 + 121, 0b1001001, 3); 
-         // memset(pDData - 256 + RXAB * 128 + 124, 0b0110110, 1);  
+          memset(pDData - 256 + RXAB * 128 + 120, 0b1111111, 1);                    //Litera B 
+          memset(pDData - 256 + RXAB * 128 + 121, 0b1001001, 3); 
+          memset(pDData - 256 + RXAB * 128 + 124, 0b0110110, 1);  
          }
        PrintSValue(RssiData.u8SValue, RssiData.s16Rssi);  
        PrintSbar(RssiData.u8SValue);
@@ -186,8 +186,8 @@ void ProcessDrawings()
    {
       Display.SetCoursor(RXAB+1, 22+3);
       char C8SignalString[] = " ";
-      if (b59Mode)  C8SignalString[0] = '5';
-        else if (s16Number > -92)
+     // if (b59Mode)  C8SignalString[0] = '5';
+        if (s16Number > -92)
       {
            memset(pDData - 256 + RXAB * 128 + 17+2, 0b0001000, 2); // -
            memset(pDData - 256 + RXAB * 128 + 19+2, 0b0111110, 1); // |
@@ -211,21 +211,9 @@ void ProcessDrawings()
            Display.SetCoursor(RXAB+1, 8);
            Display.Print(C8SignalString);  
            
-           //memcpy(pDData - 256 + RXAB * 128 + 111, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
-           //memcpy(pDData - 256 + RXAB * 128 + 117, gSmallLeters + 128 * 1 + 242, 5);  //Napis X  
-            
-         if (RXAB == 1)
-         {
-          memset(pDData - 256 + RXAB * 128 + 120, 0b1111111, 1);                      //Litera B 
-          memset(pDData - 256 + RXAB * 128 + 121, 0b1001001, 3); 
-          memset(pDData - 256 + RXAB * 128 + 124, 0b0110110, 1);  
-          memcpy(pDData - 256 + RXAB * 128 + 111, pDData - 256 + 16, 15);             //Napis RX  
-         }
-          else 
-         {
-          memcpy(pDData - 256 + RXAB * 128 + 120, gSmallLeters + 128 * 1 + 96, 5);   //Litera A  
-          memcpy(pDData - 256 + RXAB * 128 + 111, pDData + 128 + 16, 15);            //Napis RX
-         }   
+           memcpy(pDData - 256 + RXAB * 128 + 111, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
+           memcpy(pDData - 256 + RXAB * 128 + 117, gSmallLeters + 128 * 1 + 242, 5);  //Napis X  
+           
          } 
    }
 
