@@ -213,8 +213,8 @@ void ProcessDrawings()
            Display.SetCoursor(RXAB+1, 8);
            Display.Print(C8SignalString);  
            
-           memcpy(pDData - 256 + RXAB * 128 + 111, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
-           memcpy(pDData - 256 + RXAB * 128 + 117, gSmallLeters + 128 * 1 + 242, 5);  //Napis X  
+           memcpy(pDData - 256 + RXAB * 128 + 105, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
+           memcpy(pDData - 256 + RXAB * 128 + 111, gSmallLeters + 128 * 1 + 242, 5);  //Napis X  
            
          } 
    }
