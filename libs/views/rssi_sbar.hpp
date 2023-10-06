@@ -65,8 +65,8 @@ public:
    const char *GetLabel() override
    {
       if (!b59Mode)
-         return "M";
-         return "S";
+         return " ";
+         return " ";
          //return "S-metr  normal";
          //return "S-metr    59";
    }
@@ -155,7 +155,7 @@ void ProcessDrawings()
          }
        PrintSValue(RssiData.u8SValue, RssiData.s16Rssi);  
        PrintSbar(RssiData.u8SValue);
-                  memcpy(pDData - 256 + RXAB * 128 + 105, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
+           memcpy(pDData - 256 + RXAB * 128 + 105, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
            memcpy(pDData - 256 + RXAB * 128 + 111, gSmallLeters + 128 * 1 + 242, 5);  //Napis X   
       }
     }
