@@ -44,7 +44,7 @@ public:
    static constexpr auto BlockSizeX = 5;
    static constexpr auto BlockSizeY = 9;
    static constexpr auto BlockSpace = 2;
-   static constexpr auto LinearBlocksCnt = 18;  
+   static constexpr auto LinearBlocksCnt = 17;  
    static constexpr auto VoltageOffset = 77;
    static constexpr auto MaxBarPoints = 18;
    static inline unsigned char *const pDData = gDisplayBuffer + 128 * 3;
@@ -212,8 +212,8 @@ void ProcessDrawings()
          memset(pDData - 256 + RXAB * 128 + 44, 0b1001001, 2); 
          memset(pDData - 256 + RXAB * 128 + 46, 0b0110110, 1);
       }
-      else
-      {
+      //else
+      //{
          if (u8SValue > 1)
          { 
            memcpy(pDData - 256 + RXAB * 128 + 3, gSmallLeters + 128 * 1 + 194, 5);  //Litera S wąska  
@@ -222,7 +222,7 @@ void ProcessDrawings()
            Display.SetCoursor(RXAB+1, 8);
            Display.Print(C8SignalString);   
          } 
-      }
+     // }
    }
 
 void PrintSbar(unsigned char u8SValue)
