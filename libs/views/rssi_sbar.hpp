@@ -183,10 +183,10 @@ void ProcessDrawings()
 
    void PrintSValue(unsigned char u8SValue, short s16Number)
    {
-      Display.SetCoursor(RXAB+1, 22+2);
+      Display.SetCoursor(RXAB+1, 22+3);
       char C8SignalString[] = " ";
       if (b59Mode)  C8SignalString[0] = '5';
-        else if (s16Number >= -93)
+        else if (s16Number >= -92)
       {
            memset(pDData - 256 + RXAB * 128 + 17+2, 0b0001000, 2); // -
            memset(pDData - 256 + RXAB * 128 + 19+2, 0b0111110, 1); // |
