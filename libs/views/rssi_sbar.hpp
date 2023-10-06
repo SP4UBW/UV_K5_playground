@@ -211,16 +211,21 @@ void ProcessDrawings()
            Display.SetCoursor(RXAB+1, 8);
            Display.Print(C8SignalString);  
            
-           memcpy(pDData - 256 + RXAB * 128 + 111, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
-           memcpy(pDData - 256 + RXAB * 128 + 117, gSmallLeters + 128 * 1 + 242, 5);  //Napis X  
+           //memcpy(pDData - 256 + RXAB * 128 + 111, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
+           //memcpy(pDData - 256 + RXAB * 128 + 117, gSmallLeters + 128 * 1 + 242, 5);  //Napis X  
+            
          if (RXAB == 1)
          {
           memset(pDData - 256 + RXAB * 128 + 120, 0b1111111, 1);                      //Litera B 
           memset(pDData - 256 + RXAB * 128 + 121, 0b1001001, 3); 
           memset(pDData - 256 + RXAB * 128 + 124, 0b0110110, 1);  
+          memcpy(pDData - 256 + RXAB * 128 + 111, pDData - 256 + 16, 15);             //Napis RX  
          }
-          else memcpy(pDData - 256 + RXAB * 128 + 120, gSmallLeters + 128 * 1 + 96, 5);  //Litera A  
-            
+          else 
+         {
+          memcpy(pDData - 256 + RXAB * 128 + 120, gSmallLeters + 128 * 1 + 96, 5);   //Litera A  
+          memcpy(pDData - 256 + RXAB * 128 + 111, pDData + 128 + 16, 15);            //Napis RX
+         }   
          } 
    }
 
