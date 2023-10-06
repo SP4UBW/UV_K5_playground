@@ -65,8 +65,10 @@ public:
    const char *GetLabel() override
    {
       if (!b59Mode)
-         return "S-metr  normal";
-         return "S-metr    59";
+         return "M";
+         return "S";
+         //return "S-metr  normal";
+         //return "S-metr    59";
    }
 
    void HandleUserAction(unsigned char u8Button) override
