@@ -64,8 +64,8 @@ public:
 
    const char *GetLabel() override
    {
-      if (!b59Mode)
-         return " ";
+      //if (!b59Mode)
+      //   return " ";
          return " ";
          //return "S-metr  normal";
          //return "S-metr    59";
@@ -190,7 +190,6 @@ void ProcessDrawings()
    {
       Display.SetCoursor(RXAB+1, 22+3);
       char C8SignalString[] = " ";
-     // if (b59Mode)  C8SignalString[0] = '5';
         if (s16Number > -92)
       {
            memset(pDData - 256 + RXAB * 128 + 17+2, 0b0001000, 2); // -
@@ -214,10 +213,6 @@ void ProcessDrawings()
            C8SignalString[0] = (u8SValue > 9) ? '9' : '0' + u8SValue;
            Display.SetCoursor(RXAB+1, 8);
            Display.Print(C8SignalString);  
-           
-         //  memcpy(pDData - 256 + RXAB * 128 + 105, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
-         //  memcpy(pDData - 256 + RXAB * 128 + 111, gSmallLeters + 128 * 1 + 242, 5);  //Napis X  
-           
          } 
    }
 
