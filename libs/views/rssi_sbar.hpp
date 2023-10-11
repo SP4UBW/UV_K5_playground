@@ -120,19 +120,20 @@ public:
 //Obsluga wielokrotnego nacisniecia klawisza F
        if (gStatusBarData[VoltageOffset + 22])
        {
-        if (licznik < 80) licznik = licznik + 80;  
+        if (licznik < 100) licznik = licznik + 100;  
        }
-       else
-       {
-        if (licznik > 0 ) licznik--;
-       }
+      // else
+      // {
+        
+      // }
 
-       if (licznik > 80) 
+       if (licznik > 100) 
        {   
         licznik = 0;
         procenty = !procenty;
        }   
 
+      if (licznik > 0 ) licznik--;
 
 
 
