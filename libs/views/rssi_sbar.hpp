@@ -103,7 +103,7 @@ public:
        }
        else
        {
-        if (licznik > 5) 
+        if (licznik >= 5) 
        {   
         licznik = 0;
         procenty = !procenty;
