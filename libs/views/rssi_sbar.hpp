@@ -51,7 +51,8 @@ public:
    
    unsigned int u32DrawVoltagePsc = 0;
    Rssi::TRssi RssiData;
-   bool procenty = false;
+   bool procenty = true;
+   unsigned char licznik = 0;
    unsigned char Light = 0;
    unsigned char RXAB = 0;
    CRssiSbar()
@@ -97,10 +98,21 @@ public:
        BK4819Write(0x78, 0x2828);  //Wyliczenie dla 20dB - dla skrócenia kodu 
 
        //Obsluga wielokrotnego nacisniecia klawisza F
-      // if (gStatusBarData[VoltageOffset + 22])
-      // {
-      //    
-      // }
+       if (gStatusBarData[VoltageOffset + 22])
+       {
+        licznik++;  
+       }
+       else
+       {
+        if (licznik > 0 ) licznik--;
+       }
+
+       if (licznik > 35) 
+       {   
+        licznik = 0;
+        procenty = !procenty;
+       }   
+          
        return eScreenRefreshFlag::StatusBar;
        }
 
