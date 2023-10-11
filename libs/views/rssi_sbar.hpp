@@ -51,9 +51,9 @@ public:
    
    unsigned int u32DrawVoltagePsc = 0;
    Rssi::TRssi RssiData;
-   unsigned char u8AfAmp = 0;
+   // unsigned char u8AfAmp = 0;
    // bool bPtt = false;
-   bool b59Mode = false;
+   // bool b59Mode = false;
    unsigned char Light = 0;
    unsigned char RXAB = 0;
    CRssiSbar()
@@ -67,14 +67,14 @@ public:
       return " ";
    }
 
-   void HandleUserAction(unsigned char u8Button) override
-   {
+  // void HandleUserAction(unsigned char u8Button) override
+  // {
    //   if (u8Button != Button::Ok)
    //   {
-         return;
+  //       return;
    //   }
    //    b59Mode = !b59Mode;
-   }
+  // }
 
    eScreenRefreshFlag HandleBackground(TViewContext &Context) override
    {
