@@ -87,20 +87,17 @@ public:
       //Obsluga wielokrotnego nacisniecia klawisza F
        if (gStatusBarData[VoltageOffset + 22])
        {
-        if (licznik < 10) licznik = licznik + 10;  
+        if (licznik < 3) licznik = licznik + 3;  
        }
        else
        {
         if (licznik > 0 ) licznik--;
-        if (licznik > 10) 
+       }
+        if (licznik > 4) 
        {   
         licznik = 0;
         procenty = !procenty;
-       }     
-       
-       
-       }
-
+       }    
         
  
         return eScreenRefreshFlag::NoRefresh;
