@@ -100,7 +100,7 @@ public:
        //Obsluga wielokrotnego nacisniecia klawisza F
        if (gStatusBarData[VoltageOffset + 22])
        {
-        licznik == licznik + 3;  
+        licznik = licznik + 3;  
        }
        else
        {
