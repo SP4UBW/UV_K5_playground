@@ -96,23 +96,6 @@ public:
        PrintBatteryVoltage();
        //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
        BK4819Write(0x78, 0x2828);  //Wyliczenie dla 20dB - dla skrócenia kodu 
-
-       //Obsluga wielokrotnego nacisniecia klawisza F
-       if (gStatusBarData[VoltageOffset + 22])
-       {
-        if (licznik < 3) licznik = licznik + 3;  
-       }
-       else
-       {
-        if (licznik > 0 ) licznik--;
-       }
-
-       if (licznik > 4) 
-       {   
-        licznik = 0;
-        procenty = !procenty;
-       }   
-          
        return eScreenRefreshFlag::StatusBar;
        }
 
@@ -134,6 +117,31 @@ public:
       u8SqlDelayCnt++;
       bIsCleared = false;
 
+//Obsluga wielokrotnego nacisniecia klawisza F
+       if (gStatusBarData[VoltageOffset + 22])
+       {
+        if (licznik < 10) licznik = licznik + 10;  
+       }
+       else
+       {
+        if (licznik > 0 ) licznik--;
+       }
+
+       if (licznik > 7) 
+       {   
+        licznik = 0;
+        procenty = !procenty;
+       }   
+
+
+
+
+
+
+
+
+
+      
    RssiData = RadioDriver.GetRssi();
       
    if (!gDisplayBuffer[128 * 1 + 2])
