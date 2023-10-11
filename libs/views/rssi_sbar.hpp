@@ -103,13 +103,13 @@ public:
        }
        else
        {
-        if (licznik >= 5) 
+        if (licznik > 4) 
        {   
         licznik = 0;
         procenty = !procenty;
        }    
-  
-        if (licznik > 0 ) licznik--;
+       licznik = 0; 
+        //if (licznik > 0 ) licznik--;
        }
         
 
