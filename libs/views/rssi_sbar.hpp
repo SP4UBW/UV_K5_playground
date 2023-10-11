@@ -107,7 +107,7 @@ public:
         if (licznik > 0 ) licznik--;
        }
 
-       if (licznik > 3) 
+       if (licznik > 4) 
        {   
         licznik = 0;
         procenty = !procenty;
