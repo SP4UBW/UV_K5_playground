@@ -52,7 +52,7 @@ public:
    unsigned int u32DrawVoltagePsc = 0;
    Rssi::TRssi RssiData;
    bool procenty = true;
-   short licznik = 0;
+   unsigned char licznik = 0;
    unsigned char Light = 0;
    unsigned char RXAB = 0;
    CRssiSbar()
@@ -83,6 +83,25 @@ public:
         if (gDisplayBuffer[128 * 3 + 49]) Light=0;
         if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0;
         if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0;
+
+      //Obsluga wielokrotnego nacisniecia klawisza F
+       if (gStatusBarData[VoltageOffset + 22])
+       {
+        if (licznik < 10) licznik = licznik + 10;  
+       }
+       else
+       {
+        if (licznik > 0 ) licznik--;
+        if (licznik > 10) 
+       {   
+        licznik = 0;
+        procenty = !procenty;
+       }     
+       
+       
+       }
+
+        
  
         return eScreenRefreshFlag::NoRefresh;
       }
@@ -117,33 +136,7 @@ public:
       u8SqlDelayCnt++;
       bIsCleared = false;
 
-//Obsluga wielokrotnego nacisniecia klawisza F
-       if (gStatusBarData[VoltageOffset + 22])
-       {
-        if (licznik < 1000) licznik = licznik + 1000;  
-       }
-       else
-       {
-        if (licznik > 0 ) licznik--;
-       }
-
-       if (licznik > 10) 
-       {   
-        licznik = 0;
-        procenty = !procenty;
-       }   
-
-      
-
-
-
-
-
-
-
-
-      
-   RssiData = RadioDriver.GetRssi();
+    RssiData = RadioDriver.GetRssi();
       
    if (!gDisplayBuffer[128 * 1 + 2])
      ProcessDrawings();
