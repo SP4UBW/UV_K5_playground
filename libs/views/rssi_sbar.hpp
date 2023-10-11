@@ -83,23 +83,6 @@ public:
         if (gDisplayBuffer[128 * 3 + 49]) Light=0;
         if (!gDisplayBuffer[128 * 1 + 3] && gDisplayBuffer[128 * 0 + 3]) Light=0;
         if (!gDisplayBuffer[128 * 5 + 3] && gDisplayBuffer[128 * 4 + 3]) Light=0;
-
-      //Obsluga wielokrotnego nacisniecia klawisza F
-       if (gStatusBarData[VoltageOffset + 22])
-       {
-        if (licznik < 3) licznik = licznik + 3;  
-       }
-       else
-       {
-        if (licznik > 0 ) licznik--;
-       }
-        if (licznik > 4) 
-       {   
-        licznik = 0;
-        procenty = !procenty;
-       }    
-        
- 
         return eScreenRefreshFlag::NoRefresh;
       }
 
@@ -112,6 +95,24 @@ public:
        PrintBatteryVoltage();
        //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
        BK4819Write(0x78, 0x2828);  //Wyliczenie dla 20dB - dla skrócenia kodu 
+
+//Obsluga wielokrotnego nacisniecia klawisza F
+       if (gStatusBarData[VoltageOffset + 22])
+       {
+        if (licznik < 3) licznik = licznik + 3;  
+       }
+       else
+       {
+        if (licznik > 0 ) licznik--;
+       }
+        if (licznik > 3) 
+       {   
+        licznik = 0;
+        procenty = !procenty;
+       }    
+
+
+          
        return eScreenRefreshFlag::StatusBar;
        }
 
