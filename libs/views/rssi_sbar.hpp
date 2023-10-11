@@ -236,7 +236,7 @@ if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 2
    {
    unsigned short u16Voltage = gVoltage - 0; //dodana kalibracja -0.00V   
 
-if (procenty == false)         
+if (!procenty)         
       {
       //Wartosc w woltach
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 2);
