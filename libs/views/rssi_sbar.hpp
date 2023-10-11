@@ -52,7 +52,7 @@ public:
    unsigned int u32DrawVoltagePsc = 0;
    Rssi::TRssi RssiData;
    bool procenty = true;
-   unsigned char licznik = 0;
+   short licznik = 0;
    unsigned char Light = 0;
    unsigned char RXAB = 0;
    CRssiSbar()
@@ -120,20 +120,20 @@ public:
 //Obsluga wielokrotnego nacisniecia klawisza F
        if (gStatusBarData[VoltageOffset + 22])
        {
-        if (licznik < 100) licznik = licznik + 100;  
+        if (licznik < 1000) licznik = licznik + 1000;  
        }
-      // else
-      // {
-        
-      // }
+       else
+       {
+        if (licznik > 0 ) licznik--;
+       }
 
-       if (licznik > 100) 
+       if (licznik > 10) 
        {   
         licznik = 0;
         procenty = !procenty;
        }   
 
-      if (licznik > 0 ) licznik--;
+      
 
 
 
