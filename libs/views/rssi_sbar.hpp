@@ -64,20 +64,16 @@ public:
 
    const char *GetLabel() override
    {
-      //if (!b59Mode)
-      //   return " ";
-         return " ";
-         //return "S-metr  normal";
-         //return "S-metr    59";
+      return " ";
    }
 
    void HandleUserAction(unsigned char u8Button) override
    {
-      if (u8Button != Button::Ok)
-      {
+   //   if (u8Button != Button::Ok)
+   //   {
          return;
-      }
-       b59Mode = !b59Mode;
+   //   }
+   //    b59Mode = !b59Mode;
    }
 
    eScreenRefreshFlag HandleBackground(TViewContext &Context) override
@@ -126,8 +122,9 @@ public:
       u8SqlDelayCnt++;
       bIsCleared = false;
 
-   if (b59Mode) RssiData = 0; else RssiData = RadioDriver.GetRssi();
-         
+   //if (b59Mode) RssiData = 0; else RssiData = RadioDriver.GetRssi();
+   RssiData = RadioDriver.GetRssi();
+      
    if (!gDisplayBuffer[128 * 1 + 2])
      ProcessDrawings();
      return eScreenRefreshFlag::MainScreen;
