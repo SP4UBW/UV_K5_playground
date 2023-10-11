@@ -51,8 +51,6 @@ public:
    
    unsigned int u32DrawVoltagePsc = 0;
    Rssi::TRssi RssiData;
-   bool procenty = true;
-   unsigned char licznik = 0;
    unsigned char Light = 0;
    unsigned char RXAB = 0;
    CRssiSbar()
@@ -95,24 +93,6 @@ public:
        PrintBatteryVoltage();
        //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
        BK4819Write(0x78, 0x2828);  //Wyliczenie dla 20dB - dla skrócenia kodu 
-
-//Obsluga wielokrotnego nacisniecia klawisza F
-       if (gStatusBarData[VoltageOffset + 22])
-       {
-        if (licznik < 3) licznik = licznik + 3;  
-       }
-       else
-       {
-        if (licznik > 4) 
-       {   
-        licznik = 0;
-        procenty = !procenty;
-       }    
-       licznik = 0; 
-        //if (licznik > 0 ) licznik--;
-       }
-        
-
           
        return eScreenRefreshFlag::StatusBar;
        }
@@ -207,13 +187,13 @@ void ProcessDrawings()
          if (s16Number > 6)  Display.PrintFixedDigitsNumber2(99, 0, 2);
            else  Display.PrintFixedDigitsNumber2(s16Number + 92, 0, 2);
 
- //        memset(pDData - 256 + RXAB * 128 + 38+3, 0b0110000, 1); // znak d
- //        memset(pDData - 256 + RXAB * 128 + 39+3, 0b1001000, 2);
- //        memset(pDData - 256 + RXAB * 128 + 41+3, 0b1111111, 1);
+         memset(pDData - 256 + RXAB * 128 + 38+3, 0b0110000, 1); // znak d
+         memset(pDData - 256 + RXAB * 128 + 39+3, 0b1001000, 2);
+         memset(pDData - 256 + RXAB * 128 + 41+3, 0b1111111, 1);
          
- //        memset(pDData - 256 + RXAB * 128 + 43+3, 0b1111111, 1); // znak B 
- //        memset(pDData - 256 + RXAB * 128 + 44+3, 0b1001001, 2); 
- //        memset(pDData - 256 + RXAB * 128 + 46+3, 0b0110110, 1);
+         memset(pDData - 256 + RXAB * 128 + 43+3, 0b1111111, 1); // znak B 
+         memset(pDData - 256 + RXAB * 128 + 44+3, 0b1001001, 2); 
+         memset(pDData - 256 + RXAB * 128 + 46+3, 0b0110110, 1);
       }
          if (u8SValue > 1)
          { 
@@ -251,18 +231,15 @@ if (gStatusBarData[VoltageOffset - 3]) memset(gStatusBarData + VoltageOffset + 2
    {
    unsigned short u16Voltage = gVoltage - 0; //dodana kalibracja -0.00V   
 
-if (!procenty)          
-      {
-      //Wartosc w woltach
+/*
+     //Wartosc w woltach
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 2);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
       memset(gStatusBarData + VoltageOffset + 8 +2, 0b1100000, 2); // kropka
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 11 + 2);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
       memcpy(gStatusBarData + VoltageOffset + 23, gSmallLeters + 358, 5); // Litera V 
-      }
-else
-      {   
+*/    
       //Wartosc w procentach
       DisplayStatusBar.SetCoursor(0, VoltageOffset); 
       unsigned char percentage;         
@@ -287,7 +264,6 @@ else
            memset(gStatusBarData + VoltageOffset + 23 + 2, 0b0001000, 1);  
            memset(gStatusBarData + VoltageOffset + 23 + 3, 0b1100100, 1);  
            memset(gStatusBarData + VoltageOffset + 23 + 4, 0b1100010, 1);  
-     }
     }     
    }
 
