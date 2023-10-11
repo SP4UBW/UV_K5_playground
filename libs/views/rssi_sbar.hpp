@@ -103,14 +103,15 @@ public:
        }
        else
        {
-        if (licznik > 0 ) licznik--;
-       }
-        if (licznik > 3) 
+        if (licznik > 5) 
        {   
         licznik = 0;
         procenty = !procenty;
        }    
-
+  
+        if (licznik > 0 ) licznik--;
+       }
+        
 
           
        return eScreenRefreshFlag::StatusBar;
