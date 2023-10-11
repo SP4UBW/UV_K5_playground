@@ -62,12 +62,12 @@ public:
       DisplayStatusBar.SetFont(&FontSmallNr);
    }
 
-   const char *GetLabel() override
-   {
-      return " ";
-   }
+   const char *GetLabel() override return " ";
+  // {
+  //    return " ";
+  // }
 
-  // void HandleUserAction(unsigned char u8Button) override
+   void HandleUserAction(unsigned char u8Button) override return;
   // {
    //   if (u8Button != Button::Ok)
    //   {
