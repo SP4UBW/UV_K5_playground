@@ -97,8 +97,10 @@ public:
        BK4819Write(0x78, 0x2828);  //Wyliczenie dla 20dB - dla skrócenia kodu 
 
        //Obsluga wielokrotnego nacisniecia klawisza F
-       if (gStatusBarData[VoltageOffset + 22])
-          
+      // if (gStatusBarData[VoltageOffset + 22])
+      // {
+      //    
+      // }
        return eScreenRefreshFlag::StatusBar;
        }
 
