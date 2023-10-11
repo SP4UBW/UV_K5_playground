@@ -206,13 +206,13 @@ void ProcessDrawings()
          if (s16Number > 6)  Display.PrintFixedDigitsNumber2(99, 0, 2);
            else  Display.PrintFixedDigitsNumber2(s16Number + 92, 0, 2);
 
-         memset(pDData - 256 + RXAB * 128 + 38+3, 0b0110000, 1); // znak d
-         memset(pDData - 256 + RXAB * 128 + 39+3, 0b1001000, 2);
-         memset(pDData - 256 + RXAB * 128 + 41+3, 0b1111111, 1);
+ //        memset(pDData - 256 + RXAB * 128 + 38+3, 0b0110000, 1); // znak d
+ //        memset(pDData - 256 + RXAB * 128 + 39+3, 0b1001000, 2);
+ //        memset(pDData - 256 + RXAB * 128 + 41+3, 0b1111111, 1);
          
-         memset(pDData - 256 + RXAB * 128 + 43+3, 0b1111111, 1); // znak B 
-         memset(pDData - 256 + RXAB * 128 + 44+3, 0b1001001, 2); 
-         memset(pDData - 256 + RXAB * 128 + 46+3, 0b0110110, 1);
+ //        memset(pDData - 256 + RXAB * 128 + 43+3, 0b1111111, 1); // znak B 
+ //        memset(pDData - 256 + RXAB * 128 + 44+3, 0b1001001, 2); 
+ //        memset(pDData - 256 + RXAB * 128 + 46+3, 0b0110110, 1);
       }
          if (u8SValue > 1)
          { 
