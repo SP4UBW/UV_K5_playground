@@ -62,19 +62,19 @@ public:
       DisplayStatusBar.SetFont(&FontSmallNr);
    }
 
-   const char *GetLabel() override return " ";
-  // {
-  //    return " ";
-  // }
+   const char *GetLabel() override
+   {
+     return " ";
+   }
 
-   void HandleUserAction(unsigned char u8Button) override return;
-  // {
+   void HandleUserAction(unsigned char u8Button) override
+   {
    //   if (u8Button != Button::Ok)
    //   {
-  //       return;
+     return;
    //   }
    //    b59Mode = !b59Mode;
-  // }
+   }
 
    eScreenRefreshFlag HandleBackground(TViewContext &Context) override
    {
@@ -238,13 +238,13 @@ void PrintSbar(unsigned char u8SValue)
       {
       unsigned short u16Voltage = gVoltage - 0; //dodana kalibracja -0.30V   
 //Wartosc w woltach
-      DisplayStatusBar.SetCoursor(0, VoltageOffset);
+/*      DisplayStatusBar.SetCoursor(0, VoltageOffset);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 2, 1);
       memset(gStatusBarData + VoltageOffset + 7 + 1 - 0, 0b1100000, 2); // dot
       DisplayStatusBar.SetCoursor(0, VoltageOffset + 7 + 4 - 0);
       DisplayStatusBar.PrintFixedDigitsNumber2(u16Voltage, 1, 1);
       memcpy(gStatusBarData + VoltageOffset + 3 * 6 + 2 - 0, gSmallLeters + 128 * 2 + 102, 5); // V character 
-         
+*/        
 //Wartosc w procentach
 DisplayStatusBar.SetCoursor(0, VoltageOffset);
 unsigned char percentage;         
