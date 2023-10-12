@@ -126,12 +126,16 @@ void ProcessDrawings()
    {
      if ( (RadioDriver.IsSqlOpen()) && (gDisplayBuffer[128 * 0 + 16] || gDisplayBuffer[128 * 4 + 16])  ) // wlaczenie sbara jak jest RX
       {    
-        if (!gDisplayBuffer[128 * 0 + 14] && gDisplayBuffer[128 * 0 + 16])
+        Display.DrawRectangle(0, RXAB*8-6, 128, 24, false);
+         if (!gDisplayBuffer[128 * 0 + 14] && gDisplayBuffer[128 * 0 + 16])
          {
           memset(gDisplayBuffer + 128 * 2, 0, 22);
           memset(pDData, 0, 512);
           RXAB = 4;  //Linia w ktorej ma byc wyswietlane
           memcpy(pDData - 256 + RXAB * 128 + 120, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
+     memset(pDData + 1, 0b0000010, 1); 
+     memset(pDData + 2, 0b0000001, 1);
+     memset(pDData + 3, 0b0000010, 1); 
          }
         if (gDisplayBuffer[128 * 4 + 16])
          {
@@ -141,9 +145,13 @@ void ProcessDrawings()
           memset(pDData - 256 + RXAB * 128 + 120, 0b1111111, 1);                    //Litera B 
           memset(pDData - 256 + RXAB * 128 + 121, 0b1001001, 3); 
           memset(pDData - 256 + RXAB * 128 + 124, 0b0110110, 1);  
+     memset(pDData + 1, 0b0000001, 1); 
+     memset(pDData + 2, 0b0000010, 1);
+     memset(pDData + 3, 0b0000001, 1); 
          }
        PrintSValue(RssiData.u8SValue, RssiData.s16Rssi);  
        PrintSbar(RssiData.u8SValue);
+           
            memcpy(pDData - 256 + RXAB * 128 + 105, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
            memcpy(pDData - 256 + RXAB * 128 + 111, gSmallLeters + 128 * 1 + 242, 5);  //Napis X   
       }
@@ -206,13 +214,8 @@ void ProcessDrawings()
 
 void PrintSbar(unsigned char u8SValue)
    {
-     Display.DrawRectangle(0, RXAB*8-6, 128, 24, false);
-     memset(pDData + 0, 0b1000000, 1); 
-     memset(pDData + 1, 0b0100000, 1); 
-     memset(pDData + 2, 0b0010000, 1);
-     memset(pDData + 3, 0b0100000, 1); 
-     memset(pDData + 4, 0b1000000, 1); 
-      
+     
+     
       u8SValue = u8SValue > MaxBarPoints ? MaxBarPoints : u8SValue;
     if (u8SValue>1) 
      {
