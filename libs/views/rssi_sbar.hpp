@@ -126,13 +126,14 @@ void ProcessDrawings()
    {
      if ( (RadioDriver.IsSqlOpen()) && (gDisplayBuffer[128 * 0 + 16] || gDisplayBuffer[128 * 4 + 16])  ) // wlaczenie sbara jak jest RX
       {    
-        Display.DrawRectangle(0, RXAB*8-6, 128, 24, false);
+        
          if (!gDisplayBuffer[128 * 0 + 14] && gDisplayBuffer[128 * 0 + 16])
          {
           memset(gDisplayBuffer + 128 * 2, 0, 22);
           memset(pDData, 0, 512);
           RXAB = 4;  //Linia w ktorej ma byc wyswietlane
           memcpy(pDData - 256 + RXAB * 128 + 120, gSmallLeters + 128 * 1 + 96, 5);  //Litera A
+     Display.DrawRectangle(0, RXAB*8-6, 128, 24, false);       
      memset(pDData + 1, 0b0000010, 1); 
      memset(pDData + 2, 0b0000001, 1);
      memset(pDData + 3, 0b0000010, 1); 
@@ -144,7 +145,8 @@ void ProcessDrawings()
           RXAB = 1;  //Linia w ktorej ma byc wyswietlane
           memset(pDData - 256 + RXAB * 128 + 120, 0b1111111, 1);                    //Litera B 
           memset(pDData - 256 + RXAB * 128 + 121, 0b1001001, 3); 
-          memset(pDData - 256 + RXAB * 128 + 124, 0b0110110, 1);  
+          memset(pDData - 256 + RXAB * 128 + 124, 0b0110110, 1); 
+     Display.DrawRectangle(0, RXAB*8-6, 128, 24, false);       
      memset(pDData + 1, 0b0000001, 1); 
      memset(pDData + 2, 0b0000010, 1);
      memset(pDData + 3, 0b0000001, 1); 
