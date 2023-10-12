@@ -207,19 +207,20 @@ void ProcessDrawings()
 void PrintSbar(unsigned char u8SValue)
    {
      Display.DrawRectangle(0, RXAB*8-6, 128, 24, false);
+     memset(pDData + 0, 0b1000000, 1); 
+     memset(pDData + 1, 0b0100000, 1); 
+     memset(pDData + 2, 0b0010000, 1);
+     memset(pDData + 3, 0b0100000, 1); 
+     memset(pDData + 4, 0b1000000, 1); 
+      
       u8SValue = u8SValue > MaxBarPoints ? MaxBarPoints : u8SValue;
     if (u8SValue>1) 
      {
-      for (unsigned char i = 0; i < 17; i++)
-      {
-         unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
-         Display.DrawRectangle(u8X, RXAB*8-3 + 8, BlockSizeX, 1, i < LinearBlocksCnt);
-      }
-        
       for (unsigned char i = 0; i < u8SValue; i++)
       {
          unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
          unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
+         Display.DrawRectangle(u8X, RXAB*8-3 + 8, BlockSizeX, 1, i < LinearBlocksCnt);
          Display.DrawRectangle(u8X, RXAB*8-3 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
       }
     }  
