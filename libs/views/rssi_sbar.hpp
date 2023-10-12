@@ -212,17 +212,16 @@ void PrintSbar(unsigned char u8SValue)
      {
       for (unsigned char i = 0; i < 17; i++)
       {
-        // unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
          unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
-         Display.DrawRectangle(u8X, RXAB*8-3 + 0, BlockSizeX, 1, i < LinearBlocksCnt);
+         Display.DrawRectangle(u8X, RXAB*8-3 + 9, BlockSizeX, 1, i < LinearBlocksCnt);
       }
         
-//      for (unsigned char i = 0; i < u8SValue; i++)
-//      {
-//         unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
-//         unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
-//         Display.DrawRectangle(u8X, RXAB*8-3 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
-//      }
+      for (unsigned char i = 0; i < u8SValue; i++)
+      {
+         unsigned char u8BlockHeight = i + 1 > BlockSizeY ? BlockSizeY : i + 1;
+         unsigned char u8X = i * (BlockSizeX + BlockSpace) + ChartStartX;
+         Display.DrawRectangle(u8X, RXAB*8-3 + BlockSizeY - u8BlockHeight, BlockSizeX, u8BlockHeight, i < LinearBlocksCnt);
+      }
     }  
    }
 
