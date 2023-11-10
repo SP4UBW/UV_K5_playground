@@ -7,7 +7,7 @@
 
 namespace Rssi
 {
-   inline const short U8RssiMap[] = { 135, 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3, -7, -17,};
+   inline const short U8RssiMap[] = { 147, 141, 135, 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3, -7, -17,};
 
    struct TRssi
    {
@@ -92,7 +92,8 @@ public:
        
        PrintBatteryVoltage();
        //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
-       BK4819Write(0x78, 0x2828);  //Wyliczenie dla 20dB - dla skrócenia kodu 
+       BK4819Write(0x78, 0x1818);  //Wyliczenie dla 20dB - dla skrócenia kodu 
+       //BK4819Write(0x78, 0x2828);  //Wyliczenie dla 20dB - dla skrócenia kodu 
           
        return eScreenRefreshFlag::StatusBar;
        }
