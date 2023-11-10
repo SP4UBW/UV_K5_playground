@@ -7,7 +7,7 @@
 
 namespace Rssi
 {
-   inline const short U8RssiMap[] = { 147, 141, 135, 129, 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3, -7, -17,};
+   inline const short U8RssiMap[] = { 123, 117, 111, 105, 99, 93, 83, 73, 63, 53, 43, 33, 23, 13, 3, -7, -17,};
 
    struct TRssi
    {
@@ -116,7 +116,7 @@ public:
       u8SqlDelayCnt++;
       bIsCleared = false;
 
-    RssiData = RadioDriver.GetRssi() - 12;
+    RssiData = RadioDriver.GetRssi();
       
    if (!gDisplayBuffer[128 * 1 + 2])
      ProcessDrawings();
