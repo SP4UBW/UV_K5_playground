@@ -182,13 +182,13 @@ void ProcessDrawings()
    {
       Display.SetCoursor(RXAB+1, 22+3);
       char C8SignalString[] = " ";
-        if (s16Number > -92)
+        if (s16Number > -80)  //-92 bez wzmacniacza, -80 ze wzmacniaczem
       {
          memset(pDData - 256 + RXAB * 128 + 17+2, 0b0001000, 2); // -
          memset(pDData - 256 + RXAB * 128 + 19+2, 0b0111110, 1); // |
          memset(pDData - 256 + RXAB * 128 + 20+2, 0b0001000, 2); // -
-         if (s16Number > 6)  Display.PrintFixedDigitsNumber2(99, 0, 2);
-           else  Display.PrintFixedDigitsNumber2(s16Number + 92, 0, 2);
+         if (s16Number > 18)  Display.PrintFixedDigitsNumber2(99, 0, 2);  //6 bez wzmacniacza, 18 ze wzmacniaczem
+           else  Display.PrintFixedDigitsNumber2(s16Number + 80, 0, 2);   //92 bez wzmacniacza, 80 ze wzmacniaczem
 
          memset(pDData - 256 + RXAB * 128 + 38+3, 0b0110000, 1); // znak d
          memset(pDData - 256 + RXAB * 128 + 39+3, 0b1001000, 2);
