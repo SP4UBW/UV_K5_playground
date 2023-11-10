@@ -91,7 +91,7 @@ public:
       if (!gStatusBarData[VoltageOffset + 23]) Light=0; //Srodek litery V lub kropka jak VOX
        
        PrintBatteryVoltage();
-       //Przesuniecie SQL o 20dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
+       //Przesuniecie SQL o 12dB   BK4819Write(0x78, (40 << 8) | (40 & 0xFF));  
        BK4819Write(0x78, 0x1818);  //Wyliczenie dla 20dB - dla skrócenia kodu 
        //BK4819Write(0x78, 0x2828);  //Wyliczenie dla 20dB - dla skrócenia kodu 
           
@@ -116,7 +116,7 @@ public:
       u8SqlDelayCnt++;
       bIsCleared = false;
 
-    RssiData = RadioDriver.GetRssi();
+    RssiData = RadioDriver.GetRssi() - 12;
       
    if (!gDisplayBuffer[128 * 1 + 2])
      ProcessDrawings();
