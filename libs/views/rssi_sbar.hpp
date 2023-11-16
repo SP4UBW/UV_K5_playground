@@ -144,26 +144,27 @@ void ProcessDrawings()
           memset(pDData - 256 + RXAB * 128 + 121, 0b1001001, 3); 
           memset(pDData - 256 + RXAB * 128 + 124, 0b0110110, 1); 
          }
-       PrintSValue(RssiData.u8SValue, RssiData.s16Rssi);  
+       PrintSValue(RssiData.u8SValue, RssiData.s16Rssi);
+         PrintNumber(RssiData.s16Rssi);
        PrintSbar(RssiData.u8SValue);
            
            memcpy(pDData - 256 + RXAB * 128 + 105, gSmallLeters + 128 * 1 + 206, 5);  //Napis R
            memcpy(pDData - 256 + RXAB * 128 + 111, gSmallLeters + 128 * 1 + 242, 5);  //Napis X   
       }
     }
-/*
+
    void PrintNumber(short s16Number)
    {
    if (s16Number > -129)
     { 
       if (s16Number >= 0)    
-         Display.SetCoursor(RXAB+1, 88);  //2 lub 5
+         Display.SetCoursor(RXAB+1, 78);  //2 lub 5
       else
-         Display.SetCoursor(RXAB+1, 81);
+         Display.SetCoursor(RXAB+1, 71);
               
       
          Display.PrintFixedDigitsNumber2(s16Number, 0, 3); 
-         //Wyswietlanie napisu dBm
+  /*       //Wyswietlanie napisu dBm
          memset(pDData - 256 + RXAB * 128 + 111, 0b0110000, 1); // znak d
          memset(pDData - 256 + RXAB * 128 + 112, 0b1001000, 2);
          memset(pDData - 256 + RXAB * 128 + 114, 0b1111111, 1);
@@ -175,20 +176,20 @@ void ProcessDrawings()
          memset(pDData - 256 + RXAB * 128 + 121, 0b1110000, 5); // znak m
          memset(pDData - 256 + RXAB * 128 + 122, 0b0001000, 1);
          memset(pDData - 256 + RXAB * 128 + 124, 0b0001000, 1);
-    }    
+   */ }    
    }
-*/
+
    void PrintSValue(unsigned char u8SValue, short s16Number)
    {
       Display.SetCoursor(RXAB+1, 22+3);
       char C8SignalString[] = " ";
-        if (s16Number > -80)  //-92 bez wzmacniacza, -80 ze wzmacniaczem
+        if (s16Number > -92)  //-92 bez wzmacniacza, -80 ze wzmacniaczem
       {
          memset(pDData - 256 + RXAB * 128 + 17+2, 0b0001000, 2); // -
          memset(pDData - 256 + RXAB * 128 + 19+2, 0b0111110, 1); // |
          memset(pDData - 256 + RXAB * 128 + 20+2, 0b0001000, 2); // -
-         if (s16Number > 18)  Display.PrintFixedDigitsNumber2(99, 0, 2);  //6 bez wzmacniacza, 18 ze wzmacniaczem
-           else  Display.PrintFixedDigitsNumber2(s16Number + 80, 0, 2);   //92 bez wzmacniacza, 80 ze wzmacniaczem
+         if (s16Number > 6)  Display.PrintFixedDigitsNumber2(99, 0, 2);  //6 bez wzmacniacza, 18 ze wzmacniaczem
+           else  Display.PrintFixedDigitsNumber2(s16Number + 92, 0, 2);   //92 bez wzmacniacza, 80 ze wzmacniaczem
 
          memset(pDData - 256 + RXAB * 128 + 38+3, 0b0110000, 1); // znak d
          memset(pDData - 256 + RXAB * 128 + 39+3, 0b1001000, 2);
